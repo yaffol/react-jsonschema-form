@@ -364,11 +364,13 @@ export function mergeDefaultsWithFormData(defaults, formData) {
 
 export function getUiOptions(uiSchema) {
   // get all passed options from ui:widget, ui:options, and ui:<optionName>
+  if (!uiSchema) {
+    return {};
+  }
   return Object.keys(uiSchema)
     .filter(key => key.indexOf("ui:") === 0)
     .reduce((options, key) => {
       const value = uiSchema[key];
-
       if (key === "ui:widget" && isObject(value)) {
         console.warn(
           "Setting options via ui:widget object is deprecated, use ui:options instead"
@@ -394,13 +396,14 @@ export function getDisplayLabel(schema, uiSchema, rootSchema) {
       isMultiSelect(schema, rootSchema) ||
       isFilesArray(schema, uiSchema, rootSchema);
   }
+
   if (schema.type === "object") {
     displayLabel = false;
   }
   if (schema.type === "boolean" && !uiSchema["ui:widget"]) {
     displayLabel = false;
   }
-  if (uiSchema["ui:field"]) {
+  if (uiSchema && uiSchema["ui:field"]) {
     displayLabel = false;
   }
   return displayLabel;
