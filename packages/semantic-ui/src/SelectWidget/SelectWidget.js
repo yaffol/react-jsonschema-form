@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import _ from "lodash";
-import { Form } from "semantic-ui-react";
 import { utils } from '@rjsf/core';
+import _ from "lodash";
 import PropTypes from "prop-types";
+import React from "react";
+import { Form } from "semantic-ui-react";
 import { getSemanticProps } from "../util";
+
 
 const { asNumber, guessType } = utils;
 
@@ -59,22 +60,25 @@ const processValue = (schema, value) => {
   return value;
 };
 
-function SelectWidget({
-  schema,
-  id,
-  options,
-  name,
-  required,
-  disabled,
-  readonly,
-  value,
-  multiple,
-  placeholder,
-  autofocus,
-  onChange,
-  onBlur,
-  onFocus,
-}) {
+function SelectWidget(props) {
+  const {
+    schema,
+    uiSchema,
+    id,
+    label,
+    options,
+    name,
+    required,
+    disabled,
+    readonly,
+    value,
+    multiple,
+    placeholder,
+    autofocus,
+    onChange,
+    onBlur,
+    onFocus,
+  } = props;
   const semanticProps = getSemanticProps({ options });
   const { enumDisabled, enumOptions } = options;
   const emptyValue = multiple ? [] : "";
@@ -94,10 +98,12 @@ function SelectWidget({
     // eslint-disable-next-line no-shadow
     target: { value },
   }) => onFocus && onFocus(id, processValue(schema, value));
+
   return (
     <Form.Dropdown
       key={id}
       name={name}
+      label={label || schema.title}
       multiple={typeof multiple === "undefined" ? false : multiple}
       value={typeof value === "undefined" ? emptyValue : value}
       disabled={disabled}

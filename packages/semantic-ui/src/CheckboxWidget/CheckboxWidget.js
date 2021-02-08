@@ -2,7 +2,6 @@
 import React from "react";
 import { Form } from "semantic-ui-react";
 import { getSemanticProps } from "../util";
-
 function CheckboxWidget(props) {
   const {
     id,
@@ -17,8 +16,10 @@ function CheckboxWidget(props) {
     options,
     onFocus,
     formContext,
+    schema,
   } = props;
   const semanticProps = getSemanticProps({ formContext, options });
+  const desc = label || schema.description;
   const _onChange = (event, data) => onChange && onChange(data.checked);
   const _onBlur = () => onBlur && onBlur(id, value);
   const _onFocus = () => onFocus && onFocus(id, value);
@@ -34,7 +35,7 @@ function CheckboxWidget(props) {
       onBlur={_onBlur}
       onFocus={_onFocus}
       required={required}
-      label={label}
+      label={desc}
     />
   );
 }
