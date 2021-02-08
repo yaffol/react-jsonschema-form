@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { utils } from '@rjsf/core';
 import _ from "lodash";
-import PropTypes from "prop-types";
 import React from "react";
 import { Form } from "semantic-ui-react";
 import { getSemanticProps } from "../util";
@@ -64,10 +63,11 @@ function SelectWidget(props) {
   const {
     schema,
     uiSchema,
+    formContext,
     id,
-    label,
     options,
     name,
+    label,
     required,
     disabled,
     readonly,
@@ -79,7 +79,18 @@ function SelectWidget(props) {
     onBlur,
     onFocus,
   } = props;
-  const semanticProps = getSemanticProps({ options });
+  const semanticProps = getSemanticProps({
+    schema,
+    uiSchema,
+    formContext,
+    options,
+    defaultSchemaProps:{
+      inverted: "false",
+      selection: true,
+      scrolling: true,
+      upward: false,
+    }
+ });
   const { enumDisabled, enumOptions } = options;
   const emptyValue = multiple ? [] : "";
   const dropdownOptions = createDefaultValueOptionsForDropDown(
@@ -119,21 +130,4 @@ function SelectWidget(props) {
     />
   );
 }
-
-SelectWidget.defaultProps = {
-  options: {
-    semantic: {
-      inverted: "false",
-      fluid: true,
-      selection: true,
-      scrolling: true,
-      upward: false,
-    },
-  },
-};
-
-SelectWidget.propTypes = {
-  options: PropTypes.object,
-};
-
 export default SelectWidget;
