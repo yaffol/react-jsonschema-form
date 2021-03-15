@@ -36,6 +36,7 @@ exports[`single fields number field 1`] = `
         className="ui fluid input"
       >
         <input
+          aria-describedby={null}
           autoFocus={false}
           disabled={false}
           id="root"
@@ -101,24 +102,21 @@ exports[`single fields string field format email 1`] = `
   <div
     className="grouped equal width fields"
   >
-    <div
-      className="field"
-    >
-      <div
-        className="ui fluid input"
-      >
-        <input
-          autoFocus={false}
-          disabled={false}
-          id="root"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          type="email"
-          value=""
-        />
-      </div>
-    </div>
+    <input
+      autoFocus={false}
+      className="form-control"
+      disabled={false}
+      id="root"
+      list={null}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder=""
+      readOnly={false}
+      required={false}
+      type="email"
+      value=""
+    />
   </div>
   <div>
     <button
@@ -140,24 +138,21 @@ exports[`single fields string field format uri 1`] = `
   <div
     className="grouped equal width fields"
   >
-    <div
-      className="field"
-    >
-      <div
-        className="ui fluid input"
-      >
-        <input
-          autoFocus={false}
-          disabled={false}
-          id="root"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          type="url"
-          value=""
-        />
-      </div>
-    </div>
+    <input
+      autoFocus={false}
+      className="form-control"
+      disabled={false}
+      id="root"
+      list={null}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder=""
+      readOnly={false}
+      required={false}
+      type="url"
+      value=""
+    />
   </div>
   <div>
     <button
@@ -186,6 +181,7 @@ exports[`single fields string field regular 1`] = `
         className="ui fluid input"
       >
         <input
+          aria-describedby={null}
           autoFocus={false}
           disabled={false}
           id="root"

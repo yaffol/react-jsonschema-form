@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { getSemanticProps } from "../util";
 
 
-const { asNumber, guessType,getDisplayLabel } = utils;
+const { asNumber, guessType } = utils;
 
 const nums = new Set(["number", "integer"]);
 
@@ -63,7 +63,6 @@ const processValue = (schema, value) => {
 function SelectWidget(props) {
   const {
     schema,
-    uiSchema,
     id,
     label,
     options,
@@ -98,16 +97,12 @@ function SelectWidget(props) {
     // eslint-disable-next-line no-shadow
     target: { value },
   }) => onFocus && onFocus(id, processValue(schema, value));
-  const displayLabel = getDisplayLabel(
-    schema,
-    uiSchema
-    /* TODO: , rootSchema */
-  );
+
   return (
     <Form.Dropdown
       key={id}
       name={name}
-      label={displayLabel ? label || schema.title : false}
+      label={label || schema.title}
       multiple={typeof multiple === "undefined" ? false : multiple}
       value={typeof value === "undefined" ? emptyValue : value}
       disabled={disabled}

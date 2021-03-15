@@ -28,7 +28,7 @@
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
   },
   "peerDependencies": {
-    "@rjsf/core": "2.4.2",
+    "@rjsf/core": "^2.0.0",
     "lodash": "^4.17.15",
     "react": ">=16",
     "semantic-ui-css": "^2.4.1",
