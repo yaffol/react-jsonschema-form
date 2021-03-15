@@ -8,6 +8,7 @@ const { getDisplayLabel } = utils;
 function TextWidget(props) {
   const {
     id,
+    placeholder,
     required,
     readonly,
     disabled,
@@ -39,6 +40,7 @@ function TextWidget(props) {
     <Form.Input
       key={id}
       id={id}
+      placeholder={placeholder}
       type={inputType}
       label={displayLabel ? label || schema.title : false}
       required={required}
