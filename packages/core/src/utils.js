@@ -1,9 +1,9 @@
-import fill from "core-js/library/fn/array/fill";
-import mergeAllOf from "json-schema-merge-allof";
-import jsonpointer from "jsonpointer";
-import union from "lodash/union";
 import React from "react";
 import * as ReactIs from "react-is";
+import mergeAllOf from "json-schema-merge-allof";
+import fill from "core-js/library/fn/array/fill";
+import union from "lodash/union";
+import jsonpointer from "jsonpointer";
 import fields from "./components/fields";
 import widgets from "./components/widgets";
 import validateFormData, { isValid } from "./validate";
