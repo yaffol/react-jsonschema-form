@@ -4,6 +4,7 @@ import { samples } from "./samples";
 import "react-app-polyfill/ie11";
 import Form, { withTheme } from "@rjsf/core";
 import DemoFrame from "./DemoFrame";
+import { saveAs } from 'file-saver';
 
 // deepEquals and shouldRender and isArguments are copied from rjsf-core. TODO: unify these utility functions.
 
@@ -300,6 +301,19 @@ function SubthemeSelector({ subtheme, subthemes, select }) {
   );
 }
 
+class SaveLink extends Component {
+  onSaveClick = event => {
+    console.log('Save clicked...');
+  };
+
+  render() {
+    const { onSave } = this.props;
+    return (
+      <button className="btn btn-default" type="button" onClick={onSave}>Save</button>
+    );
+  }
+}
+
 class CopyLink extends Component {
   onCopyClick = event => {
     this.input.select();
@@ -472,6 +486,28 @@ class Playground extends Component {
     }
   };
 
+  onSave = () => {
+    const {
+      formData,
+      schema,
+      uiSchema,
+      liveSettings,
+      errorSchema,
+      theme,
+    } = this.state;
+    const payload =  {
+      formData,
+      schema,
+      uiSchema,
+      liveSettings,
+      errorSchema,
+      theme
+    };
+    console.log(payload);
+    const blob = new Blob([JSON.stringify(payload)], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, "hello_world.json");
+  }
+
   render() {
     const {
       schema,
@@ -532,6 +568,7 @@ class Playground extends Component {
                 />
               )}
               <CopyLink shareURL={this.state.shareURL} onShare={this.onShare} />
+              <SaveLink onSave={this.onSave}></SaveLink>
             </div>
           </div>
         </div>
