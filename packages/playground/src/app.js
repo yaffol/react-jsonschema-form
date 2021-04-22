@@ -4,8 +4,8 @@ import { samples } from "./samples";
 import "react-app-polyfill/ie11";
 import Form, { withTheme } from "@rjsf/core";
 import DemoFrame from "./DemoFrame";
-import { saveAs } from 'file-saver';
-
+import { saveAs } from "file-saver";
+import * as Loadfile4DOM from 'loadfile4dom';
 // deepEquals and shouldRender and isArguments are copied from rjsf-core. TODO: unify these utility functions.
 
 function isArguments(object) {
@@ -301,15 +301,68 @@ function SubthemeSelector({ subtheme, subthemes, select }) {
   );
 }
 
+
+class ImportFromFileBodyComponent extends Component {
+  constructor () {
+    super();
+    this.state = {
+      fileReader: null
+    };
+  }
+
+  handleFileRead = (e) => {
+    const content = this.fileReader.result;
+    console.log(content);
+    // … do something with the 'content' …
+  };
+
+  handleFileChosen = (file) => {
+    this.fileReader = new FileReader();
+    this.fileReader.onloadend = this.handleFileRead;
+    this.fileReader.readAsText(file);
+  };
+
+  render () {
+    return (
+      <div className='upload-expense'>
+        <input
+          type='file'
+          id='file'
+          className='input-file'
+          accept='.csv'
+          onChange={e => this.handleFileChosen(e.target.files[0])}
+        />
+      </div>
+    );
+  }
+}
+
+class LoadLink extends Component {
+  onLoadClick = event => {
+    console.log("Load clicked...");
+  };
+
+  render() {
+    const { onLoad } = this.props;
+    return (
+      <button className="btn btn-default" type="button" onClick={onLoad}>
+        Load
+      </button>
+    );
+  }
+}
+
 class SaveLink extends Component {
   onSaveClick = event => {
-    console.log('Save clicked...');
+    console.log("Save clicked...");
   };
 
   render() {
     const { onSave } = this.props;
     return (
-      <button className="btn btn-default" type="button" onClick={onSave}>Save</button>
+      <button className="btn btn-default" type="button" onClick={onSave}>
+        Save
+      </button>
     );
   }
 }
@@ -486,6 +539,41 @@ class Playground extends Component {
     }
   };
 
+  onLoad = () => {
+    console.log("Load clicked...");
+    const lf4d = new Loadfile4DOM();
+    const options = {
+      "debug": false // if true, it will show the hidden <input type="file" ...> loaders in DOM
+    };
+    lf4d.init(document,options);
+    //-----------------------------------------------
+    //----- Create a new Loader "txtfile" -----------
+    //-----------------------------------------------
+    // with MIME type filter use type="text"
+    //var txtfile = lf4d.get_loader_options("mytxtfile","text");
+
+    // if arbitray files are allowed use type="all"
+    const txtfile = lf4d.get_loader_options("mytxtfile","text");
+    // Define what to do with the loaded data
+    txtfile.returntype = "file"; // data contains the file
+    console.log("txtfile: "+JSON.stringify(txtfile));
+    txtfile.onload = function (data,err) {
+      if (err) {
+        // do something on error, perr contains error message
+        console.error(err);
+        alert("ERROR: "+err);
+      } else {
+        // do something with the file content in data e.g. store  in a HTML textarea (e.g. <textarea id="mytextarea" ...>
+        console.log("CALL: txtfile.onload()");
+        console.log(data)
+        document.getElementById("mytextarea").value = data;
+      }
+    };
+    // create the loader txtfile
+    lf4d.create_load_dialog(txtfile);
+    lf4d.open_dialog('mytxtfile');
+  };
+
   onSave = () => {
     const {
       formData,
@@ -495,18 +583,20 @@ class Playground extends Component {
       errorSchema,
       theme,
     } = this.state;
-    const payload =  {
+    const payload = {
       formData,
       schema,
       uiSchema,
       liveSettings,
       errorSchema,
-      theme
+      theme,
     };
     console.log(payload);
-    const blob = new Blob([JSON.stringify(payload)], { type: "text/plain;charset=utf-8" });
+    const blob = new Blob([JSON.stringify(payload)], {
+      type: "text/plain;charset=utf-8",
+    });
     saveAs(blob, "hello_world.json");
-  }
+  };
 
   render() {
     const {
@@ -568,7 +658,9 @@ class Playground extends Component {
                 />
               )}
               <CopyLink shareURL={this.state.shareURL} onShare={this.onShare} />
-              <SaveLink onSave={this.onSave}></SaveLink>
+              <SaveLink onSave={this.onSave} />
+              <LoadLink onLoad={this.onLoad} />
+              {/*<ImportFromFileBodyComponent />*/}
             </div>
           </div>
         </div>
