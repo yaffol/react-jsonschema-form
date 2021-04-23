@@ -1,0 +1,216 @@
+{
+    "title": "",
+    "type": "object",
+    "properties": {
+        "doi_batch": {
+            "title": "",
+            "type": "object",
+            "properties": {
+                "body": {
+                    "title": "",
+                    "type": "object",
+                    "properties": {
+                        "journal": {
+                            "title": "",
+                            "type": "object",
+                            "properties": {
+                                "journal_article": {
+                                    "type": "array",
+                                    "items": {
+                                        "title": "",
+                                        "type": "object",
+                                        "properties": {
+                                            "-publication_type": {
+                                                "type": "string"
+                                            },
+                                            "citation_list": {
+                                                "title": "",
+                                                "type": "object",
+                                                "properties": {
+                                                    "citation": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "title": "",
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "-key": {
+                                                                    "type": "string"
+                                                                },
+                                                                "unstructured_citation": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "contributors": {
+                                                "title": "",
+                                                "type": "object",
+                                                "properties": {
+                                                    "person_name": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "title": "",
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "-contributor_role": {
+                                                                    "type": "string"
+                                                                },
+                                                                "-sequence": {
+                                                                    "type": "string"
+                                                                },
+                                                                "ORCID": {
+                                                                    "type": "string"
+                                                                },
+                                                                "given_name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "surname": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "doi_data": {
+                                                "title": "",
+                                                "type": "object",
+                                                "properties": {
+                                                    "doi": {
+                                                        "type": "string"
+                                                    },
+                                                    "resource": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "pages": {
+                                                "title": "",
+                                                "type": "object",
+                                                "properties": {
+                                                    "first_page": {
+                                                        "type": "string"
+                                                    },
+                                                    "last_page": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "publication_date": {
+                                                "title": "",
+                                                "type": "object",
+                                                "properties": {
+                                                    "-media_type": {
+                                                        "type": "string"
+                                                    },
+                                                    "day": {
+                                                        "type": "string"
+                                                    },
+                                                    "month": {
+                                                        "type": "string"
+                                                    },
+                                                    "year": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "titles": {
+                                                "title": "",
+                                                "type": "object",
+                                                "properties": {
+                                                    "title": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "journal_issue": {
+                                    "title": "",
+                                    "type": "object",
+                                    "properties": {
+                                        "issue": {
+                                            "type": "string"
+                                        },
+                                        "journal_volume": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "volume": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "publication_date": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "-media_type": {
+                                                    "type": "string"
+                                                },
+                                                "day": {
+                                                    "type": "string"
+                                                },
+                                                "month": {
+                                                    "type": "string"
+                                                },
+                                                "year": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "journal_metadata": {
+                                    "title": "",
+                                    "type": "object",
+                                    "properties": {
+                                        "abbrev_title": {
+                                            "type": "string"
+                                        },
+                                        "full_title": {
+                                            "type": "string"
+                                        },
+                                        "issn": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "#text": {
+                                                    "type": "string"
+                                                },
+                                                "-media_type": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "head": {
+                    "title": "",
+                    "type": "object",
+                    "properties": {
+                        "depositor": {
+                            "title": "",
+                            "type": "object",
+                            "properties": {
+                                "depositor_name": {
+                                    "type": "string"
+                                },
+                                "email_address": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

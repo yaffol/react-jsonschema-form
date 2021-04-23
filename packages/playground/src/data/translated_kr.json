@@ -1,0 +1,432 @@
+{
+    "title": "Crossref \uae30\uc0ac \uc785\uae08",
+    "type": "object",
+    "definitions": {
+        "doi_ref": {
+            "title": "DOI \uc804\uc6a9 \ucc38\uc870",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "DOI": {
+                    "type": "string",
+                    "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+"
+                }
+            },
+            "required": [
+                "DOI"
+            ]
+        },
+        "unstructured_ref": {
+            "title": "\uad6c\uc870\ud654\ub418\uc9c0 \uc54a\uc740 \ucc38\uc870",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "reference": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "reference"
+            ]
+        },
+        "structured_ref": {
+            "title": "\uad6c\uc870\ud654 \ub41c \ucc38\uc870",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "journal_title": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "first_page": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9][0-9][0-9]$"
+                }
+            },
+            "required": [
+                "journal_title",
+                "author",
+                "year"
+            ]
+        },
+        "page_span": {
+            "title": "\ud398\uc774\uc9c0 \ubc94\uc704",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "first_page": {
+                    "title": "\uccab \ud398\uc774\uc9c0",
+                    "type": "number"
+                },
+                "last_page": {
+                    "title": "\ub9c8\uc9c0\ub9c9 \ud398\uc774\uc9c0",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "first_page",
+                "last_page"
+            ]
+        },
+        "article_number": {
+            "title": "\ubb38\uc11c \ubc88\ud638",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "number": {
+                    "title": "\ubc88\ud638",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "number"
+            ]
+        },
+        "online_issn": {
+            "title": "eISSN",
+            "description": "\uc628\ub77c\uc778 \ubc84\uc804 \uc6a9 ISSN",
+            "type": "string",
+            "pattern": "[\\S]{4}\\-[\\S]{4}"
+        },
+        "print_issn": {
+            "title": "ISSN",
+            "description": "\uc778\uc1c4 \ubc84\uc804 \uc6a9 ISSN",
+            "type": "string",
+            "pattern": "[\\S]{4}\\-[\\S]{4}"
+        },
+        "issn_section": {
+            "title": "ISSN",
+            "description": "\uc628\ub77c\uc778 \ubc0f \uc778\uc1c4 ISSN",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/online_issn"
+                    },
+                    {
+                        "$ref": "#/definitions/print_issn"
+                    }
+                ]
+            }
+        },
+        "lic_qualifiers": {
+            "title": "",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "start_date": {
+                    "title": "\uc2dc\uc791\uc77c",
+                    "description": "\ub77c\uc774\uc13c\uc2a4\uac00 \ud6a8\ub825\uc744 \ubc1c\uc0dd\ud558\ub294 \ub0a0\uc9dc (\uc77c\ubc18\uc801\uc73c\ub85c \ubc1c\ud589\uc77c\uacfc \ub3d9\uc77c)",
+                    "type": "string",
+                    "format": "date"
+                },
+                "jav": {
+                    "title": "JAV \ubc84\uc804",
+                    "type": "string",
+                    "enum": [
+                        "Accepted Manuscript",
+                        "Version of Record"
+                    ],
+                    "default": "Version of Record"
+                }
+            },
+            "required": [
+                "start_date",
+                "jav"
+            ]
+        },
+        "cc_license": {
+            "title": "\ud06c\ub9ac\uc5d0\uc774\ud2f0\ube0c \ucee4\uba3c \ub77c\uc774\uc120\uc2a4",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "cc_url": {
+                    "title": "\ud06c\ub9ac\uc5d0\uc774\ud2f0\ube0c \ucee4\uba3c\uc988 \ub77c\uc774\uc13c\uc2a4 URL",
+                    "description": "\ud06c\ub9ac\uc5d0\uc774\ud2f0\ube0c \ucee4\uba3c\uc988 \ub77c\uc774\uc120\uc2a4\uc758 URL",
+                    "type": "string",
+                    "enum": [
+                        "https://creativecommons.org/licenses/by/4.0/",
+                        "https://creativecommons.org/licenses/by-sa/4.0/",
+                        "https://creativecommons.org/licenses/by-nd/4.0/",
+                        "https://creativecommons.org/licenses/by-nc/4.0/",
+                        "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                        "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                    ],
+                    "defualt": "https://creativecommons.org/licenses/by/4.0/"
+                },
+                "qualifiers": {
+                    "$ref": "#/definitions/lic_qualifiers"
+                }
+            },
+            "required": [
+                "cc_url"
+            ]
+        },
+        "other_license": {
+            "title": "\uae30\ud0c0 \ub77c\uc774\uc120\uc2a4",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "other_url": {
+                    "title": "\ub77c\uc774\uc120\uc2a4 URL",
+                    "description": "\uc800\uc791\uad8c \uc9c4\uc220 \ub610\ub294 \uc774\uc6a9 \uc57d\uad00\uc744 \uac00\ub9ac\ud0a4\ub294 URL",
+                    "type": "string",
+                    "format": "uri",
+                    "default": "https://example.com/license"
+                },
+                "qualifiers": {
+                    "$ref": "#/definitions/lic_qualifiers"
+                }
+            },
+            "required": [
+                "other_url"
+            ]
+        },
+        "license_ref": {
+            "title": "\ub77c\uc774\uc120\uc2a4 \uc815\ubcf4",
+            "description": "AM, VOR\uc5d0 \ub300\ud55c \ub77c\uc774\uc120\uc2a4 \uc815\ubcf4",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 10,
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/cc_license"
+                    },
+                    {
+                        "$ref": "#/definitions/other_license"
+                    }
+                ]
+            }
+        }
+    },
+    "properties": {
+        "depositor": {
+            "title": "\uc608\uae08\uc790 \uc815\ubcf4",
+            "description": "\uc774 \uc815\ubcf4\ub97c \ud1b5\ud574 \uc785\uae08 \uc9c4\ud589 \uc0c1\ud669\uc744 \uc5c5\ub370\uc774\ud2b8 \ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+            "type": "object",
+            "properties": {
+                "depositor_name": {
+                    "title": "\uc608\uae08\uc790 \uc774\ub984",
+                    "description": "\ub2f9\uc2e0\uc758 \uc774\ub984",
+                    "type": "string"
+                },
+                "email_address": {
+                    "type": "string",
+                    "title": "\uc774\uba54\uc77c \uc8fc\uc18c",
+                    "description": "\uc624\ub958\ub97c \ubcf4\ub0bc \uc774\uba54\uc77c \uc8fc\uc18c",
+                    "format": "email"
+                }
+            }
+        },
+        "journal": {
+            "title": "\uc800\ub110 \uc815\ubcf4",
+            "type": "object",
+            "properties": {
+                "full_title": {
+                    "title": "\uc800\ub110 \uc81c\ubaa9",
+                    "type": "string",
+                    "examples": [
+                        "Journal of Psychoceramics"
+                    ]
+                },
+                "abbrev_title": {
+                    "title": "\uc57d\uc2dd \uc800\ub110 \uc81c\ubaa9",
+                    "type": "string",
+                    "examples": [
+                        "JOPC"
+                    ]
+                },
+                "volume": {
+                    "title": "\uc74c\ub7c9",
+                    "type": "number"
+                },
+                "issue": {
+                    "title": "\ubc1c\ud589\ubb3c",
+                    "type": "number"
+                },
+                "publication_date": {
+                    "title": "\ubc1c\ud589\uc77c",
+                    "type": "string",
+                    "format": "date"
+                },
+                "issns": {
+                    "$ref": "#/definitions/issn_section"
+                }
+            }
+        },
+        "articles": {
+            "title": "\uc870\ud56d",
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "title": "\uc800\ub110 \uae30\uc0ac",
+                "type": "object",
+                "properties": {
+                    "titles": {
+                        "title": "\ud0c0\uc774\ud2c0",
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "title": "\ud45c\uc81c",
+                            "type": "object",
+                            "properties": {
+                                "title_language": {
+                                    "title": "\uc81c\ubaa9 \uc5b8\uc5b4",
+                                    "description": "\uc81c\ubaa9 \ud14d\uc2a4\ud2b8\uac00\uc788\ub294 \uc5b8\uc5b4\uc758 ISO \ucf54\ub4dc",
+                                    "type": "string",
+                                    "default": "en",
+                                    "enum": [
+                                        "en",
+                                        "es",
+                                        "pt"
+                                    ]
+                                },
+                                "title_text": {
+                                    "title": "\uc81c\ubaa9 \ud14d\uc2a4\ud2b8",
+                                    "description": "\uc120\ud0dd\ud55c \uc5b8\uc5b4\ub85c \ub41c \uae30\uc0ac \uc81c\ubaa9",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "resolution_information": {
+                        "title": "\ud574\uacb0 \uc815\ubcf4",
+                        "type": "object",
+                        "properties": {
+                            "doi": {
+                                "title": "DOI",
+                                "description": "\uc774 \uae30\uc0ac\uc5d0 \ud560\ub2f9 \ud560 DOI",
+                                "type": "string",
+                                "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                "message": "You must enter a valid DOI"
+                            },
+                            "resource": {
+                                "title": "\ud574\uacb0 URL",
+                                "description": "DOI\uac00 \ud574\uacb0\ud574\uc57c\ud558\ub294 URL",
+                                "type": "string",
+                                "format": "url"
+                            },
+                            "similarity_check_url": {
+                                "title": "\uc720\uc0ac\uc131 \ud655\uc778 URL",
+                                "description": "\uc720\uc0ac\uc131 \ud655\uc778\uc744\uc704\ud55c URL \uc804\uccb4 \ud14d\uc2a4\ud2b8",
+                                "type": "string",
+                                "format": "url"
+                            }
+                        }
+                    },
+                    "publication_date": {
+                        "title": "\ubc1c\ud589\uc77c",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "article_location": {
+                        "title": "\uae30\uc0ac \uc704\uce58",
+                        "description": "\ud398\uc774\uc9c0 \ubc94\uc704 \ub610\ub294 \uae30\uc0ac \ubc88\ud638\ub97c \uc785\ub825\ud558\uc2ed\uc2dc\uc624.",
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 1,
+                        "items": {
+                            "oneOf": [
+                                {
+                                    "$ref": "#/definitions/page_span"
+                                },
+                                {
+                                    "$ref": "#/definitions/article_number"
+                                }
+                            ]
+                        }
+                    },
+                    "abstract": {
+                        "title": "\uc694\uc57d",
+                        "description": "JAT \ucd08\ub85d \uc785\ub825",
+                        "type": "string"
+                    },
+                    "contributors": {
+                        "title": "\uae30\uc5ec\uc790",
+                        "type": "object",
+                        "properties": {
+                            "people": {
+                                "title": "\uc0ac\ub78c\ub4e4",
+                                "type": "array",
+                                "items": {
+                                    "title": "\uc0ac\ub78c",
+                                    "type": "object",
+                                    "properties": {
+                                        "-contributor_role": {
+                                            "title": "\uae30\uc5ec\uc790 \uc5ed\ud560",
+                                            "type": "string",
+                                            "enum": [
+                                                "author",
+                                                "editor",
+                                                "chair",
+                                                "translator"
+                                            ],
+                                            "default": "author"
+                                        },
+                                        "-sequence": {
+                                            "title": "\uae30\uc5ec\uc790 \uc21c\uc11c",
+                                            "type": "string",
+                                            "enum": [
+                                                "first",
+                                                "addtional"
+                                            ]
+                                        },
+                                        "ORCID": {
+                                            "type": "string",
+                                            "title": "ORCID",
+                                            "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))"
+                                        },
+                                        "given_name": {
+                                            "title": "\uc774\ub984",
+                                            "type": "string"
+                                        },
+                                        "surname": {
+                                            "title": "\uc131",
+                                            "type": "string"
+                                        },
+                                        "suffix": {
+                                            "title": "\uc811\ubbf8\uc0ac",
+                                            "description": "",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "license": {
+                        "$ref": "#/definitions/license_ref"
+                    },
+                    "references": {
+                        "title": "\ucc38\uace0 \ubb38\ud5cc",
+                        "type": "array",
+                        "minLength": 1,
+                        "uniqueItems": true,
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/doi_ref"
+                                },
+                                {
+                                    "$ref": "#/definitions/unstructured_ref"
+                                },
+                                {
+                                    "$ref": "#/definitions/structured_ref"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

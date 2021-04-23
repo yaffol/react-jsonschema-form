@@ -1,0 +1,44 @@
+{
+    "depositor": {
+      "depositor_name": "",
+      "email_address": ""
+    },
+    "journal": {
+      "full_title": "",
+      "abbrev_title": "",
+      "volume": 0,
+      "issue": 0,
+      "publication_date": "",
+      "issns": [
+        ""
+      ]
+    },
+    "articles": [
+      {
+        "titles": [
+          {
+            "title_language": "en",
+            "title_text": ""
+          }
+        ],
+        "resolution_information": {
+          "doi": "",
+          "resource": "",
+          "similarity_check_url": ""
+        },
+        "publication_date": "",
+        "article_location": [
+          {
+            "first_page": 0,
+            "last_page": 0
+          }
+        ],
+        "abstract": "",
+        "contributors": {
+          "people": []
+        },
+        "license": [],
+        "references": []
+      }
+    ]
+  }

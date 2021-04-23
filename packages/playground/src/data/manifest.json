@@ -1,0 +1,3051 @@
+{
+    "defaultLocale": "en",
+    "locales": {
+        "en": {
+            "data": {
+                "definitions": {
+                    "article_number": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "number": {
+                                "title": "Number",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "number"
+                        ],
+                        "title": "Article number",
+                        "type": "object"
+                    },
+                    "cc_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "cc_url": {
+                                "defualt": "https://creativecommons.org/licenses/by/4.0/",
+                                "description": "The URL of the Creative Commons license",
+                                "enum": [
+                                    "https://creativecommons.org/licenses/by/4.0/",
+                                    "https://creativecommons.org/licenses/by-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nd/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                                ],
+                                "title": "Creative Commons license url",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "cc_url"
+                        ],
+                        "title": "Creative Common License",
+                        "type": "object"
+                    },
+                    "doi_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "DOI": {
+                                "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "DOI"
+                        ],
+                        "title": "DOI Only Reference",
+                        "type": "object"
+                    },
+                    "issn_section": {
+                        "description": "online and print ISSNs",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/online_issn"
+                                },
+                                {
+                                    "$ref": "#/definitions/print_issn"
+                                }
+                            ],
+                            "type": "object"
+                        },
+                        "maxItems": 2,
+                        "minItems": 1,
+                        "title": "ISSNs",
+                        "type": "array"
+                    },
+                    "lic_qualifiers": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "jav": {
+                                "default": "Version of Record",
+                                "enum": [
+                                    "Accepted Manuscript",
+                                    "Version of Record"
+                                ],
+                                "title": "JAV version",
+                                "type": "string"
+                            },
+                            "start_date": {
+                                "description": "The date at which the license takes effect (usually the same as the publication date)",
+                                "format": "date",
+                                "title": "Start date",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "start_date",
+                            "jav"
+                        ],
+                        "title": "",
+                        "type": "object"
+                    },
+                    "license_ref": {
+                        "description": "License information for AM, VOR",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/cc_license"
+                                },
+                                {
+                                    "$ref": "#/definitions/other_license"
+                                }
+                            ]
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "title": "License information",
+                        "type": "array"
+                    },
+                    "online_issn": {
+                        "description": "ISSN for online version",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "eISSN",
+                        "type": "string"
+                    },
+                    "other_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "other_url": {
+                                "default": "https://example.com/license",
+                                "description": "A URL that points to a copyright statement or terms & conditions",
+                                "format": "uri",
+                                "title": "License url",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "other_url"
+                        ],
+                        "title": "Other License",
+                        "type": "object"
+                    },
+                    "page_span": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "first_page": {
+                                "title": "First page",
+                                "type": "number"
+                            },
+                            "last_page": {
+                                "title": "Last page",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "first_page",
+                            "last_page"
+                        ],
+                        "title": "Page span",
+                        "type": "object"
+                    },
+                    "print_issn": {
+                        "description": "ISSN for print version",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "ISSN",
+                        "type": "string"
+                    },
+                    "structured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "author": {
+                                "type": "string"
+                            },
+                            "first_page": {
+                                "type": "number"
+                            },
+                            "journal_title": {
+                                "type": "string"
+                            },
+                            "year": {
+                                "pattern": "^[1-9][0-9][0-9][0-9]$",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "journal_title",
+                            "author",
+                            "year"
+                        ],
+                        "title": "Structured reference",
+                        "type": "object"
+                    },
+                    "unstructured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "reference": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "reference"
+                        ],
+                        "title": "Unstructured reference",
+                        "type": "object"
+                    }
+                },
+                "properties": {
+                    "articles": {
+                        "items": {
+                            "properties": {
+                                "abstract": {
+                                    "description": "enter a JATs abstract",
+                                    "title": "Abstract",
+                                    "type": "string"
+                                },
+                                "article_location": {
+                                    "description": "enter either the page-span or the article number",
+                                    "items": {
+                                        "oneOf": [
+                                            {
+                                                "$ref": "#/definitions/page_span"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/article_number"
+                                            }
+                                        ]
+                                    },
+                                    "maxItems": 1,
+                                    "minItems": 1,
+                                    "title": "Article location",
+                                    "type": "array"
+                                },
+                                "contributors": {
+                                    "properties": {
+                                        "people": {
+                                            "items": {
+                                                "properties": {
+                                                    "-contributor_role": {
+                                                        "default": "author",
+                                                        "enum": [
+                                                            "author",
+                                                            "editor",
+                                                            "chair",
+                                                            "translator"
+                                                        ],
+                                                        "title": "Contributor role",
+                                                        "type": "string"
+                                                    },
+                                                    "-sequence": {
+                                                        "enum": [
+                                                            "first",
+                                                            "addtional"
+                                                        ],
+                                                        "title": "Contributor sequence",
+                                                        "type": "string"
+                                                    },
+                                                    "ORCID": {
+                                                        "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))",
+                                                        "title": "ORCID",
+                                                        "type": "string"
+                                                    },
+                                                    "given_name": {
+                                                        "title": "Given name",
+                                                        "type": "string"
+                                                    },
+                                                    "suffix": {
+                                                        "description": "",
+                                                        "title": "Suffix",
+                                                        "type": "string"
+                                                    },
+                                                    "surname": {
+                                                        "title": "Surname",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "title": "Person",
+                                                "type": "object"
+                                            },
+                                            "title": "People",
+                                            "type": "array"
+                                        }
+                                    },
+                                    "title": "Contributors",
+                                    "type": "object"
+                                },
+                                "license": {
+                                    "$ref": "#/definitions/license_ref"
+                                },
+                                "publication_date": {
+                                    "format": "date",
+                                    "title": "Publication date",
+                                    "type": "string"
+                                },
+                                "references": {
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/definitions/doi_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/unstructured_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/structured_ref"
+                                            }
+                                        ]
+                                    },
+                                    "minLength": 1,
+                                    "title": "References",
+                                    "type": "array",
+                                    "uniqueItems": true
+                                },
+                                "resolution_information": {
+                                    "properties": {
+                                        "doi": {
+                                            "description": "The DOI you want to assign to this article",
+                                            "message": "You must enter a valid DOI",
+                                            "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                            "title": "DOI",
+                                            "type": "string"
+                                        },
+                                        "resource": {
+                                            "description": "URL the DOI should resolve to",
+                                            "format": "url",
+                                            "title": "Resolution URL",
+                                            "type": "string"
+                                        },
+                                        "similarity_check_url": {
+                                            "description": "URL for Similarity Check to get full text",
+                                            "format": "url",
+                                            "title": "Similarity Check URL",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Resolution Information",
+                                    "type": "object"
+                                },
+                                "titles": {
+                                    "items": {
+                                        "properties": {
+                                            "title_language": {
+                                                "default": "en",
+                                                "description": "The ISO code for the language the title text is in",
+                                                "enum": [
+                                                    "en",
+                                                    "es",
+                                                    "pt"
+                                                ],
+                                                "title": "Title language",
+                                                "type": "string"
+                                            },
+                                            "title_text": {
+                                                "description": "The title of the article in the language selected",
+                                                "title": "Title text",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "title",
+                                        "type": "object"
+                                    },
+                                    "minItems": 1,
+                                    "title": "Titles",
+                                    "type": "array"
+                                }
+                            },
+                            "title": "Journal Article",
+                            "type": "object"
+                        },
+                        "minItems": 1,
+                        "title": "Articles",
+                        "type": "array",
+                        "uniqueItems": true
+                    },
+                    "depositor": {
+                        "description": "This information allows us to update you on the progress of the deposit",
+                        "properties": {
+                            "depositor_name": {
+                                "description": "your name",
+                                "title": "Depositor name",
+                                "type": "string"
+                            },
+                            "email_address": {
+                                "description": "email address to send errors to",
+                                "format": "email",
+                                "title": "Email address",
+                                "type": "string"
+                            }
+                        },
+                        "title": "Depositor Information",
+                        "type": "object"
+                    },
+                    "journal": {
+                        "properties": {
+                            "abbrev_title": {
+                                "examples": [
+                                    "JOPC"
+                                ],
+                                "title": "Abbreviated journal title",
+                                "type": "string"
+                            },
+                            "full_title": {
+                                "examples": [
+                                    "Journal of Psychoceramics"
+                                ],
+                                "title": "Journal title",
+                                "type": "string"
+                            },
+                            "issns": {
+                                "$ref": "#/definitions/issn_section"
+                            },
+                            "issue": {
+                                "title": "Issue",
+                                "type": "number"
+                            },
+                            "publication_date": {
+                                "format": "date",
+                                "title": "Publication date",
+                                "type": "string"
+                            },
+                            "volume": {
+                                "title": "Volume",
+                                "type": "number"
+                            }
+                        },
+                        "title": "Journal Information",
+                        "type": "object"
+                    }
+                },
+                "title": "Crossref article deposit",
+                "type": "object"
+            },
+            "fileName": "translated_en.json"
+        },
+        "fr": {
+            "data": {
+                "definitions": {
+                    "article_number": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "number": {
+                                "title": "Nombre",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "number"
+                        ],
+                        "title": "Num\u00e9ro de l'article",
+                        "type": "object"
+                    },
+                    "cc_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "cc_url": {
+                                "defualt": "https://creativecommons.org/licenses/by/4.0/",
+                                "description": "L'URL de la licence Creative Commons",
+                                "enum": [
+                                    "https://creativecommons.org/licenses/by/4.0/",
+                                    "https://creativecommons.org/licenses/by-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nd/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                                ],
+                                "title": "URL de la licence Creative Commons",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "cc_url"
+                        ],
+                        "title": "Licence commune cr\u00e9ative",
+                        "type": "object"
+                    },
+                    "doi_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "DOI": {
+                                "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "DOI"
+                        ],
+                        "title": "R\u00e9f\u00e9rence DOI uniquement",
+                        "type": "object"
+                    },
+                    "issn_section": {
+                        "description": "ISSN en ligne et imprim\u00e9s",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/online_issn"
+                                },
+                                {
+                                    "$ref": "#/definitions/print_issn"
+                                }
+                            ]
+                        },
+                        "maxItems": 2,
+                        "minItems": 1,
+                        "title": "ISSN",
+                        "type": "array"
+                    },
+                    "lic_qualifiers": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "jav": {
+                                "default": "Version of Record",
+                                "enum": [
+                                    "Accepted Manuscript",
+                                    "Version of Record"
+                                ],
+                                "title": "Version JAV",
+                                "type": "string"
+                            },
+                            "start_date": {
+                                "description": "La date \u00e0 laquelle la licence prend effet (g\u00e9n\u00e9ralement la m\u00eame que la date de publication)",
+                                "format": "date",
+                                "title": "Date de d\u00e9but",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "start_date",
+                            "jav"
+                        ],
+                        "title": "",
+                        "type": "object"
+                    },
+                    "license_ref": {
+                        "description": "Informations de licence pour AM, VOR",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/cc_license"
+                                },
+                                {
+                                    "$ref": "#/definitions/other_license"
+                                }
+                            ]
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "title": "Informations sur la licence",
+                        "type": "array"
+                    },
+                    "online_issn": {
+                        "description": "ISSN pour la version en ligne",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "eISSN",
+                        "type": "string"
+                    },
+                    "other_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "other_url": {
+                                "default": "https://example.com/license",
+                                "description": "Une URL qui pointe vers une d\u00e9claration de droits d'auteur ou des conditions g\u00e9n\u00e9rales",
+                                "format": "uri",
+                                "title": "URL de la licence",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "other_url"
+                        ],
+                        "title": "Autre licence",
+                        "type": "object"
+                    },
+                    "page_span": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "first_page": {
+                                "title": "Premi\u00e8re page",
+                                "type": "number"
+                            },
+                            "last_page": {
+                                "title": "Derni\u00e8re page",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "first_page",
+                            "last_page"
+                        ],
+                        "title": "Dur\u00e9e de la page",
+                        "type": "object"
+                    },
+                    "print_issn": {
+                        "description": "ISSN pour la version imprim\u00e9e",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "ISSN",
+                        "type": "string"
+                    },
+                    "structured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "author": {
+                                "type": "string"
+                            },
+                            "first_page": {
+                                "type": "number"
+                            },
+                            "journal_title": {
+                                "type": "string"
+                            },
+                            "year": {
+                                "pattern": "^[1-9][0-9][0-9][0-9]$",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "journal_title",
+                            "author",
+                            "year"
+                        ],
+                        "title": "R\u00e9f\u00e9rence structur\u00e9e",
+                        "type": "object"
+                    },
+                    "unstructured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "reference": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "reference"
+                        ],
+                        "title": "R\u00e9f\u00e9rence non structur\u00e9e",
+                        "type": "object"
+                    }
+                },
+                "properties": {
+                    "articles": {
+                        "items": {
+                            "properties": {
+                                "abstract": {
+                                    "description": "entrez un r\u00e9sum\u00e9 des JAT",
+                                    "title": "Abstrait",
+                                    "type": "string"
+                                },
+                                "article_location": {
+                                    "description": "entrez la longueur de page ou le num\u00e9ro d'article",
+                                    "items": {
+                                        "oneOf": [
+                                            {
+                                                "$ref": "#/definitions/page_span"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/article_number"
+                                            }
+                                        ]
+                                    },
+                                    "maxItems": 1,
+                                    "minItems": 1,
+                                    "title": "Emplacement de l'article",
+                                    "type": "array"
+                                },
+                                "contributors": {
+                                    "properties": {
+                                        "people": {
+                                            "items": {
+                                                "properties": {
+                                                    "-contributor_role": {
+                                                        "default": "author",
+                                                        "enum": [
+                                                            "author",
+                                                            "editor",
+                                                            "chair",
+                                                            "translator"
+                                                        ],
+                                                        "title": "R\u00f4le de contributeur",
+                                                        "type": "string"
+                                                    },
+                                                    "-sequence": {
+                                                        "enum": [
+                                                            "first",
+                                                            "addtional"
+                                                        ],
+                                                        "title": "S\u00e9quence des contributeurs",
+                                                        "type": "string"
+                                                    },
+                                                    "ORCID": {
+                                                        "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))",
+                                                        "title": "ORCID",
+                                                        "type": "string"
+                                                    },
+                                                    "given_name": {
+                                                        "title": "Pr\u00e9nom",
+                                                        "type": "string"
+                                                    },
+                                                    "suffix": {
+                                                        "description": "",
+                                                        "title": "Suffixe",
+                                                        "type": "string"
+                                                    },
+                                                    "surname": {
+                                                        "title": "Nom de famille",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "title": "La personne",
+                                                "type": "object"
+                                            },
+                                            "title": "Gens",
+                                            "type": "array"
+                                        }
+                                    },
+                                    "title": "Contributeurs",
+                                    "type": "object"
+                                },
+                                "license": {
+                                    "$ref": "#/definitions/license_ref"
+                                },
+                                "publication_date": {
+                                    "format": "date",
+                                    "title": "Date de publication",
+                                    "type": "string"
+                                },
+                                "references": {
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/definitions/doi_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/unstructured_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/structured_ref"
+                                            }
+                                        ]
+                                    },
+                                    "minLength": 1,
+                                    "title": "Les r\u00e9f\u00e9rences",
+                                    "type": "array",
+                                    "uniqueItems": true
+                                },
+                                "resolution_information": {
+                                    "properties": {
+                                        "doi": {
+                                            "description": "Le DOI que vous souhaitez attribuer \u00e0 cet article",
+                                            "message": "You must enter a valid DOI",
+                                            "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                            "title": "EST CE QUE JE",
+                                            "type": "string"
+                                        },
+                                        "resource": {
+                                            "description": "URL vers laquelle le DOI doit r\u00e9soudre",
+                                            "format": "url",
+                                            "title": "URL de r\u00e9solution",
+                                            "type": "string"
+                                        },
+                                        "similarity_check_url": {
+                                            "description": "URL pour le contr\u00f4le de similarit\u00e9 pour obtenir le texte int\u00e9gral",
+                                            "format": "url",
+                                            "title": "URL de v\u00e9rification de similarit\u00e9",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Informations sur la r\u00e9solution",
+                                    "type": "object"
+                                },
+                                "titles": {
+                                    "items": {
+                                        "properties": {
+                                            "title_language": {
+                                                "default": "en",
+                                                "description": "Le code ISO de la langue dans laquelle se trouve le texte du titre",
+                                                "enum": [
+                                                    "en",
+                                                    "es",
+                                                    "pt"
+                                                ],
+                                                "title": "Langue du titre",
+                                                "type": "string"
+                                            },
+                                            "title_text": {
+                                                "description": "Le titre de l'article dans la langue s\u00e9lectionn\u00e9e",
+                                                "title": "Texte du titre",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "Titre",
+                                        "type": "object"
+                                    },
+                                    "minItems": 1,
+                                    "title": "Titres",
+                                    "type": "array"
+                                }
+                            },
+                            "title": "Article de revue",
+                            "type": "object"
+                        },
+                        "minItems": 1,
+                        "title": "Des articles",
+                        "type": "array",
+                        "uniqueItems": true
+                    },
+                    "depositor": {
+                        "description": "Ces informations nous permettent de vous tenir au courant de l'avancement du d\u00e9p\u00f4t",
+                        "properties": {
+                            "depositor_name": {
+                                "description": "votre nom",
+                                "title": "Nom du d\u00e9posant",
+                                "type": "string"
+                            },
+                            "email_address": {
+                                "description": "adresse e-mail \u00e0 laquelle envoyer les erreurs",
+                                "format": "email",
+                                "title": "Adresse e-mail",
+                                "type": "string"
+                            }
+                        },
+                        "title": "Informations sur le d\u00e9posant",
+                        "type": "object"
+                    },
+                    "journal": {
+                        "properties": {
+                            "abbrev_title": {
+                                "examples": [
+                                    "JOPC"
+                                ],
+                                "title": "Titre abr\u00e9g\u00e9 de la revue",
+                                "type": "string"
+                            },
+                            "full_title": {
+                                "examples": [
+                                    "Journal of Psychoceramics"
+                                ],
+                                "title": "Titre du journal",
+                                "type": "string"
+                            },
+                            "issns": {
+                                "$ref": "#/definitions/issn_section"
+                            },
+                            "issue": {
+                                "title": "Probl\u00e8me",
+                                "type": "number"
+                            },
+                            "publication_date": {
+                                "format": "date",
+                                "title": "Date de publication",
+                                "type": "string"
+                            },
+                            "volume": {
+                                "title": "Le volume",
+                                "type": "number"
+                            }
+                        },
+                        "title": "Informations sur le journal",
+                        "type": "object"
+                    }
+                },
+                "title": "D\u00e9p\u00f4t d'article Crossref",
+                "type": "object"
+            },
+            "fileName": "translated_fr.json"
+        },
+        "id": {
+            "data": {
+                "definitions": {
+                    "article_number": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "number": {
+                                "title": "Jumlah",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "number"
+                        ],
+                        "title": "Nomor artikel",
+                        "type": "object"
+                    },
+                    "cc_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "cc_url": {
+                                "defualt": "https://creativecommons.org/licenses/by/4.0/",
+                                "description": "URL lisensi Creative Commons",
+                                "enum": [
+                                    "https://creativecommons.org/licenses/by/4.0/",
+                                    "https://creativecommons.org/licenses/by-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nd/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                                ],
+                                "title": "Url lisensi Creative Commons",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "cc_url"
+                        ],
+                        "title": "Lisensi Umum Kreatif",
+                        "type": "object"
+                    },
+                    "doi_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "DOI": {
+                                "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "DOI"
+                        ],
+                        "title": "DOI Only Reference",
+                        "type": "object"
+                    },
+                    "issn_section": {
+                        "description": "online dan mencetak ISSN",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/online_issn"
+                                },
+                                {
+                                    "$ref": "#/definitions/print_issn"
+                                }
+                            ]
+                        },
+                        "maxItems": 2,
+                        "minItems": 1,
+                        "title": "ISSN",
+                        "type": "array"
+                    },
+                    "lic_qualifiers": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "jav": {
+                                "default": "Version of Record",
+                                "enum": [
+                                    "Accepted Manuscript",
+                                    "Version of Record"
+                                ],
+                                "title": "Versi JAV",
+                                "type": "string"
+                            },
+                            "start_date": {
+                                "description": "Tanggal berlakunya lisensi (biasanya sama dengan tanggal publikasi)",
+                                "format": "date",
+                                "title": "Mulai tanggal",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "start_date",
+                            "jav"
+                        ],
+                        "title": "",
+                        "type": "object"
+                    },
+                    "license_ref": {
+                        "description": "Informasi lisensi untuk AM, VOR",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/cc_license"
+                                },
+                                {
+                                    "$ref": "#/definitions/other_license"
+                                }
+                            ]
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "title": "Informasi lisensi",
+                        "type": "array"
+                    },
+                    "online_issn": {
+                        "description": "ISSN untuk versi online",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "eISSN",
+                        "type": "string"
+                    },
+                    "other_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "other_url": {
+                                "default": "https://example.com/license",
+                                "description": "URL yang mengarah ke pernyataan hak cipta atau syarat & ketentuan",
+                                "format": "uri",
+                                "title": "URL lisensi",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "other_url"
+                        ],
+                        "title": "Lisensi Lainnya",
+                        "type": "object"
+                    },
+                    "page_span": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "first_page": {
+                                "title": "Halaman pertama",
+                                "type": "number"
+                            },
+                            "last_page": {
+                                "title": "Halaman terakhir",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "first_page",
+                            "last_page"
+                        ],
+                        "title": "Rentang halaman",
+                        "type": "object"
+                    },
+                    "print_issn": {
+                        "description": "ISSN untuk versi cetak",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "ISSN",
+                        "type": "string"
+                    },
+                    "structured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "author": {
+                                "type": "string"
+                            },
+                            "first_page": {
+                                "type": "number"
+                            },
+                            "journal_title": {
+                                "type": "string"
+                            },
+                            "year": {
+                                "pattern": "^[1-9][0-9][0-9][0-9]$",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "journal_title",
+                            "author",
+                            "year"
+                        ],
+                        "title": "Referensi terstruktur",
+                        "type": "object"
+                    },
+                    "unstructured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "reference": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "reference"
+                        ],
+                        "title": "Referensi tidak terstruktur",
+                        "type": "object"
+                    }
+                },
+                "properties": {
+                    "articles": {
+                        "items": {
+                            "properties": {
+                                "abstract": {
+                                    "description": "masukkan abstrak JAT",
+                                    "title": "Abstrak",
+                                    "type": "string"
+                                },
+                                "article_location": {
+                                    "description": "masukkan rentang halaman atau nomor artikel",
+                                    "items": {
+                                        "oneOf": [
+                                            {
+                                                "$ref": "#/definitions/page_span"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/article_number"
+                                            }
+                                        ]
+                                    },
+                                    "maxItems": 1,
+                                    "minItems": 1,
+                                    "title": "Lokasi artikel",
+                                    "type": "array"
+                                },
+                                "contributors": {
+                                    "properties": {
+                                        "people": {
+                                            "items": {
+                                                "properties": {
+                                                    "-contributor_role": {
+                                                        "default": "author",
+                                                        "enum": [
+                                                            "author",
+                                                            "editor",
+                                                            "chair",
+                                                            "translator"
+                                                        ],
+                                                        "title": "Peran kontributor",
+                                                        "type": "string"
+                                                    },
+                                                    "-sequence": {
+                                                        "enum": [
+                                                            "first",
+                                                            "addtional"
+                                                        ],
+                                                        "title": "Urutan kontributor",
+                                                        "type": "string"
+                                                    },
+                                                    "ORCID": {
+                                                        "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))",
+                                                        "title": "ORCID",
+                                                        "type": "string"
+                                                    },
+                                                    "given_name": {
+                                                        "title": "Nama pemberian",
+                                                        "type": "string"
+                                                    },
+                                                    "suffix": {
+                                                        "description": "",
+                                                        "title": "Akhiran",
+                                                        "type": "string"
+                                                    },
+                                                    "surname": {
+                                                        "title": "Nama keluarga",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "title": "Orang",
+                                                "type": "object"
+                                            },
+                                            "title": "Orang-orang",
+                                            "type": "array"
+                                        }
+                                    },
+                                    "title": "Kontributor",
+                                    "type": "object"
+                                },
+                                "license": {
+                                    "$ref": "#/definitions/license_ref"
+                                },
+                                "publication_date": {
+                                    "format": "date",
+                                    "title": "Tanggal penerbitan",
+                                    "type": "string"
+                                },
+                                "references": {
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/definitions/doi_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/unstructured_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/structured_ref"
+                                            }
+                                        ]
+                                    },
+                                    "minLength": 1,
+                                    "title": "Referensi",
+                                    "type": "array",
+                                    "uniqueItems": true
+                                },
+                                "resolution_information": {
+                                    "properties": {
+                                        "doi": {
+                                            "description": "DOI yang ingin Anda tetapkan untuk artikel ini",
+                                            "message": "You must enter a valid DOI",
+                                            "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                            "title": "DOI",
+                                            "type": "string"
+                                        },
+                                        "resource": {
+                                            "description": "URL yang harus diselesaikan oleh DOI",
+                                            "format": "url",
+                                            "title": "URL Resolusi",
+                                            "type": "string"
+                                        },
+                                        "similarity_check_url": {
+                                            "description": "URL untuk Similarity Check untuk mendapatkan teks lengkap",
+                                            "format": "url",
+                                            "title": "URL Periksa Kemiripan",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Informasi Resolusi",
+                                    "type": "object"
+                                },
+                                "titles": {
+                                    "items": {
+                                        "properties": {
+                                            "title_language": {
+                                                "default": "en",
+                                                "description": "Kode ISO untuk bahasa teks judul",
+                                                "enum": [
+                                                    "en",
+                                                    "es",
+                                                    "pt"
+                                                ],
+                                                "title": "Bahasa judul",
+                                                "type": "string"
+                                            },
+                                            "title_text": {
+                                                "description": "Judul artikel dalam bahasa yang dipilih",
+                                                "title": "Teks judul",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "judul",
+                                        "type": "object"
+                                    },
+                                    "minItems": 1,
+                                    "title": "Judul",
+                                    "type": "array"
+                                }
+                            },
+                            "title": "Artikel Jurnal",
+                            "type": "object"
+                        },
+                        "minItems": 1,
+                        "title": "Artikel",
+                        "type": "array",
+                        "uniqueItems": true
+                    },
+                    "depositor": {
+                        "description": "Informasi ini memungkinkan kami untuk memberi tahu Anda tentang kemajuan setoran",
+                        "properties": {
+                            "depositor_name": {
+                                "description": "namamu",
+                                "title": "Nama deposan",
+                                "type": "string"
+                            },
+                            "email_address": {
+                                "description": "alamat email tujuan pengiriman kesalahan",
+                                "format": "email",
+                                "title": "Alamat email",
+                                "type": "string"
+                            }
+                        },
+                        "title": "Informasi Penyimpan",
+                        "type": "object"
+                    },
+                    "journal": {
+                        "properties": {
+                            "abbrev_title": {
+                                "examples": [
+                                    "JOPC"
+                                ],
+                                "title": "Judul jurnal yang disingkat",
+                                "type": "string"
+                            },
+                            "full_title": {
+                                "examples": [
+                                    "Journal of Psychoceramics"
+                                ],
+                                "title": "Judul jurnal",
+                                "type": "string"
+                            },
+                            "issns": {
+                                "$ref": "#/definitions/issn_section"
+                            },
+                            "issue": {
+                                "title": "Isu",
+                                "type": "number"
+                            },
+                            "publication_date": {
+                                "format": "date",
+                                "title": "Tanggal penerbitan",
+                                "type": "string"
+                            },
+                            "volume": {
+                                "title": "Volume",
+                                "type": "number"
+                            }
+                        },
+                        "title": "Informasi Jurnal",
+                        "type": "object"
+                    }
+                },
+                "title": "Setoran artikel Crossref",
+                "type": "object"
+            },
+            "fileName": "translated_id.json"
+        },
+        "kr": {
+            "data": {
+                "definitions": {
+                    "article_number": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "number": {
+                                "title": "\ubc88\ud638",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "number"
+                        ],
+                        "title": "\ubb38\uc11c \ubc88\ud638",
+                        "type": "object"
+                    },
+                    "cc_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "cc_url": {
+                                "defualt": "https://creativecommons.org/licenses/by/4.0/",
+                                "description": "\ud06c\ub9ac\uc5d0\uc774\ud2f0\ube0c \ucee4\uba3c\uc988 \ub77c\uc774\uc120\uc2a4\uc758 URL",
+                                "enum": [
+                                    "https://creativecommons.org/licenses/by/4.0/",
+                                    "https://creativecommons.org/licenses/by-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nd/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                                ],
+                                "title": "\ud06c\ub9ac\uc5d0\uc774\ud2f0\ube0c \ucee4\uba3c\uc988 \ub77c\uc774\uc13c\uc2a4 URL",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "cc_url"
+                        ],
+                        "title": "\ud06c\ub9ac\uc5d0\uc774\ud2f0\ube0c \ucee4\uba3c \ub77c\uc774\uc120\uc2a4",
+                        "type": "object"
+                    },
+                    "doi_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "DOI": {
+                                "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "DOI"
+                        ],
+                        "title": "DOI \uc804\uc6a9 \ucc38\uc870",
+                        "type": "object"
+                    },
+                    "issn_section": {
+                        "description": "\uc628\ub77c\uc778 \ubc0f \uc778\uc1c4 ISSN",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/online_issn"
+                                },
+                                {
+                                    "$ref": "#/definitions/print_issn"
+                                }
+                            ]
+                        },
+                        "maxItems": 2,
+                        "minItems": 1,
+                        "title": "ISSN",
+                        "type": "array"
+                    },
+                    "lic_qualifiers": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "jav": {
+                                "default": "Version of Record",
+                                "enum": [
+                                    "Accepted Manuscript",
+                                    "Version of Record"
+                                ],
+                                "title": "JAV \ubc84\uc804",
+                                "type": "string"
+                            },
+                            "start_date": {
+                                "description": "\ub77c\uc774\uc13c\uc2a4\uac00 \ud6a8\ub825\uc744 \ubc1c\uc0dd\ud558\ub294 \ub0a0\uc9dc (\uc77c\ubc18\uc801\uc73c\ub85c \ubc1c\ud589\uc77c\uacfc \ub3d9\uc77c)",
+                                "format": "date",
+                                "title": "\uc2dc\uc791\uc77c",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "start_date",
+                            "jav"
+                        ],
+                        "title": "",
+                        "type": "object"
+                    },
+                    "license_ref": {
+                        "description": "AM, VOR\uc5d0 \ub300\ud55c \ub77c\uc774\uc120\uc2a4 \uc815\ubcf4",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/cc_license"
+                                },
+                                {
+                                    "$ref": "#/definitions/other_license"
+                                }
+                            ]
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "title": "\ub77c\uc774\uc120\uc2a4 \uc815\ubcf4",
+                        "type": "array"
+                    },
+                    "online_issn": {
+                        "description": "\uc628\ub77c\uc778 \ubc84\uc804 \uc6a9 ISSN",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "eISSN",
+                        "type": "string"
+                    },
+                    "other_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "other_url": {
+                                "default": "https://example.com/license",
+                                "description": "\uc800\uc791\uad8c \uc9c4\uc220 \ub610\ub294 \uc774\uc6a9 \uc57d\uad00\uc744 \uac00\ub9ac\ud0a4\ub294 URL",
+                                "format": "uri",
+                                "title": "\ub77c\uc774\uc120\uc2a4 URL",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "other_url"
+                        ],
+                        "title": "\uae30\ud0c0 \ub77c\uc774\uc120\uc2a4",
+                        "type": "object"
+                    },
+                    "page_span": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "first_page": {
+                                "title": "\uccab \ud398\uc774\uc9c0",
+                                "type": "number"
+                            },
+                            "last_page": {
+                                "title": "\ub9c8\uc9c0\ub9c9 \ud398\uc774\uc9c0",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "first_page",
+                            "last_page"
+                        ],
+                        "title": "\ud398\uc774\uc9c0 \ubc94\uc704",
+                        "type": "object"
+                    },
+                    "print_issn": {
+                        "description": "\uc778\uc1c4 \ubc84\uc804 \uc6a9 ISSN",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "ISSN",
+                        "type": "string"
+                    },
+                    "structured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "author": {
+                                "type": "string"
+                            },
+                            "first_page": {
+                                "type": "number"
+                            },
+                            "journal_title": {
+                                "type": "string"
+                            },
+                            "year": {
+                                "pattern": "^[1-9][0-9][0-9][0-9]$",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "journal_title",
+                            "author",
+                            "year"
+                        ],
+                        "title": "\uad6c\uc870\ud654 \ub41c \ucc38\uc870",
+                        "type": "object"
+                    },
+                    "unstructured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "reference": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "reference"
+                        ],
+                        "title": "\uad6c\uc870\ud654\ub418\uc9c0 \uc54a\uc740 \ucc38\uc870",
+                        "type": "object"
+                    }
+                },
+                "properties": {
+                    "articles": {
+                        "items": {
+                            "properties": {
+                                "abstract": {
+                                    "description": "JAT \ucd08\ub85d \uc785\ub825",
+                                    "title": "\uc694\uc57d",
+                                    "type": "string"
+                                },
+                                "article_location": {
+                                    "description": "\ud398\uc774\uc9c0 \ubc94\uc704 \ub610\ub294 \uae30\uc0ac \ubc88\ud638\ub97c \uc785\ub825\ud558\uc2ed\uc2dc\uc624.",
+                                    "items": {
+                                        "oneOf": [
+                                            {
+                                                "$ref": "#/definitions/page_span"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/article_number"
+                                            }
+                                        ]
+                                    },
+                                    "maxItems": 1,
+                                    "minItems": 1,
+                                    "title": "\uae30\uc0ac \uc704\uce58",
+                                    "type": "array"
+                                },
+                                "contributors": {
+                                    "properties": {
+                                        "people": {
+                                            "items": {
+                                                "properties": {
+                                                    "-contributor_role": {
+                                                        "default": "author",
+                                                        "enum": [
+                                                            "author",
+                                                            "editor",
+                                                            "chair",
+                                                            "translator"
+                                                        ],
+                                                        "title": "\uae30\uc5ec\uc790 \uc5ed\ud560",
+                                                        "type": "string"
+                                                    },
+                                                    "-sequence": {
+                                                        "enum": [
+                                                            "first",
+                                                            "addtional"
+                                                        ],
+                                                        "title": "\uae30\uc5ec\uc790 \uc21c\uc11c",
+                                                        "type": "string"
+                                                    },
+                                                    "ORCID": {
+                                                        "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))",
+                                                        "title": "ORCID",
+                                                        "type": "string"
+                                                    },
+                                                    "given_name": {
+                                                        "title": "\uc774\ub984",
+                                                        "type": "string"
+                                                    },
+                                                    "suffix": {
+                                                        "description": "",
+                                                        "title": "\uc811\ubbf8\uc0ac",
+                                                        "type": "string"
+                                                    },
+                                                    "surname": {
+                                                        "title": "\uc131",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "title": "\uc0ac\ub78c",
+                                                "type": "object"
+                                            },
+                                            "title": "\uc0ac\ub78c\ub4e4",
+                                            "type": "array"
+                                        }
+                                    },
+                                    "title": "\uae30\uc5ec\uc790",
+                                    "type": "object"
+                                },
+                                "license": {
+                                    "$ref": "#/definitions/license_ref"
+                                },
+                                "publication_date": {
+                                    "format": "date",
+                                    "title": "\ubc1c\ud589\uc77c",
+                                    "type": "string"
+                                },
+                                "references": {
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/definitions/doi_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/unstructured_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/structured_ref"
+                                            }
+                                        ]
+                                    },
+                                    "minLength": 1,
+                                    "title": "\ucc38\uace0 \ubb38\ud5cc",
+                                    "type": "array",
+                                    "uniqueItems": true
+                                },
+                                "resolution_information": {
+                                    "properties": {
+                                        "doi": {
+                                            "description": "\uc774 \uae30\uc0ac\uc5d0 \ud560\ub2f9 \ud560 DOI",
+                                            "message": "You must enter a valid DOI",
+                                            "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                            "title": "DOI",
+                                            "type": "string"
+                                        },
+                                        "resource": {
+                                            "description": "DOI\uac00 \ud574\uacb0\ud574\uc57c\ud558\ub294 URL",
+                                            "format": "url",
+                                            "title": "\ud574\uacb0 URL",
+                                            "type": "string"
+                                        },
+                                        "similarity_check_url": {
+                                            "description": "\uc720\uc0ac\uc131 \ud655\uc778\uc744\uc704\ud55c URL \uc804\uccb4 \ud14d\uc2a4\ud2b8",
+                                            "format": "url",
+                                            "title": "\uc720\uc0ac\uc131 \ud655\uc778 URL",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "\ud574\uacb0 \uc815\ubcf4",
+                                    "type": "object"
+                                },
+                                "titles": {
+                                    "items": {
+                                        "properties": {
+                                            "title_language": {
+                                                "default": "en",
+                                                "description": "\uc81c\ubaa9 \ud14d\uc2a4\ud2b8\uac00\uc788\ub294 \uc5b8\uc5b4\uc758 ISO \ucf54\ub4dc",
+                                                "enum": [
+                                                    "en",
+                                                    "es",
+                                                    "pt"
+                                                ],
+                                                "title": "\uc81c\ubaa9 \uc5b8\uc5b4",
+                                                "type": "string"
+                                            },
+                                            "title_text": {
+                                                "description": "\uc120\ud0dd\ud55c \uc5b8\uc5b4\ub85c \ub41c \uae30\uc0ac \uc81c\ubaa9",
+                                                "title": "\uc81c\ubaa9 \ud14d\uc2a4\ud2b8",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "\ud45c\uc81c",
+                                        "type": "object"
+                                    },
+                                    "minItems": 1,
+                                    "title": "\ud0c0\uc774\ud2c0",
+                                    "type": "array"
+                                }
+                            },
+                            "title": "\uc800\ub110 \uae30\uc0ac",
+                            "type": "object"
+                        },
+                        "minItems": 1,
+                        "title": "\uc870\ud56d",
+                        "type": "array",
+                        "uniqueItems": true
+                    },
+                    "depositor": {
+                        "description": "\uc774 \uc815\ubcf4\ub97c \ud1b5\ud574 \uc785\uae08 \uc9c4\ud589 \uc0c1\ud669\uc744 \uc5c5\ub370\uc774\ud2b8 \ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
+                        "properties": {
+                            "depositor_name": {
+                                "description": "\ub2f9\uc2e0\uc758 \uc774\ub984",
+                                "title": "\uc608\uae08\uc790 \uc774\ub984",
+                                "type": "string"
+                            },
+                            "email_address": {
+                                "description": "\uc624\ub958\ub97c \ubcf4\ub0bc \uc774\uba54\uc77c \uc8fc\uc18c",
+                                "format": "email",
+                                "title": "\uc774\uba54\uc77c \uc8fc\uc18c",
+                                "type": "string"
+                            }
+                        },
+                        "title": "\uc608\uae08\uc790 \uc815\ubcf4",
+                        "type": "object"
+                    },
+                    "journal": {
+                        "properties": {
+                            "abbrev_title": {
+                                "examples": [
+                                    "JOPC"
+                                ],
+                                "title": "\uc57d\uc2dd \uc800\ub110 \uc81c\ubaa9",
+                                "type": "string"
+                            },
+                            "full_title": {
+                                "examples": [
+                                    "Journal of Psychoceramics"
+                                ],
+                                "title": "\uc800\ub110 \uc81c\ubaa9",
+                                "type": "string"
+                            },
+                            "issns": {
+                                "$ref": "#/definitions/issn_section"
+                            },
+                            "issue": {
+                                "title": "\ubc1c\ud589\ubb3c",
+                                "type": "number"
+                            },
+                            "publication_date": {
+                                "format": "date",
+                                "title": "\ubc1c\ud589\uc77c",
+                                "type": "string"
+                            },
+                            "volume": {
+                                "title": "\uc74c\ub7c9",
+                                "type": "number"
+                            }
+                        },
+                        "title": "\uc800\ub110 \uc815\ubcf4",
+                        "type": "object"
+                    }
+                },
+                "title": "Crossref \uae30\uc0ac \uc785\uae08",
+                "type": "object"
+            },
+            "fileName": "translated_kr.json"
+        },
+        "pl": {
+            "data": {
+                "definitions": {
+                    "article_number": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "number": {
+                                "title": "Numer",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "number"
+                        ],
+                        "title": "Numer artyku\u0142u",
+                        "type": "object"
+                    },
+                    "cc_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "cc_url": {
+                                "defualt": "https://creativecommons.org/licenses/by/4.0/",
+                                "description": "Adres URL licencji Creative Commons",
+                                "enum": [
+                                    "https://creativecommons.org/licenses/by/4.0/",
+                                    "https://creativecommons.org/licenses/by-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nd/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                                ],
+                                "title": "URL licencji Creative Commons",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "cc_url"
+                        ],
+                        "title": "Licencja Creative Commons",
+                        "type": "object"
+                    },
+                    "doi_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "DOI": {
+                                "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "DOI"
+                        ],
+                        "title": "Tylko odniesienie DOI",
+                        "type": "object"
+                    },
+                    "issn_section": {
+                        "description": "online i drukuj numery ISSN",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/online_issn"
+                                },
+                                {
+                                    "$ref": "#/definitions/print_issn"
+                                }
+                            ]
+                        },
+                        "maxItems": 2,
+                        "minItems": 1,
+                        "title": "ISSN",
+                        "type": "array"
+                    },
+                    "lic_qualifiers": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "jav": {
+                                "default": "Version of Record",
+                                "enum": [
+                                    "Accepted Manuscript",
+                                    "Version of Record"
+                                ],
+                                "title": "Wersja JAV",
+                                "type": "string"
+                            },
+                            "start_date": {
+                                "description": "Data wej\u015bcia w \u017cycie licencji (zwykle taka sama jak data publikacji)",
+                                "format": "date",
+                                "title": "Data rozpocz\u0119cia",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "start_date",
+                            "jav"
+                        ],
+                        "title": "",
+                        "type": "object"
+                    },
+                    "license_ref": {
+                        "description": "Informacje o licencji dla AM, VOR",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/cc_license"
+                                },
+                                {
+                                    "$ref": "#/definitions/other_license"
+                                }
+                            ]
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "title": "Informacje o licencji",
+                        "type": "array"
+                    },
+                    "online_issn": {
+                        "description": "ISSN dla wersji online",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "eISSN",
+                        "type": "string"
+                    },
+                    "other_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "other_url": {
+                                "default": "https://example.com/license",
+                                "description": "Adres URL wskazuj\u0105cy o\u015bwiadczenie o prawach autorskich lub warunki korzystania z us\u0142ugi",
+                                "format": "uri",
+                                "title": "URL licencji",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "other_url"
+                        ],
+                        "title": "Inna licencja",
+                        "type": "object"
+                    },
+                    "page_span": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "first_page": {
+                                "title": "Pierwsza strona",
+                                "type": "number"
+                            },
+                            "last_page": {
+                                "title": "Ostatnia strona",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "first_page",
+                            "last_page"
+                        ],
+                        "title": "Rozpi\u0119to\u015b\u0107 stron",
+                        "type": "object"
+                    },
+                    "print_issn": {
+                        "description": "ISSN dla wersji drukowanej",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "ISSN",
+                        "type": "string"
+                    },
+                    "structured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "author": {
+                                "type": "string"
+                            },
+                            "first_page": {
+                                "type": "number"
+                            },
+                            "journal_title": {
+                                "type": "string"
+                            },
+                            "year": {
+                                "pattern": "^[1-9][0-9][0-9][0-9]$",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "journal_title",
+                            "author",
+                            "year"
+                        ],
+                        "title": "Strukturyzowane odniesienie",
+                        "type": "object"
+                    },
+                    "unstructured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "reference": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "reference"
+                        ],
+                        "title": "Niestrukturalne odniesienie",
+                        "type": "object"
+                    }
+                },
+                "properties": {
+                    "articles": {
+                        "items": {
+                            "properties": {
+                                "abstract": {
+                                    "description": "wprowad\u017a streszczenie JAT",
+                                    "title": "Abstrakcyjny",
+                                    "type": "string"
+                                },
+                                "article_location": {
+                                    "description": "wprowad\u017a zakres stron lub numer artyku\u0142u",
+                                    "items": {
+                                        "oneOf": [
+                                            {
+                                                "$ref": "#/definitions/page_span"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/article_number"
+                                            }
+                                        ]
+                                    },
+                                    "maxItems": 1,
+                                    "minItems": 1,
+                                    "title": "Lokalizacja artyku\u0142u",
+                                    "type": "array"
+                                },
+                                "contributors": {
+                                    "properties": {
+                                        "people": {
+                                            "items": {
+                                                "properties": {
+                                                    "-contributor_role": {
+                                                        "default": "author",
+                                                        "enum": [
+                                                            "author",
+                                                            "editor",
+                                                            "chair",
+                                                            "translator"
+                                                        ],
+                                                        "title": "Rola wsp\u00f3\u0142autora",
+                                                        "type": "string"
+                                                    },
+                                                    "-sequence": {
+                                                        "enum": [
+                                                            "first",
+                                                            "addtional"
+                                                        ],
+                                                        "title": "Sekwencja wsp\u00f3\u0142autor\u00f3w",
+                                                        "type": "string"
+                                                    },
+                                                    "ORCID": {
+                                                        "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))",
+                                                        "title": "ORCID",
+                                                        "type": "string"
+                                                    },
+                                                    "given_name": {
+                                                        "title": "Nadane imi\u0119",
+                                                        "type": "string"
+                                                    },
+                                                    "suffix": {
+                                                        "description": "",
+                                                        "title": "Przyrostek",
+                                                        "type": "string"
+                                                    },
+                                                    "surname": {
+                                                        "title": "Nazwisko",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "title": "Osoba",
+                                                "type": "object"
+                                            },
+                                            "title": "Ludzie",
+                                            "type": "array"
+                                        }
+                                    },
+                                    "title": "Wsp\u00f3\u0142tw\u00f3rcy",
+                                    "type": "object"
+                                },
+                                "license": {
+                                    "$ref": "#/definitions/license_ref"
+                                },
+                                "publication_date": {
+                                    "format": "date",
+                                    "title": "Data publikacji",
+                                    "type": "string"
+                                },
+                                "references": {
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/definitions/doi_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/unstructured_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/structured_ref"
+                                            }
+                                        ]
+                                    },
+                                    "minLength": 1,
+                                    "title": "Bibliografia",
+                                    "type": "array",
+                                    "uniqueItems": true
+                                },
+                                "resolution_information": {
+                                    "properties": {
+                                        "doi": {
+                                            "description": "DOI, kt\u00f3re chcesz przypisa\u0107 do tego artyku\u0142u",
+                                            "message": "You must enter a valid DOI",
+                                            "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                            "title": "DOI",
+                                            "type": "string"
+                                        },
+                                        "resource": {
+                                            "description": "URL, do kt\u00f3rego DOI powinien zosta\u0107 rozwi\u0105zany",
+                                            "format": "url",
+                                            "title": "URL rozdzielczo\u015bci",
+                                            "type": "string"
+                                        },
+                                        "similarity_check_url": {
+                                            "description": "Adres URL funkcji sprawdzania podobie\u0144stwa, aby uzyska\u0107 pe\u0142ny tekst",
+                                            "format": "url",
+                                            "title": "URL sprawdzania podobie\u0144stwa",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Informacje o rozdzielczo\u015bci",
+                                    "type": "object"
+                                },
+                                "titles": {
+                                    "items": {
+                                        "properties": {
+                                            "title_language": {
+                                                "default": "en",
+                                                "description": "Kod ISO j\u0119zyka, w kt\u00f3rym znajduje si\u0119 tekst tytu\u0142u",
+                                                "enum": [
+                                                    "en",
+                                                    "es",
+                                                    "pt"
+                                                ],
+                                                "title": "J\u0119zyk tytu\u0142u",
+                                                "type": "string"
+                                            },
+                                            "title_text": {
+                                                "description": "Tytu\u0142 artyku\u0142u w wybranym j\u0119zyku",
+                                                "title": "Tekst tytu\u0142u",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "tytu\u0142",
+                                        "type": "object"
+                                    },
+                                    "minItems": 1,
+                                    "title": "Tytu\u0142y",
+                                    "type": "array"
+                                }
+                            },
+                            "title": "Artyku\u0142 w czasopi\u015bmie",
+                            "type": "object"
+                        },
+                        "minItems": 1,
+                        "title": "Artyku\u0142y",
+                        "type": "array",
+                        "uniqueItems": true
+                    },
+                    "depositor": {
+                        "description": "Te informacje pozwalaj\u0105 nam na bie\u017c\u0105co informowa\u0107 Ci\u0119 o post\u0119pie wp\u0142aty",
+                        "properties": {
+                            "depositor_name": {
+                                "description": "Twoje imi\u0119",
+                                "title": "Nazwa wp\u0142acaj\u0105cego",
+                                "type": "string"
+                            },
+                            "email_address": {
+                                "description": "adres e-mail, na kt\u00f3ry maj\u0105 by\u0107 wysy\u0142ane b\u0142\u0119dy",
+                                "format": "email",
+                                "title": "Adres e-mail",
+                                "type": "string"
+                            }
+                        },
+                        "title": "Informacje o deponentach",
+                        "type": "object"
+                    },
+                    "journal": {
+                        "properties": {
+                            "abbrev_title": {
+                                "examples": [
+                                    "JOPC"
+                                ],
+                                "title": "Skr\u00f3cony tytu\u0142 czasopisma",
+                                "type": "string"
+                            },
+                            "full_title": {
+                                "examples": [
+                                    "Journal of Psychoceramics"
+                                ],
+                                "title": "Tytu\u0142 czasopisma",
+                                "type": "string"
+                            },
+                            "issns": {
+                                "$ref": "#/definitions/issn_section"
+                            },
+                            "issue": {
+                                "title": "Kwestia",
+                                "type": "number"
+                            },
+                            "publication_date": {
+                                "format": "date",
+                                "title": "Data publikacji",
+                                "type": "string"
+                            },
+                            "volume": {
+                                "title": "Tom",
+                                "type": "number"
+                            }
+                        },
+                        "title": "Informacje z dziennika",
+                        "type": "object"
+                    }
+                },
+                "title": "Depozyt artyku\u0142\u00f3w Crossref",
+                "type": "object"
+            },
+            "fileName": "translated_pl.json"
+        },
+        "pt-br": {
+            "data": {
+                "definitions": {
+                    "article_number": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "number": {
+                                "title": "N\u00famero",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "number"
+                        ],
+                        "title": "N\u00famero do artigo",
+                        "type": "object"
+                    },
+                    "cc_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "cc_url": {
+                                "defualt": "https://creativecommons.org/licenses/by/4.0/",
+                                "description": "O URL da licen\u00e7a Creative Commons",
+                                "enum": [
+                                    "https://creativecommons.org/licenses/by/4.0/",
+                                    "https://creativecommons.org/licenses/by-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nd/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                                ],
+                                "title": "URL da licen\u00e7a Creative Commons",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "cc_url"
+                        ],
+                        "title": "Licen\u00e7a Creative Comum",
+                        "type": "object"
+                    },
+                    "doi_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "DOI": {
+                                "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "DOI"
+                        ],
+                        "title": "Refer\u00eancia apenas DOI",
+                        "type": "object"
+                    },
+                    "issn_section": {
+                        "description": "ISSNs online e impressos",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/online_issn"
+                                },
+                                {
+                                    "$ref": "#/definitions/print_issn"
+                                }
+                            ]
+                        },
+                        "maxItems": 2,
+                        "minItems": 1,
+                        "title": "ISSNs",
+                        "type": "array"
+                    },
+                    "lic_qualifiers": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "jav": {
+                                "default": "Version of Record",
+                                "enum": [
+                                    "Accepted Manuscript",
+                                    "Version of Record"
+                                ],
+                                "title": "Vers\u00e3o JAV",
+                                "type": "string"
+                            },
+                            "start_date": {
+                                "description": "A data em que a licen\u00e7a entra em vigor (geralmente a mesma que a data de publica\u00e7\u00e3o)",
+                                "format": "date",
+                                "title": "Data de in\u00edcio",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "start_date",
+                            "jav"
+                        ],
+                        "title": "",
+                        "type": "object"
+                    },
+                    "license_ref": {
+                        "description": "Informa\u00e7\u00f5es de licen\u00e7a para AM, VOR",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/cc_license"
+                                },
+                                {
+                                    "$ref": "#/definitions/other_license"
+                                }
+                            ]
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "title": "Informa\u00e7\u00f5es de licen\u00e7a",
+                        "type": "array"
+                    },
+                    "online_issn": {
+                        "description": "ISSN para vers\u00e3o online",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "eISSN",
+                        "type": "string"
+                    },
+                    "other_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "other_url": {
+                                "default": "https://example.com/license",
+                                "description": "Um URL que aponta para uma declara\u00e7\u00e3o de direitos autorais ou termos e condi\u00e7\u00f5es",
+                                "format": "uri",
+                                "title": "URL da licen\u00e7a",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "other_url"
+                        ],
+                        "title": "Outra Licen\u00e7a",
+                        "type": "object"
+                    },
+                    "page_span": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "first_page": {
+                                "title": "Primeira p\u00e1gina",
+                                "type": "number"
+                            },
+                            "last_page": {
+                                "title": "\u00daltima p\u00e1gina",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "first_page",
+                            "last_page"
+                        ],
+                        "title": "Extens\u00e3o de p\u00e1gina",
+                        "type": "object"
+                    },
+                    "print_issn": {
+                        "description": "ISSN para vers\u00e3o impressa",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "ISSN",
+                        "type": "string"
+                    },
+                    "structured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "author": {
+                                "type": "string"
+                            },
+                            "first_page": {
+                                "type": "number"
+                            },
+                            "journal_title": {
+                                "type": "string"
+                            },
+                            "year": {
+                                "pattern": "^[1-9][0-9][0-9][0-9]$",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "journal_title",
+                            "author",
+                            "year"
+                        ],
+                        "title": "Refer\u00eancia estruturada",
+                        "type": "object"
+                    },
+                    "unstructured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "reference": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "reference"
+                        ],
+                        "title": "Refer\u00eancia n\u00e3o estruturada",
+                        "type": "object"
+                    }
+                },
+                "properties": {
+                    "articles": {
+                        "items": {
+                            "properties": {
+                                "abstract": {
+                                    "description": "insira um resumo JATs",
+                                    "title": "Resumo",
+                                    "type": "string"
+                                },
+                                "article_location": {
+                                    "description": "insira a extens\u00e3o da p\u00e1gina ou o n\u00famero do artigo",
+                                    "items": {
+                                        "oneOf": [
+                                            {
+                                                "$ref": "#/definitions/page_span"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/article_number"
+                                            }
+                                        ]
+                                    },
+                                    "maxItems": 1,
+                                    "minItems": 1,
+                                    "title": "Localiza\u00e7\u00e3o do artigo",
+                                    "type": "array"
+                                },
+                                "contributors": {
+                                    "properties": {
+                                        "people": {
+                                            "items": {
+                                                "properties": {
+                                                    "-contributor_role": {
+                                                        "default": "author",
+                                                        "enum": [
+                                                            "author",
+                                                            "editor",
+                                                            "chair",
+                                                            "translator"
+                                                        ],
+                                                        "title": "Fun\u00e7\u00e3o de contribuidor",
+                                                        "type": "string"
+                                                    },
+                                                    "-sequence": {
+                                                        "enum": [
+                                                            "first",
+                                                            "addtional"
+                                                        ],
+                                                        "title": "Sequ\u00eancia de contribuidor",
+                                                        "type": "string"
+                                                    },
+                                                    "ORCID": {
+                                                        "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))",
+                                                        "title": "ORCID",
+                                                        "type": "string"
+                                                    },
+                                                    "given_name": {
+                                                        "title": "Nome dado",
+                                                        "type": "string"
+                                                    },
+                                                    "suffix": {
+                                                        "description": "",
+                                                        "title": "Sufixo",
+                                                        "type": "string"
+                                                    },
+                                                    "surname": {
+                                                        "title": "Sobrenome",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "title": "Pessoa",
+                                                "type": "object"
+                                            },
+                                            "title": "Pessoas",
+                                            "type": "array"
+                                        }
+                                    },
+                                    "title": "Contribuidores",
+                                    "type": "object"
+                                },
+                                "license": {
+                                    "$ref": "#/definitions/license_ref"
+                                },
+                                "publication_date": {
+                                    "format": "date",
+                                    "title": "Data de publica\u00e7\u00e3o",
+                                    "type": "string"
+                                },
+                                "references": {
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/definitions/doi_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/unstructured_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/structured_ref"
+                                            }
+                                        ]
+                                    },
+                                    "minLength": 1,
+                                    "title": "Refer\u00eancias",
+                                    "type": "array",
+                                    "uniqueItems": true
+                                },
+                                "resolution_information": {
+                                    "properties": {
+                                        "doi": {
+                                            "description": "O DOI que voc\u00ea deseja atribuir a este artigo",
+                                            "message": "You must enter a valid DOI",
+                                            "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                            "title": "DOI",
+                                            "type": "string"
+                                        },
+                                        "resource": {
+                                            "description": "URL para o qual o DOI deve resolver",
+                                            "format": "url",
+                                            "title": "URL de resolu\u00e7\u00e3o",
+                                            "type": "string"
+                                        },
+                                        "similarity_check_url": {
+                                            "description": "URL para verifica\u00e7\u00e3o de similaridade para obter o texto completo",
+                                            "format": "url",
+                                            "title": "URL de verifica\u00e7\u00e3o de similaridade",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Informa\u00e7\u00e3o de Resolu\u00e7\u00e3o",
+                                    "type": "object"
+                                },
+                                "titles": {
+                                    "items": {
+                                        "properties": {
+                                            "title_language": {
+                                                "default": "en",
+                                                "description": "O c\u00f3digo ISO para o idioma do texto do t\u00edtulo",
+                                                "enum": [
+                                                    "en",
+                                                    "es",
+                                                    "pt"
+                                                ],
+                                                "title": "L\u00edngua do t\u00edtulo",
+                                                "type": "string"
+                                            },
+                                            "title_text": {
+                                                "description": "O t\u00edtulo do artigo no idioma selecionado",
+                                                "title": "Texto do t\u00edtulo",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "t\u00edtulo",
+                                        "type": "object"
+                                    },
+                                    "minItems": 1,
+                                    "title": "T\u00edtulos",
+                                    "type": "array"
+                                }
+                            },
+                            "title": "Artigo de jornal",
+                            "type": "object"
+                        },
+                        "minItems": 1,
+                        "title": "Artigos",
+                        "type": "array",
+                        "uniqueItems": true
+                    },
+                    "depositor": {
+                        "description": "Essas informa\u00e7\u00f5es nos permitem atualiz\u00e1-lo sobre o andamento do dep\u00f3sito",
+                        "properties": {
+                            "depositor_name": {
+                                "description": "seu nome",
+                                "title": "Nome do depositante",
+                                "type": "string"
+                            },
+                            "email_address": {
+                                "description": "endere\u00e7o de e-mail para o qual enviar erros",
+                                "format": "email",
+                                "title": "Endere\u00e7o de email",
+                                "type": "string"
+                            }
+                        },
+                        "title": "Informa\u00e7\u00e3o do depositante",
+                        "type": "object"
+                    },
+                    "journal": {
+                        "properties": {
+                            "abbrev_title": {
+                                "examples": [
+                                    "JOPC"
+                                ],
+                                "title": "T\u00edtulo abreviado do peri\u00f3dico",
+                                "type": "string"
+                            },
+                            "full_title": {
+                                "examples": [
+                                    "Journal of Psychoceramics"
+                                ],
+                                "title": "T\u00edtulo do jornal",
+                                "type": "string"
+                            },
+                            "issns": {
+                                "$ref": "#/definitions/issn_section"
+                            },
+                            "issue": {
+                                "title": "Emitir",
+                                "type": "number"
+                            },
+                            "publication_date": {
+                                "format": "date",
+                                "title": "Data de publica\u00e7\u00e3o",
+                                "type": "string"
+                            },
+                            "volume": {
+                                "title": "Volume",
+                                "type": "number"
+                            }
+                        },
+                        "title": "Informa\u00e7\u00e3o do di\u00e1rio",
+                        "type": "object"
+                    }
+                },
+                "title": "Dep\u00f3sito de artigo Crossref",
+                "type": "object"
+            },
+            "fileName": "translated_pt-br.json"
+        },
+        "ru": {
+            "data": {
+                "definitions": {
+                    "article_number": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "number": {
+                                "title": "\u0427\u0438\u0441\u043b\u043e",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "number"
+                        ],
+                        "title": "\u041d\u043e\u043c\u0435\u0440 \u0441\u0442\u0430\u0442\u044c\u0438",
+                        "type": "object"
+                    },
+                    "cc_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "cc_url": {
+                                "defualt": "https://creativecommons.org/licenses/by/4.0/",
+                                "description": "URL-\u0430\u0434\u0440\u0435\u0441 \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438 Creative Commons",
+                                "enum": [
+                                    "https://creativecommons.org/licenses/by/4.0/",
+                                    "https://creativecommons.org/licenses/by-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nd/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                                    "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                                ],
+                                "title": "URL \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438 Creative Commons",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "cc_url"
+                        ],
+                        "title": "Creative Common License",
+                        "type": "object"
+                    },
+                    "doi_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "DOI": {
+                                "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "DOI"
+                        ],
+                        "title": "\u0422\u043e\u043b\u044c\u043a\u043e \u0441\u0441\u044b\u043b\u043a\u0430 DOI",
+                        "type": "object"
+                    },
+                    "issn_section": {
+                        "description": "ISSN \u0432 \u0418\u043d\u0442\u0435\u0440\u043d\u0435\u0442\u0435 \u0438 \u0432 \u043f\u0435\u0447\u0430\u0442\u0438",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/online_issn"
+                                },
+                                {
+                                    "$ref": "#/definitions/print_issn"
+                                }
+                            ]
+                        },
+                        "maxItems": 2,
+                        "minItems": 1,
+                        "title": "ISSN",
+                        "type": "array"
+                    },
+                    "lic_qualifiers": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "jav": {
+                                "default": "Version of Record",
+                                "enum": [
+                                    "Accepted Manuscript",
+                                    "Version of Record"
+                                ],
+                                "title": "\u0412\u0435\u0440\u0441\u0438\u044f JAV",
+                                "type": "string"
+                            },
+                            "start_date": {
+                                "description": "\u0414\u0430\u0442\u0430 \u0432\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438 \u0432 \u0441\u0438\u043b\u0443 (\u043e\u0431\u044b\u0447\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0430\u0435\u0442 \u0441 \u0434\u0430\u0442\u043e\u0439 \u043f\u0443\u0431\u043b\u0438\u043a\u0430\u0446\u0438\u0438)",
+                                "format": "date",
+                                "title": "\u0414\u0430\u0442\u0430 \u043d\u0430\u0447\u0430\u043b\u0430",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "start_date",
+                            "jav"
+                        ],
+                        "title": "",
+                        "type": "object"
+                    },
+                    "license_ref": {
+                        "description": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438 \u0434\u043b\u044f AM, VOR",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/cc_license"
+                                },
+                                {
+                                    "$ref": "#/definitions/other_license"
+                                }
+                            ]
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "title": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438",
+                        "type": "array"
+                    },
+                    "online_issn": {
+                        "description": "ISSN \u0434\u043b\u044f \u043e\u043d\u043b\u0430\u0439\u043d-\u0432\u0435\u0440\u0441\u0438\u0438",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "eISSN",
+                        "type": "string"
+                    },
+                    "other_license": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "other_url": {
+                                "default": "https://example.com/license",
+                                "description": "URL-\u0430\u0434\u0440\u0435\u0441, \u0443\u043a\u0430\u0437\u044b\u0432\u0430\u044e\u0449\u0438\u0439 \u043d\u0430 \u0437\u0430\u044f\u0432\u043b\u0435\u043d\u0438\u0435 \u043e\u0431 \u0430\u0432\u0442\u043e\u0440\u0441\u043a\u0438\u0445 \u043f\u0440\u0430\u0432\u0430\u0445 \u0438\u043b\u0438 \u0443\u0441\u043b\u043e\u0432\u0438\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u044f.",
+                                "format": "uri",
+                                "title": "URL \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438",
+                                "type": "string"
+                            },
+                            "qualifiers": {
+                                "$ref": "#/definitions/lic_qualifiers"
+                            }
+                        },
+                        "required": [
+                            "other_url"
+                        ],
+                        "title": "\u0414\u0440\u0443\u0433\u0430\u044f \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u044f",
+                        "type": "object"
+                    },
+                    "page_span": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "first_page": {
+                                "title": "\u041f\u0435\u0440\u0432\u0430\u044f \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0430",
+                                "type": "number"
+                            },
+                            "last_page": {
+                                "title": "\u041f\u043e\u0441\u043b\u0435\u0434\u043d\u044f\u044f \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0430",
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "first_page",
+                            "last_page"
+                        ],
+                        "title": "\u0420\u0430\u0437\u043c\u0430\u0445 \u0441\u0442\u0440\u0430\u043d\u0438\u0446",
+                        "type": "object"
+                    },
+                    "print_issn": {
+                        "description": "ISSN \u0434\u043b\u044f \u043f\u0435\u0447\u0430\u0442\u043d\u043e\u0439 \u0432\u0435\u0440\u0441\u0438\u0438",
+                        "pattern": "[\\S]{4}\\-[\\S]{4}",
+                        "title": "ISSN",
+                        "type": "string"
+                    },
+                    "structured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "author": {
+                                "type": "string"
+                            },
+                            "first_page": {
+                                "type": "number"
+                            },
+                            "journal_title": {
+                                "type": "string"
+                            },
+                            "year": {
+                                "pattern": "^[1-9][0-9][0-9][0-9]$",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "journal_title",
+                            "author",
+                            "year"
+                        ],
+                        "title": "\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u0441\u0441\u044b\u043b\u043a\u0430",
+                        "type": "object"
+                    },
+                    "unstructured_ref": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "reference": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "reference"
+                        ],
+                        "title": "\u041d\u0435\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u0441\u0441\u044b\u043b\u043a\u0430",
+                        "type": "object"
+                    }
+                },
+                "properties": {
+                    "articles": {
+                        "items": {
+                            "properties": {
+                                "abstract": {
+                                    "description": "\u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u0430\u043d\u043d\u043e\u0442\u0430\u0446\u0438\u044e JAT",
+                                    "title": "\u0410\u0431\u0441\u0442\u0440\u0430\u043a\u0442\u043d\u044b\u0439",
+                                    "type": "string"
+                                },
+                                "article_location": {
+                                    "description": "\u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u043b\u0438\u0431\u043e \u0434\u0438\u0430\u043f\u0430\u0437\u043e\u043d \u0441\u0442\u0440\u0430\u043d\u0438\u0446, \u043b\u0438\u0431\u043e \u043d\u043e\u043c\u0435\u0440 \u0441\u0442\u0430\u0442\u044c\u0438",
+                                    "items": {
+                                        "oneOf": [
+                                            {
+                                                "$ref": "#/definitions/page_span"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/article_number"
+                                            }
+                                        ]
+                                    },
+                                    "maxItems": 1,
+                                    "minItems": 1,
+                                    "title": "\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u0441\u0442\u0430\u0442\u044c\u0438",
+                                    "type": "array"
+                                },
+                                "contributors": {
+                                    "properties": {
+                                        "people": {
+                                            "items": {
+                                                "properties": {
+                                                    "-contributor_role": {
+                                                        "default": "author",
+                                                        "enum": [
+                                                            "author",
+                                                            "editor",
+                                                            "chair",
+                                                            "translator"
+                                                        ],
+                                                        "title": "\u0420\u043e\u043b\u044c \u0443\u0447\u0430\u0441\u0442\u043d\u0438\u043a\u0430",
+                                                        "type": "string"
+                                                    },
+                                                    "-sequence": {
+                                                        "enum": [
+                                                            "first",
+                                                            "addtional"
+                                                        ],
+                                                        "title": "\u041f\u043e\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c \u0430\u0432\u0442\u043e\u0440\u043e\u0432",
+                                                        "type": "string"
+                                                    },
+                                                    "ORCID": {
+                                                        "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))",
+                                                        "title": "ORCID",
+                                                        "type": "string"
+                                                    },
+                                                    "given_name": {
+                                                        "title": "\u0421\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0435 \u0438\u043c\u044f",
+                                                        "type": "string"
+                                                    },
+                                                    "suffix": {
+                                                        "description": "",
+                                                        "title": "\u0421\u0443\u0444\u0444\u0438\u043a\u0441",
+                                                        "type": "string"
+                                                    },
+                                                    "surname": {
+                                                        "title": "\u0424\u0430\u043c\u0438\u043b\u0438\u044f",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "title": "\u0427\u0435\u043b\u043e\u0432\u0435\u043a",
+                                                "type": "object"
+                                            },
+                                            "title": "\u041b\u044e\u0434\u0438",
+                                            "type": "array"
+                                        }
+                                    },
+                                    "title": "\u0410\u0432\u0442\u043e\u0440\u044b",
+                                    "type": "object"
+                                },
+                                "license": {
+                                    "$ref": "#/definitions/license_ref"
+                                },
+                                "publication_date": {
+                                    "format": "date",
+                                    "title": "\u0414\u0430\u0442\u0430 \u043f\u0443\u0431\u043b\u0438\u043a\u0430\u0446\u0438\u0438",
+                                    "type": "string"
+                                },
+                                "references": {
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/definitions/doi_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/unstructured_ref"
+                                            },
+                                            {
+                                                "$ref": "#/definitions/structured_ref"
+                                            }
+                                        ]
+                                    },
+                                    "minLength": 1,
+                                    "title": "\u0420\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0430\u0446\u0438\u0438",
+                                    "type": "array",
+                                    "uniqueItems": true
+                                },
+                                "resolution_information": {
+                                    "properties": {
+                                        "doi": {
+                                            "description": "DOI, \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0432\u044b \u0445\u043e\u0442\u0438\u0442\u0435 \u043f\u0440\u0438\u0441\u0432\u043e\u0438\u0442\u044c \u044d\u0442\u043e\u0439 \u0441\u0442\u0430\u0442\u044c\u0435",
+                                            "message": "You must enter a valid DOI",
+                                            "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                            "title": "DOI",
+                                            "type": "string"
+                                        },
+                                        "resource": {
+                                            "description": "URL-\u0430\u0434\u0440\u0435\u0441, \u043d\u0430 \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0434\u043e\u043b\u0436\u0435\u043d \u0440\u0430\u0437\u0440\u0435\u0448\u0438\u0442\u044c DOI",
+                                            "format": "url",
+                                            "title": "URL-\u0430\u0434\u0440\u0435\u0441 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043d\u0438\u044f",
+                                            "type": "string"
+                                        },
+                                        "similarity_check_url": {
+                                            "description": "URL \u0434\u043b\u044f \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u0441\u0445\u043e\u0434\u0441\u0442\u0432\u0430, \u0447\u0442\u043e\u0431\u044b \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043f\u043e\u043b\u043d\u044b\u0439 \u0442\u0435\u043a\u0441\u0442",
+                                            "format": "url",
+                                            "title": "URL \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u0441\u0445\u043e\u0434\u0441\u0442\u0432\u0430",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043d\u0438\u0438",
+                                    "type": "object"
+                                },
+                                "titles": {
+                                    "items": {
+                                        "properties": {
+                                            "title_language": {
+                                                "default": "en",
+                                                "description": "\u041a\u043e\u0434 ISO \u0434\u043b\u044f \u044f\u0437\u044b\u043a\u0430, \u043d\u0430 \u043a\u043e\u0442\u043e\u0440\u043e\u043c \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u0442\u0435\u043a\u0441\u0442 \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430.",
+                                                "enum": [
+                                                    "en",
+                                                    "es",
+                                                    "pt"
+                                                ],
+                                                "title": "\u042f\u0437\u044b\u043a \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430",
+                                                "type": "string"
+                                            },
+                                            "title_text": {
+                                                "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0441\u0442\u0430\u0442\u044c\u0438 \u043d\u0430 \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u043e\u043c \u044f\u0437\u044b\u043a\u0435",
+                                                "title": "\u0422\u0435\u043a\u0441\u0442 \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "\u0437\u0430\u0433\u043b\u0430\u0432\u0438\u0435",
+                                        "type": "object"
+                                    },
+                                    "minItems": 1,
+                                    "title": "\u0422\u0438\u0442\u0443\u043b\u044b",
+                                    "type": "array"
+                                }
+                            },
+                            "title": "\u0416\u0443\u0440\u043d\u0430\u043b\u044c\u043d\u0430\u044f \u0441\u0442\u0430\u0442\u044c\u044f",
+                            "type": "object"
+                        },
+                        "minItems": 1,
+                        "title": "\u0421\u0442\u0430\u0442\u044c\u0438",
+                        "type": "array",
+                        "uniqueItems": true
+                    },
+                    "depositor": {
+                        "description": "\u042d\u0442\u0430 \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u043d\u0430\u043c \u0438\u043d\u0444\u043e\u0440\u043c\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432\u0430\u0441 \u043e \u0445\u043e\u0434\u0435 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u0430.",
+                        "properties": {
+                            "depositor_name": {
+                                "description": "\u0412\u0430\u0448\u0435 \u0438\u043c\u044f",
+                                "title": "\u0418\u043c\u044f \u0432\u043a\u043b\u0430\u0434\u0447\u0438\u043a\u0430",
+                                "type": "string"
+                            },
+                            "email_address": {
+                                "description": "\u0430\u0434\u0440\u0435\u0441 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u043e\u0439 \u043f\u043e\u0447\u0442\u044b \u0434\u043b\u044f \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0438 \u043e\u0448\u0438\u0431\u043e\u043a",
+                                "format": "email",
+                                "title": "\u0410\u0434\u0440\u0435\u0441 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u043e\u0439 \u043f\u043e\u0447\u0442\u044b",
+                                "type": "string"
+                            }
+                        },
+                        "title": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0432\u043a\u043b\u0430\u0434\u0447\u0438\u043a\u0435",
+                        "type": "object"
+                    },
+                    "journal": {
+                        "properties": {
+                            "abbrev_title": {
+                                "examples": [
+                                    "JOPC"
+                                ],
+                                "title": "\u0421\u043e\u043a\u0440\u0430\u0449\u0435\u043d\u043d\u043e\u0435 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0436\u0443\u0440\u043d\u0430\u043b\u0430",
+                                "type": "string"
+                            },
+                            "full_title": {
+                                "examples": [
+                                    "Journal of Psychoceramics"
+                                ],
+                                "title": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0436\u0443\u0440\u043d\u0430\u043b\u0430",
+                                "type": "string"
+                            },
+                            "issns": {
+                                "$ref": "#/definitions/issn_section"
+                            },
+                            "issue": {
+                                "title": "\u041f\u0440\u043e\u0431\u043b\u0435\u043c\u0430",
+                                "type": "number"
+                            },
+                            "publication_date": {
+                                "format": "date",
+                                "title": "\u0414\u0430\u0442\u0430 \u043f\u0443\u0431\u043b\u0438\u043a\u0430\u0446\u0438\u0438",
+                                "type": "string"
+                            },
+                            "volume": {
+                                "title": "\u041e\u0431\u044a\u0435\u043c",
+                                "type": "number"
+                            }
+                        },
+                        "title": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0436\u0443\u0440\u043d\u0430\u043b\u0435",
+                        "type": "object"
+                    }
+                },
+                "title": "\u0417\u0430\u043b\u043e\u0433 \u0441\u0442\u0430\u0442\u044c\u0438 Crossref",
+                "type": "object"
+            },
+            "fileName": "translated_ru.json"
+        }
+    }
+}

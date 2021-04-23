@@ -5,7 +5,9 @@ import "react-app-polyfill/ie11";
 import Form, { withTheme } from "@rjsf/core";
 import DemoFrame from "./DemoFrame";
 import { saveAs } from "file-saver";
-import * as Loadfile4DOM from 'loadfile4dom';
+import * as Loadfile4DOM from "loadfile4dom";
+import FileReaderInput from 'react-file-reader-input';
+import * as Manifest from './data/manifest.json';
 // deepEquals and shouldRender and isArguments are copied from rjsf-core. TODO: unify these utility functions.
 
 function isArguments(object) {
@@ -255,6 +257,29 @@ class Selector extends Component {
   }
 }
 
+function LocaleSelector({ locale, locales, select }) {
+  const schema = {
+    type: "string",
+    enum: Object.keys(locales),
+  };
+  const uiSchema = {
+    "ui:placeholder": "Select locale",
+  };
+  return (
+    <Form
+      className="form_rjsf_localeSelector"
+      idPrefix="rjsf_localeSelector"
+      schema={schema}
+      uiSchema={uiSchema}
+      formData={locale}
+      onChange={({ formData }) =>
+        formData && select(formData, locales)
+      }>
+      <div />
+    </Form>
+  );
+}
+
 function ThemeSelector({ theme, themes, select }) {
   const schema = {
     type: "string",
@@ -302,34 +327,68 @@ function SubthemeSelector({ subtheme, subthemes, select }) {
 }
 
 
-class ImportFromFileBodyComponent extends Component {
-  constructor () {
-    super();
-    this.state = {
-      fileReader: null
-    };
-  }
-
-  handleFileRead = (e) => {
+class ReactFileReader extends React.Component {
+  handleFileRead = e => {
     const content = this.fileReader.result;
     console.log(content);
     // … do something with the 'content' …
   };
 
-  handleFileChosen = (file) => {
-    this.fileReader = new FileReader();
+  handleFileChosen = file => {
+    this.fileReader = new ReactFileReader();
     this.fileReader.onloadend = this.handleFileRead;
     this.fileReader.readAsText(file);
   };
 
-  render () {
+  handleChange = (e, results) => {
+    results.forEach(result => {
+      const [e, file] = result;
+      // this.props.dispatch(uploadFile(e.target.result));
+      console.log(`Successfully uploaded ${file.name}!${e}`);
+      this.handleFileChosen(file);
+    });
+  }
+  render() {
     return (
-      <div className='upload-expense'>
+      <div>
+        <label htmlFor="my-file-input">Upload a File:</label>
+        <FileReaderInput as="text" id="my-file-input"
+                         onChange={this.handleChange}>
+          <button>Select a file!</button>
+        </FileReaderInput>
+      </div>
+    );
+  }
+}
+
+class ImportFromFileBodyComponent extends Component {
+  constructor() {
+    super();
+    this.state = {
+      fileReader: null,
+    };
+  }
+
+  handleFileRead = e => {
+    const content = this.fileReader.result;
+    console.log(content);
+    // … do something with the 'content' …
+  };
+
+  handleFileChosen = file => {
+    this.fileReader = new ReactFileReader();
+    this.fileReader.onloadend = this.handleFileRead;
+    this.fileReader.readAsText(file);
+  };
+
+  render() {
+    return (
+      <div className="upload-expense">
         <input
-          type='file'
-          id='file'
-          className='input-file'
-          accept='.csv'
+          type="file"
+          id="file"
+          className="input-file"
+          accept=".csv"
           onChange={e => this.handleFileChosen(e.target.files[0])}
         />
       </div>
@@ -410,9 +469,13 @@ class Playground extends Component {
     // set default theme
     const theme = "default";
     // initialize state with Simple data sample
-    const { schema, uiSchema, formData, validate } = samples.Simple;
+    const { uiSchema, formData, validate } = samples.Simple;
+    const { defaultLocale, locales } = Manifest;
+    const schema = locales[defaultLocale].data;
     this.state = {
       form: false,
+      defaultLocale,
+      locales,
       schema,
       uiSchema,
       formData,
@@ -485,6 +548,23 @@ class Playground extends Component {
   onExtraErrorsEdited = extraErrors =>
     this.setState({ extraErrors, shareURL: null });
 
+  onLocaleSelected = (
+    locale,
+    locales
+  ) => {
+    console.log(`Locale selected: ${locale}`);
+    const localisedSchema = locales[locale].data;
+    debugger;
+    if (!localisedSchema) {
+      console.warn(`No localised schema found for: ${locale}`)
+      return;
+    }
+    this.setState({
+      locale,
+      schema: localisedSchema
+    });
+  };
+
   onThemeSelected = (
     theme,
     { subthemes, stylesheet, theme: themeObj } = {}
@@ -539,13 +619,15 @@ class Playground extends Component {
     }
   };
 
+
+
   onLoad = () => {
     console.log("Load clicked...");
     const lf4d = new Loadfile4DOM();
     const options = {
-      "debug": false // if true, it will show the hidden <input type="file" ...> loaders in DOM
+      debug: false, // if true, it will show the hidden <input type="file" ...> loaders in DOM
     };
-    lf4d.init(document,options);
+    lf4d.init(document, options);
     //-----------------------------------------------
     //----- Create a new Loader "txtfile" -----------
     //-----------------------------------------------
@@ -553,25 +635,37 @@ class Playground extends Component {
     //var txtfile = lf4d.get_loader_options("mytxtfile","text");
 
     // if arbitray files are allowed use type="all"
-    const txtfile = lf4d.get_loader_options("mytxtfile","text");
+    const txtfile = lf4d.get_loader_options("mytxtfile", "text");
     // Define what to do with the loaded data
     txtfile.returntype = "file"; // data contains the file
-    console.log("txtfile: "+JSON.stringify(txtfile));
-    txtfile.onload = function (data,err) {
+    console.log("txtfile: " + JSON.stringify(txtfile));
+    const onLoadCallback = (data, err) => {
       if (err) {
         // do something on error, perr contains error message
         console.error(err);
-        alert("ERROR: "+err);
+        alert("ERROR: " + err);
       } else {
         // do something with the file content in data e.g. store  in a HTML textarea (e.g. <textarea id="mytextarea" ...>
         console.log("CALL: txtfile.onload()");
         console.log(data);
-        document.getElementById("mytextarea").value = data;
+        const parsedCode = JSON.parse(data);
+        console.log(parsedCode);
+        this.setState({
+          schema: parsedCode.schema,
+          uiSchema: parsedCode.uiSchema,
+          formData: parsedCode.formData
+        });
+        // this.onSchemaEdited(parsedCode.schema);
+        // document.getElementById("mytextarea").value = data;
       }
+      return data;
     };
+
+    txtfile.onload = onLoadCallback;
+
     // create the loader txtfile
     lf4d.create_load_dialog(txtfile);
-    lf4d.open_dialog('mytxtfile');
+    lf4d.open_dialog("mytxtfile");
   };
 
   onSave = () => {
@@ -603,6 +697,8 @@ class Playground extends Component {
       schema,
       uiSchema,
       formData,
+      locale,
+      locales,
       extraErrors,
       liveSettings,
       validate,
@@ -645,6 +741,11 @@ class Playground extends Component {
               </Form>
             </div>
             <div className="col-sm-2">
+              <LocaleSelector
+                locales={locales}
+                locale={locale}
+                select={this.onLocaleSelected}
+              />
               <ThemeSelector
                 themes={themes}
                 theme={theme}
@@ -660,7 +761,8 @@ class Playground extends Component {
               <CopyLink shareURL={this.state.shareURL} onShare={this.onShare} />
               <SaveLink onSave={this.onSave} />
               <LoadLink onLoad={this.onLoad} />
-              <ImportFromFileBodyComponent />
+              {/*<ImportFromFileBodyComponent />*/}
+              {/*<ReactFileReader/>*/}
             </div>
           </div>
         </div>

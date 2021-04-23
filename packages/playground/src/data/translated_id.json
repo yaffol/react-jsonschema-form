@@ -1,0 +1,432 @@
+{
+    "title": "Setoran artikel Crossref",
+    "type": "object",
+    "definitions": {
+        "doi_ref": {
+            "title": "DOI Only Reference",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "DOI": {
+                    "type": "string",
+                    "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+"
+                }
+            },
+            "required": [
+                "DOI"
+            ]
+        },
+        "unstructured_ref": {
+            "title": "Referensi tidak terstruktur",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "reference": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "reference"
+            ]
+        },
+        "structured_ref": {
+            "title": "Referensi terstruktur",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "journal_title": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "first_page": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9][0-9][0-9]$"
+                }
+            },
+            "required": [
+                "journal_title",
+                "author",
+                "year"
+            ]
+        },
+        "page_span": {
+            "title": "Rentang halaman",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "first_page": {
+                    "title": "Halaman pertama",
+                    "type": "number"
+                },
+                "last_page": {
+                    "title": "Halaman terakhir",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "first_page",
+                "last_page"
+            ]
+        },
+        "article_number": {
+            "title": "Nomor artikel",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "number": {
+                    "title": "Jumlah",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "number"
+            ]
+        },
+        "online_issn": {
+            "title": "eISSN",
+            "description": "ISSN untuk versi online",
+            "type": "string",
+            "pattern": "[\\S]{4}\\-[\\S]{4}"
+        },
+        "print_issn": {
+            "title": "ISSN",
+            "description": "ISSN untuk versi cetak",
+            "type": "string",
+            "pattern": "[\\S]{4}\\-[\\S]{4}"
+        },
+        "issn_section": {
+            "title": "ISSN",
+            "description": "online dan mencetak ISSN",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/online_issn"
+                    },
+                    {
+                        "$ref": "#/definitions/print_issn"
+                    }
+                ]
+            }
+        },
+        "lic_qualifiers": {
+            "title": "",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "start_date": {
+                    "title": "Mulai tanggal",
+                    "description": "Tanggal berlakunya lisensi (biasanya sama dengan tanggal publikasi)",
+                    "type": "string",
+                    "format": "date"
+                },
+                "jav": {
+                    "title": "Versi JAV",
+                    "type": "string",
+                    "enum": [
+                        "Accepted Manuscript",
+                        "Version of Record"
+                    ],
+                    "default": "Version of Record"
+                }
+            },
+            "required": [
+                "start_date",
+                "jav"
+            ]
+        },
+        "cc_license": {
+            "title": "Lisensi Umum Kreatif",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "cc_url": {
+                    "title": "Url lisensi Creative Commons",
+                    "description": "URL lisensi Creative Commons",
+                    "type": "string",
+                    "enum": [
+                        "https://creativecommons.org/licenses/by/4.0/",
+                        "https://creativecommons.org/licenses/by-sa/4.0/",
+                        "https://creativecommons.org/licenses/by-nd/4.0/",
+                        "https://creativecommons.org/licenses/by-nc/4.0/",
+                        "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                        "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                    ],
+                    "defualt": "https://creativecommons.org/licenses/by/4.0/"
+                },
+                "qualifiers": {
+                    "$ref": "#/definitions/lic_qualifiers"
+                }
+            },
+            "required": [
+                "cc_url"
+            ]
+        },
+        "other_license": {
+            "title": "Lisensi Lainnya",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "other_url": {
+                    "title": "URL lisensi",
+                    "description": "URL yang mengarah ke pernyataan hak cipta atau syarat & ketentuan",
+                    "type": "string",
+                    "format": "uri",
+                    "default": "https://example.com/license"
+                },
+                "qualifiers": {
+                    "$ref": "#/definitions/lic_qualifiers"
+                }
+            },
+            "required": [
+                "other_url"
+            ]
+        },
+        "license_ref": {
+            "title": "Informasi lisensi",
+            "description": "Informasi lisensi untuk AM, VOR",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 10,
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/cc_license"
+                    },
+                    {
+                        "$ref": "#/definitions/other_license"
+                    }
+                ]
+            }
+        }
+    },
+    "properties": {
+        "depositor": {
+            "title": "Informasi Penyimpan",
+            "description": "Informasi ini memungkinkan kami untuk memberi tahu Anda tentang kemajuan setoran",
+            "type": "object",
+            "properties": {
+                "depositor_name": {
+                    "title": "Nama deposan",
+                    "description": "namamu",
+                    "type": "string"
+                },
+                "email_address": {
+                    "type": "string",
+                    "title": "Alamat email",
+                    "description": "alamat email tujuan pengiriman kesalahan",
+                    "format": "email"
+                }
+            }
+        },
+        "journal": {
+            "title": "Informasi Jurnal",
+            "type": "object",
+            "properties": {
+                "full_title": {
+                    "title": "Judul jurnal",
+                    "type": "string",
+                    "examples": [
+                        "Journal of Psychoceramics"
+                    ]
+                },
+                "abbrev_title": {
+                    "title": "Judul jurnal yang disingkat",
+                    "type": "string",
+                    "examples": [
+                        "JOPC"
+                    ]
+                },
+                "volume": {
+                    "title": "Volume",
+                    "type": "number"
+                },
+                "issue": {
+                    "title": "Isu",
+                    "type": "number"
+                },
+                "publication_date": {
+                    "title": "Tanggal penerbitan",
+                    "type": "string",
+                    "format": "date"
+                },
+                "issns": {
+                    "$ref": "#/definitions/issn_section"
+                }
+            }
+        },
+        "articles": {
+            "title": "Artikel",
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "title": "Artikel Jurnal",
+                "type": "object",
+                "properties": {
+                    "titles": {
+                        "title": "Judul",
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "title": "judul",
+                            "type": "object",
+                            "properties": {
+                                "title_language": {
+                                    "title": "Bahasa judul",
+                                    "description": "Kode ISO untuk bahasa teks judul",
+                                    "type": "string",
+                                    "default": "en",
+                                    "enum": [
+                                        "en",
+                                        "es",
+                                        "pt"
+                                    ]
+                                },
+                                "title_text": {
+                                    "title": "Teks judul",
+                                    "description": "Judul artikel dalam bahasa yang dipilih",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "resolution_information": {
+                        "title": "Informasi Resolusi",
+                        "type": "object",
+                        "properties": {
+                            "doi": {
+                                "title": "DOI",
+                                "description": "DOI yang ingin Anda tetapkan untuk artikel ini",
+                                "type": "string",
+                                "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                "message": "You must enter a valid DOI"
+                            },
+                            "resource": {
+                                "title": "URL Resolusi",
+                                "description": "URL yang harus diselesaikan oleh DOI",
+                                "type": "string",
+                                "format": "url"
+                            },
+                            "similarity_check_url": {
+                                "title": "URL Periksa Kemiripan",
+                                "description": "URL untuk Similarity Check untuk mendapatkan teks lengkap",
+                                "type": "string",
+                                "format": "url"
+                            }
+                        }
+                    },
+                    "publication_date": {
+                        "title": "Tanggal penerbitan",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "article_location": {
+                        "title": "Lokasi artikel",
+                        "description": "masukkan rentang halaman atau nomor artikel",
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 1,
+                        "items": {
+                            "oneOf": [
+                                {
+                                    "$ref": "#/definitions/page_span"
+                                },
+                                {
+                                    "$ref": "#/definitions/article_number"
+                                }
+                            ]
+                        }
+                    },
+                    "abstract": {
+                        "title": "Abstrak",
+                        "description": "masukkan abstrak JAT",
+                        "type": "string"
+                    },
+                    "contributors": {
+                        "title": "Kontributor",
+                        "type": "object",
+                        "properties": {
+                            "people": {
+                                "title": "Orang-orang",
+                                "type": "array",
+                                "items": {
+                                    "title": "Orang",
+                                    "type": "object",
+                                    "properties": {
+                                        "-contributor_role": {
+                                            "title": "Peran kontributor",
+                                            "type": "string",
+                                            "enum": [
+                                                "author",
+                                                "editor",
+                                                "chair",
+                                                "translator"
+                                            ],
+                                            "default": "author"
+                                        },
+                                        "-sequence": {
+                                            "title": "Urutan kontributor",
+                                            "type": "string",
+                                            "enum": [
+                                                "first",
+                                                "addtional"
+                                            ]
+                                        },
+                                        "ORCID": {
+                                            "type": "string",
+                                            "title": "ORCID",
+                                            "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))"
+                                        },
+                                        "given_name": {
+                                            "title": "Nama pemberian",
+                                            "type": "string"
+                                        },
+                                        "surname": {
+                                            "title": "Nama keluarga",
+                                            "type": "string"
+                                        },
+                                        "suffix": {
+                                            "title": "Akhiran",
+                                            "description": "",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "license": {
+                        "$ref": "#/definitions/license_ref"
+                    },
+                    "references": {
+                        "title": "Referensi",
+                        "type": "array",
+                        "minLength": 1,
+                        "uniqueItems": true,
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/doi_ref"
+                                },
+                                {
+                                    "$ref": "#/definitions/unstructured_ref"
+                                },
+                                {
+                                    "$ref": "#/definitions/structured_ref"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
