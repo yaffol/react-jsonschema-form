@@ -565,7 +565,7 @@ class Playground extends Component {
       } else {
         // do something with the file content in data e.g. store  in a HTML textarea (e.g. <textarea id="mytextarea" ...>
         console.log("CALL: txtfile.onload()");
-        console.log(data)
+        console.log(data);
         document.getElementById("mytextarea").value = data;
       }
     };
@@ -660,7 +660,7 @@ class Playground extends Component {
               <CopyLink shareURL={this.state.shareURL} onShare={this.onShare} />
               <SaveLink onSave={this.onSave} />
               <LoadLink onLoad={this.onLoad} />
-              {/*<ImportFromFileBodyComponent />*/}
+              <ImportFromFileBodyComponent />
             </div>
           </div>
         </div>
