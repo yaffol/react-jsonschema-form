@@ -101,6 +101,7 @@ const toJson = val => JSON.stringify(val, null, 2);
 const liveSettingsSchema = {
   type: "object",
   properties: {
+    proMode: { type: "boolean", title: "PRO Mode" },
     validate: { type: "boolean", title: "Live validation" },
     disable: { type: "boolean", title: "Disable whole form" },
     omitExtraData: { type: "boolean", title: "Omit extra data" },
@@ -480,9 +481,11 @@ class Playground extends Component {
       uiSchema,
       formData,
       validate,
+      transformErrors: this.transformErrors,
       theme,
       subtheme: null,
       liveSettings: {
+        proMode: true,
         validate: false,
         disable: false,
         omitExtraData: false,
@@ -539,6 +542,13 @@ class Playground extends Component {
     );
   };
 
+  transformErrors = errors => {
+    if (errors){
+      console.log(errors);
+    }
+    return errors
+  };
+
   onSchemaEdited = schema => this.setState({ schema, shareURL: null });
 
   onUISchemaEdited = uiSchema => this.setState({ uiSchema, shareURL: null });
@@ -554,9 +564,9 @@ class Playground extends Component {
   ) => {
     console.log(`Locale selected: ${locale}`);
     const localisedSchema = locales[locale].data;
-    debugger;
+
     if (!localisedSchema) {
-      console.warn(`No localised schema found for: ${locale}`)
+      console.warn(`No localised schema found for: ${locale}`);
       return;
     }
     this.setState({
@@ -707,9 +717,9 @@ class Playground extends Component {
       FormComponent,
       ArrayFieldTemplate,
       ObjectFieldTemplate,
-      transformErrors,
+      transformErrors
     } = this.state;
-
+    console.log(transformErrors);
     const { themes } = this.props;
 
     let templateProps = {};
@@ -726,7 +736,7 @@ class Playground extends Component {
     return (
       <div className="container-fluid">
         <div className="page-header">
-          <h1>react-jsonschema-form</h1>
+          <h1>Crossref Form Runner</h1>
           <div className="row">
             <div className="col-sm-8">
               <Selector onSelected={this.load} />
@@ -766,7 +776,7 @@ class Playground extends Component {
             </div>
           </div>
         </div>
-        <div className="col-sm-7">
+        <div className={liveSettings.proMode ? "col-sm-7" : ""} style={liveSettings.proMode ? { display:'block' } : { display : 'none'} }>
           <Editor
             title="JSONSchema"
             code={toJson(schema)}
@@ -800,7 +810,8 @@ class Playground extends Component {
             </div>
           )}
         </div>
-        <div className="col-sm-5">
+        <div className={liveSettings.proMode ? "col-sm-5" : "col-sm-8"}
+             style={liveSettings.proMode ? {} : { float: "none", margin: "0 auto" }}>
           {this.state.form && (
             <DemoFrame
               head={
