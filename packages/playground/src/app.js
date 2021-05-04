@@ -468,7 +468,8 @@ class Playground extends Component {
     super(props);
 
     // set default theme
-    const theme = "default";
+    // const theme = "default";
+    const theme = "material-ui";
     // initialize state with Simple data sample
     const { uiSchema, formData, validate } = samples.Simple;
     const { defaultLocale, locales } = Manifest;
@@ -485,7 +486,7 @@ class Playground extends Component {
       theme,
       subtheme: null,
       liveSettings: {
-        proMode: true,
+        proMode: false,
         validate: false,
         disable: false,
         omitExtraData: false,
@@ -546,7 +547,7 @@ class Playground extends Component {
     if (errors){
       console.log(errors);
     }
-    return errors
+    return errors;
   };
 
   onSchemaEdited = schema => this.setState({ schema, shareURL: null });
@@ -776,7 +777,7 @@ class Playground extends Component {
             </div>
           </div>
         </div>
-        <div className={liveSettings.proMode ? "col-sm-7" : ""} style={liveSettings.proMode ? { display:'block' } : { display : 'none'} }>
+        <div className={liveSettings.proMode ? "col-sm-7" : ""} style={liveSettings.proMode ? { display:'block' } : { display : 'none' } }>
           <Editor
             title="JSONSchema"
             code={toJson(schema)}
@@ -810,7 +811,7 @@ class Playground extends Component {
             </div>
           )}
         </div>
-        <div className={liveSettings.proMode ? "col-sm-5" : "col-sm-8"}
+        <div className={liveSettings.proMode ? "col-sm-5" : "col-sm-6"}
              style={liveSettings.proMode ? {} : { float: "none", margin: "0 auto" }}>
           {this.state.form && (
             <DemoFrame
