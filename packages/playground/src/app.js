@@ -8,6 +8,7 @@ import { saveAs } from "file-saver";
 import * as Loadfile4DOM from "loadfile4dom";
 import FileReaderInput from 'react-file-reader-input';
 import * as Manifest from './data/manifest.json';
+import * as convert from 'xml-js';
 // deepEquals and shouldRender and isArguments are copied from rjsf-core. TODO: unify these utility functions.
 
 function isArguments(object) {
@@ -281,10 +282,10 @@ function TemplateSelector({ template, templates, locale, select }) {
   );  
 }
 
-function LocaleSelector({ locale, locales, templates, select }) {
+function LocaleSelector({ locale, locales, template, templates, select }) {
   const schema = {
     type: "string",
-    enum: Object.keys(locales),
+    enum: locales,
   };
   const uiSchema = {
     "ui:placeholder": "Select locale",
@@ -297,7 +298,7 @@ function LocaleSelector({ locale, locales, templates, select }) {
       uiSchema={uiSchema}
       formData={locale}
       onChange={({ formData }) =>
-        formData && select(formData, locales, templates)
+        formData && select(formData, locales, template, templates)
       }>
       <div />
     </Form>
@@ -496,12 +497,13 @@ class Playground extends Component {
     // initialize state with Simple data sample
     const { uiSchema, formData, validate } = samples.Simple;
     const { defaultLocale, locales, defaultTemplate, templates } = Manifest;
-    const schema = locales[defaultLocale].data;
+    const template = defaultTemplate;
+    const schema = templates[template]['locales'][defaultLocale].data;
     this.state = {
       form: false,
       defaultLocale,
       defaultTemplate,
-      template: defaultTemplate,
+      template,
       templates,
       locale: defaultLocale,
       locales,
@@ -610,10 +612,11 @@ class Playground extends Component {
   onLocaleSelected = (
     locale,
     locales,
+    template,
     templates
   ) => {
     console.log(`Locale selected: ${locale}`);
-    const localisedSchema = locales[locale].data;
+    const localisedSchema = templates[template]['locales'][locale].data;
     // debugger
     // const localisedSchema = templates['locales'][locale].data;
 
@@ -814,6 +817,7 @@ class Playground extends Component {
               <LocaleSelector
                 locales={locales}
                 locale={locale}
+                template={template}
                 templates={templates}
                 select={this.onLocaleSelected}
               />
