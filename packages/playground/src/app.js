@@ -421,6 +421,17 @@ class ImportFromFileBodyComponent extends Component {
   }
 }
 
+class SubmitLink extends Component {
+  render() {
+    const { onSubmit } = this.props;
+    return (
+      <button className="btn btn-default" type="button" onClick={onSubmit}>
+        Submit
+      </button>
+    );
+  }
+}
+
 class LoadLink extends Component {
   onLoadClick = event => {
     console.log("Load clicked...");
@@ -684,7 +695,15 @@ class Playground extends Component {
     }
   };
 
-
+  onSubmit = () => {
+    console.log("Submit clicked...");
+    const {
+      formData
+    } = this.state;
+    console.log(formData);
+    const xml = convert.js2xml(formData, { compact: true });
+    console.log(xml);
+  };
 
   onLoad = () => {
     console.log("Load clicked...");
@@ -836,6 +855,7 @@ class Playground extends Component {
               <CopyLink shareURL={this.state.shareURL} onShare={this.onShare} />
               <SaveLink onSave={this.onSave} />
               <LoadLink onLoad={this.onLoad} />
+              <SubmitLink onSubmit={this.onSubmit} />
               {/*<ImportFromFileBodyComponent />*/}
               {/*<ReactFileReader/>*/}
             </div>
