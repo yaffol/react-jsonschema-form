@@ -258,7 +258,30 @@ class Selector extends Component {
   }
 }
 
-function LocaleSelector({ locale, locales, select }) {
+function TemplateSelector({ template, templates, locale, select }) {
+  const schema = {
+    type: "string",
+    enum: Object.keys(templates),
+  };
+  const uiSchema = {
+    "ui:placeholder": "Select template",
+  };
+  return (
+    <Form
+      className="form_rjsf_templateSelector"
+      idPrefix="rjsf_templateSelector"
+      schema={schema}
+      uiSchema={uiSchema}
+      formData={template}
+      onChange={({ formData }) =>
+        formData && select(formData, templates, locale)
+      }>
+      <div />
+    </Form>
+  );  
+}
+
+function LocaleSelector({ locale, locales, templates, select }) {
   const schema = {
     type: "string",
     enum: Object.keys(locales),
@@ -274,7 +297,7 @@ function LocaleSelector({ locale, locales, select }) {
       uiSchema={uiSchema}
       formData={locale}
       onChange={({ formData }) =>
-        formData && select(formData, locales)
+        formData && select(formData, locales, templates)
       }>
       <div />
     </Form>
@@ -472,11 +495,15 @@ class Playground extends Component {
     const theme = "material-ui";
     // initialize state with Simple data sample
     const { uiSchema, formData, validate } = samples.Simple;
-    const { defaultLocale, locales } = Manifest;
+    const { defaultLocale, locales, defaultTemplate, templates } = Manifest;
     const schema = locales[defaultLocale].data;
     this.state = {
       form: false,
       defaultLocale,
+      defaultTemplate,
+      template: defaultTemplate,
+      templates,
+      locale: defaultLocale,
       locales,
       schema,
       uiSchema,
@@ -559,12 +586,36 @@ class Playground extends Component {
   onExtraErrorsEdited = extraErrors =>
     this.setState({ extraErrors, shareURL: null });
 
+  onTemplateSelected = (
+    template,
+    templates,
+    locale
+  ) => {
+    console.log(`Template selected: ${template}`);
+    const localisedSchema = templates[template]['locales'][locale].data;
+    // debugger
+    // const localisedSchema = templates['locales'][locale].data;
+
+    if (!localisedSchema) {
+      console.warn(`No localised schema found for: ${locale}`);
+      return;
+    }
+    this.setState({
+      locale,
+      template,
+      schema: localisedSchema
+    });
+  };
+
   onLocaleSelected = (
     locale,
-    locales
+    locales,
+    templates
   ) => {
     console.log(`Locale selected: ${locale}`);
     const localisedSchema = locales[locale].data;
+    // debugger
+    // const localisedSchema = templates['locales'][locale].data;
 
     if (!localisedSchema) {
       console.warn(`No localised schema found for: ${locale}`);
@@ -710,6 +761,8 @@ class Playground extends Component {
       formData,
       locale,
       locales,
+      template,
+      templates,
       extraErrors,
       liveSettings,
       validate,
@@ -752,9 +805,16 @@ class Playground extends Component {
               </Form>
             </div>
             <div className="col-sm-2">
+              <TemplateSelector
+                template={template}
+                templates={templates}
+                locale={locale}
+                select={this.onTemplateSelected} 
+              />
               <LocaleSelector
                 locales={locales}
                 locale={locale}
+                templates={templates}
                 select={this.onLocaleSelected}
               />
               <ThemeSelector

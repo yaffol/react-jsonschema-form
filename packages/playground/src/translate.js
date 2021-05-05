@@ -1,14 +1,15 @@
-process.env['GOOGLE_APPLICATION_CREDENTIALS'] = "/home/patrick/contracting/crossref/jsonschema/yaffol-react-jsonschema-form/GoogleCloudKey_form-runner_MyServiceAccount.json"
+process.env['GOOGLE_APPLICATION_CREDENTIALS'] = "/home/patrick/contracting/crossref/jsonschema/yaffol-react-jsonschema-form/GoogleCloudKey_form-runner_MyServiceAccount.json";
 // import * as json from './data/translations.json';
 // import { TranslationServiceClient } from '@google-cloud/translate';
 const fs = require('fs');
+const glob = require('glob');
 const yargs = require('yargs');
 const { JSONPath } = require('jsonpath-plus');
 const jsonpointer = require('jsonpointer');
-const json = require('./data/translations.json');
+const translations = require('./data/translations.json');
 const settings = require('./data/settings.json');
-const template = require('./data/grant_template_translated_en.json');
-
+const transFields = ['title', 'description'];
+const templateFiles = glob.sync('*_template.json',{ cwd:'./data' });
 /**
  * TODO(developer): Uncomment these variables before running the sample.
  */
@@ -41,13 +42,13 @@ const transateText = async function translateText(text = 'text to translate', ta
 
 const setTranslation = function setTranslation(key = '', trans = '', targetLocale = '', isMachine = true){
   if (!key || !trans || !targetLocale) {
-    throw `Invalid arguments: ${[...arguments]}`;
+    console.warn(`Invalid arguments: ${[...arguments]}`);
   }
-  json[key] = json[key] || {
+  translations[key] = translations[key] || {
     machine: {},
     human: {}
   };
-  json[key]['machine'][targetLocale] = json[key]['machine'][targetLocale] || trans;
+  translations[key]['machine'][targetLocale] = translations[key]['machine'][targetLocale] || trans;
 };
 
 const lookupText = async function lookupText(text='', targetLocale=''){
@@ -59,19 +60,34 @@ const lookupText = async function lookupText(text='', targetLocale=''){
         console.warn(`Invalid target locale: ${targetLocale}`);
         return text;
     }
+    if (targetLocale === settings.defaultLocale){
+      return text;
+    }
     try {
-      console.log(json.default[targetLocale].machine);
-      return json.default[targetLocale].human[text];
+      if (
+        typeof translations[text]['human'][targetLocale] === 'string'
+        && translations[text]['human'][targetLocale].length > 0
+        ){
+          return translations[text]['human'][targetLocale];
+        }
+        throw `Error looking up human translation`;
     }
     catch (error){
       console.log(`Error looking up human translation`);
     }
     try {
-      return json.default[targetLocale].machine[text];
+      if (
+        typeof translations[text]['machine'][targetLocale] === 'string'
+        && translations[text]['machine'][targetLocale].length > 0
+        ){
+          return translations[text]['machine'][targetLocale];
+        }
+        throw `Error looking up human translation`;
     }
     catch (error) {
       console.log(`Error looking up machine translation`);
       const trans = await transateText(text, targetLocale);
+      setTranslation(text, trans, targetLocale);
       return trans;
     }
 };
@@ -97,29 +113,37 @@ const main = async function forLoop() {
   .usage('Usage: $0 --file [string]')
   .demandOption('file')
   .argv;
-  const templateName = argv.file.match(/(.+)_template.json/)[1];
-  console.log(templateName[1])
-  console.log('Start');
-  const jspTitles = JSONPath( { 
-    path: '$..title', resultType: 'all', json: template
-  });
-  const translatedTemplate = {};
-  for (const locale of settings.locales) {
-    const localisedTemplate = JSON.parse(JSON.stringify(template));
-    for await (const item of jspTitles) {
-      const trans = await lookupText(item.value, locale);
-      console.log(trans);
-      jsonpointer.set(localisedTemplate, item.pointer, trans);
+  for (const templateFile of templateFiles) {
+    const template = require(`./data/${templateFile}`);
+    // const templateName = argv.file.match(/(.+)_template.json/)[1];
+    const templateName = templateFile.match(/(.+_template).json/)[1];
+    console.log(templateName[1]);
+    const translatedTemplate = {};
+    for (const locale of settings.locales) {
+      const localisedTemplate = JSON.parse(JSON.stringify(template));
+      for (const field of transFields) {
+        const jsonpathFields = JSONPath( { 
+          path: `$..${field}`, resultType: 'all', json: template
+        });
+        for await (const item of jsonpathFields) {
+          const trans = await lookupText(item.value, locale);
+          console.log(trans);
+          jsonpointer.set(localisedTemplate, item.pointer, trans);
+        }
+      }
+      translatedTemplate[locale] = localisedTemplate;
+      fs.writeFileSync(
+        `./data/${templateName}_translated_${locale}.json`,
+        JSON.stringify(localisedTemplate, null, 4)
+        );
     }
-    console.log(localisedTemplate);
-    translatedTemplate[locale] = localisedTemplate;
-    fs.writeFileSync(
-      `./data/${templateName}_${locale}.json`,
-      JSON.stringify(localisedTemplate, null, 4)
-      );
   }
 
-  console.log(translatedTemplate);
+  fs.writeFileSync(
+    './data/translations.json',
+    JSON.stringify(translations, null, 4)
+    );
+
 
   // for (const locale of settings.locales) {
   //   for (const text of titles.slice(0,2)) {
@@ -129,7 +153,7 @@ const main = async function forLoop() {
   // }
 
   console.log('End');
-  console.log(json);
+  console.log(translations);
 };
 
 main();

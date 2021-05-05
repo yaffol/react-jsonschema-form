@@ -28,7 +28,9 @@ for filePath in templateFiles:
         templateNames.append(name)
     except Exception as e:
         logger.warning(e)
-    
+
+tSchemas.update({'defaultTemplate': templateNames[0]})
+
 for templateName in templateNames:
     tSchemas['templates'][templateName] = {
         'locales': {}
