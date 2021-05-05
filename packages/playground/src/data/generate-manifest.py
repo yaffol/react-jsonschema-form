@@ -1,25 +1,63 @@
 #!/usr/bin/env python3
 
 import glob, os, json, re
+import logging
 
-# files = os.listdir('./')
-tFiles = glob.glob('translated_*.json')
-tSchemas = {'locales': {}, 'defaultLocale': 'en'}
+logger = logging.getLogger(__name__)
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
+files = os.listdir('./')
+templateFiles = glob.glob('*_template.json')
+tFiles = glob.glob('*_template_translated_*.json')
+tSchemas = {'templates': {}, 'locales': {}}
+templateNames = []
+
+with open('./settings.json') as settings_file:
+    settings = json.load(settings_file)
+
+tSchemas.update({'localesAvailable': settings['locales']})
+tSchemas.update({'defaultLocale': settings['defaultLocale']})
 
 print(json.dumps(tFiles))
 
-for filepath in tFiles:
-    localeSearch = re.search('translated_(.*)\.json', filepath)
+for filePath in templateFiles:
+    nameSearch = re.search('(.*)_template\.json', filePath)
     try:
-        locale = localeSearch.group(1)
+        name = nameSearch.group(1)
+        templateNames.append(name)
     except Exception as e:
         logger.warning(e)
-    with open(filepath) as json_file:
-        data = json.load(json_file)
-        tSchemas['locales'][locale] = {
-            'data': data,
-            'fileName': filepath
-        }
+    
+for templateName in templateNames:
+    tSchemas['templates'][templateName] = {
+        'locales': {}
+    }
+    for filepath in tFiles:
+        localeSearch = re.search(f"{templateName}_template_translated_(.*)\.json", filepath)
+        try:
+            locale = localeSearch.group(1)
+            with open(filepath) as json_file:
+                data = json.load(json_file)
+                tSchemas['templates'][templateName]['locales'][locale] = {
+                    'data': data,
+                    'fileName': filepath
+                }
+        except Exception as e:
+            logger.warning(e)
+
+for filepath in tFiles:
+    localeSearch = re.search('.*_translated_(.*)\.json', filepath)
+    try:
+        locale = localeSearch.group(1)
+        with open(filepath) as json_file:
+            data = json.load(json_file)
+            tSchemas['locales'][locale] = {
+                'data': data,
+                'fileName': filepath
+            }
+    except Exception as e:
+        logger.warning(e)
 
 json_out = json.dumps(tSchemas, indent=4, sort_keys=True)
 print(json_out)
