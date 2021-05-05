@@ -16,7 +16,7 @@ templateNames = []
 with open('./settings.json') as settings_file:
     settings = json.load(settings_file)
 
-tSchemas.update({'localesAvailable': settings['locales']})
+tSchemas.update({'locales': settings['locales']})
 tSchemas.update({'defaultLocale': settings['defaultLocale']})
 
 print(json.dumps(tFiles))
@@ -48,18 +48,18 @@ for templateName in templateNames:
         except Exception as e:
             logger.warning(e)
 
-for filepath in tFiles:
-    localeSearch = re.search('.*_translated_(.*)\.json', filepath)
-    try:
-        locale = localeSearch.group(1)
-        with open(filepath) as json_file:
-            data = json.load(json_file)
-            tSchemas['locales'][locale] = {
-                'data': data,
-                'fileName': filepath
-            }
-    except Exception as e:
-        logger.warning(e)
+# for filepath in tFiles:
+#     localeSearch = re.search('.*_translated_(.*)\.json', filepath)
+#     try:
+#         locale = localeSearch.group(1)
+#         with open(filepath) as json_file:
+#             data = json.load(json_file)
+#             tSchemas['locales'][locale] = {
+#                 'data': data,
+#                 'fileName': filepath
+#             }
+#     except Exception as e:
+#         logger.warning(e)
 
 json_out = json.dumps(tSchemas, indent=4, sort_keys=True)
 print(json_out)
