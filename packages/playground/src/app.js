@@ -737,7 +737,11 @@ class Playground extends Component {
         this.setState({
           schema: parsedCode.schema,
           uiSchema: parsedCode.uiSchema,
-          formData: parsedCode.formData
+          formData: parsedCode.formData,
+          locales: parsedCode.locales,
+          locale: parsedCode.locale,
+          templates: parsedCode.templates,
+          template: parsedCode.template
         });
         // this.onSchemaEdited(parsedCode.schema);
         // document.getElementById("mytextarea").value = data;
@@ -760,6 +764,10 @@ class Playground extends Component {
       liveSettings,
       errorSchema,
       theme,
+      locale,
+      locales,
+      template,
+      templates
     } = this.state;
     const payload = {
       formData,
@@ -768,6 +776,10 @@ class Playground extends Component {
       liveSettings,
       errorSchema,
       theme,
+      locale,
+      locales,
+      template,
+      templates
     };
     console.log(payload);
     const blob = new Blob([JSON.stringify(payload)], {
