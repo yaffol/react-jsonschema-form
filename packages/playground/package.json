@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
+    "@apidevtools/json-schema-ref-parser": "^9.0.7",
     "@babel/runtime-corejs3": "^7.11.2",
     "@fluentui/react": "^7.121.5",
     "@google-cloud/translate": "^6.2.0",
@@ -51,6 +52,7 @@
     "core-js": "^3.6.5",
     "dayjs": "^1.8.28",
     "file-saver": "^2.0.5",
+    "filestack-react": "^4.0.0",
     "glob": "^7.1.6",
     "json-schema-merge-allof": "^0.6.0",
     "jsonpath": "^1.1.1",

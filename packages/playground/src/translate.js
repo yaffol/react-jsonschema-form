@@ -6,10 +6,11 @@ const glob = require('glob');
 const yargs = require('yargs');
 const { JSONPath } = require('jsonpath-plus');
 const jsonpointer = require('jsonpointer');
+const $RefParser = require("@apidevtools/json-schema-ref-parser");
 const translations = require('./data/translations.json');
 const settings = require('./data/settings.json');
 const transFields = ['title', 'description'];
-const templateFiles = glob.sync('*_template.json',{ cwd:'./data' });
+
 /**
  * TODO(developer): Uncomment these variables before running the sample.
  */
@@ -18,6 +19,7 @@ const location = 'global';
 
 // Imports the Google Cloud Translation library
 const { TranslationServiceClient } = require('@google-cloud/translate');
+const { formatWithCursor } = require('prettier');
 
 // Instantiates a client
 const translationClient = new TranslationServiceClient();
@@ -108,15 +110,60 @@ async function translateTemplate(){
   // }
 }
 
-const main = async function forLoop() {
-  const argv = yargs
-  .usage('Usage: $0 --file [string]')
-  .demandOption('file')
+const getTemplateFiles = function(format = 'raw'){
+  switch (format){
+    case 'raw':
+      return glob.sync('*_template.json',{ cwd:'./data' });
+    case 'dereferenced':
+      return glob.sync('*_template_dereferenced.json',{ cwd:'./data' });
+  }
+};
+
+const getDerefencedTemplateFiles = function() {
+  return getTemplateFiles('dereferenced');
+};
+
+const main = async function() {
+  const argv = await yargs
+  .command('*', 'The default pipeline command', () => {}, async () => {
+    console.log('this is a command');
+    await dereference();
+    await translate();
+    // translate();
+  })
   .argv;
+};
+
+const dereference = async function() {
+  const templateFiles = getTemplateFiles();
+  debugger;
+  for (const templateFile of templateFiles) {
+    const template = require(`./data/${templateFile}`);
+    const templateDerefed = await $RefParser.dereference(template);
+    const templateName = templateFile.match(/(.+_template).json/)[1];
+    fs.writeFileSync(
+      `./data/${templateName}_dereferenced.json`,
+      JSON.stringify(templateDerefed, null, 4)
+      );
+  }
+};
+
+const genUISchema = function() {
+  const templateFiles = getDerefencedTemplateFiles();
+  
+};
+
+const translate = async function forLoop() {
+  // const argv = yargs
+  // .usage('Usage: $0 --file [string]')
+  // .demandOption('file')
+  // .argv;
+  const templateFiles = getTemplateFiles('dereferenced');
+  debugger;
   for (const templateFile of templateFiles) {
     const template = require(`./data/${templateFile}`);
     // const templateName = argv.file.match(/(.+)_template.json/)[1];
-    const templateName = templateFile.match(/(.+_template).json/)[1];
+    const templateName = templateFile.match(/(.+_template)_dereferenced.json/)[1];
     console.log(templateName[1]);
     const translatedTemplate = {};
     for (const locale of settings.locales) {

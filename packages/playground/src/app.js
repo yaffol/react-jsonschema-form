@@ -9,6 +9,10 @@ import * as Loadfile4DOM from "loadfile4dom";
 import FileReaderInput from 'react-file-reader-input';
 import * as Manifest from './data/manifest.json';
 import * as convert from 'xml-js';
+import { PickerOverlay } from 'filestack-react';
+
+const FILESTACK_API_KEY = 'AKNfh0y4GTtKCMFGBD4ACz';
+
 // deepEquals and shouldRender and isArguments are copied from rjsf-core. TODO: unify these utility functions.
 
 function isArguments(object) {
@@ -167,6 +171,58 @@ class GeoPosition extends Component {
   }
 }
 
+class XMLEditor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { valid: true, code: props.code };
+  }
+
+  UNSAFE_componentWillReceiveProps(props) {
+    this.setState({ valid: true, code: props.code });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.valid) {
+      return (
+        nextProps.code !== this.state.code
+      );
+    }
+    return false;
+  }
+
+  onCodeChange = code => {
+    try {
+      this.setState({ valid: true, code }, () =>
+        this.props.onChange(code)
+      );
+    } catch (err) {
+      this.setState({ valid: false, code });
+    }
+  };
+
+  render() {
+    const { title } = this.props;
+    const icon = this.state.valid ? "ok" : "remove";
+    const cls = this.state.valid ? "valid" : "invalid";
+    return (
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <span className={`${cls} glyphicon glyphicon-${icon}`} />
+          {" " + title}
+        </div>
+        <MonacoEditor
+          language="xml"
+          value={this.state.code}
+          theme="vs-light"
+          onChange={this.onCodeChange}
+          height={400}
+          options={monacoEditorOptions}
+        />
+      </div>
+    );
+  }
+}
+
 class Editor extends Component {
   constructor(props) {
     super(props);
@@ -240,6 +296,7 @@ class Selector extends Component {
   };
 
   render() {
+    return null;
     return (
       <ul className="nav nav-pills">
         {Object.keys(samples).map((label, i) => {
@@ -506,7 +563,9 @@ class Playground extends Component {
     // const theme = "default";
     const theme = "material-ui";
     // initialize state with Simple data sample
-    const { uiSchema, formData, validate } = samples.Simple;
+    // const { uiSchema, formData, validate } = samples.Simple;
+    const { uiSchema, validate } = samples.Simple;
+    const formData = {};
     const { defaultLocale, locales, defaultTemplate, templates } = Manifest;
     const template = defaultTemplate;
     const schema = templates[template]['locales'][defaultLocale].data;
@@ -701,8 +760,9 @@ class Playground extends Component {
       formData
     } = this.state;
     console.log(formData);
-    const xml = convert.js2xml(formData, { compact: true });
+    const xml = convert.js2xml(formData, { compact: true, spaces: 4 });
     console.log(xml);
+    alert(xml);
   };
 
   onLoad = () => {
@@ -868,6 +928,10 @@ class Playground extends Component {
               <SaveLink onSave={this.onSave} />
               <LoadLink onLoad={this.onLoad} />
               <SubmitLink onSubmit={this.onSubmit} />
+              <PickerOverlay
+                apikey={FILESTACK_API_KEY}
+                onSuccess={(res) => console.log(res)}
+              />
               {/*<ImportFromFileBodyComponent />*/}
               {/*<ReactFileReader/>*/}
             </div>
@@ -894,6 +958,12 @@ class Playground extends Component {
                 onChange={this.onFormDataEdited}
               />
             </div>
+          </div>
+          <div className="col-sm-12">
+            <XMLEditor
+              title="xml"
+              code={convert.js2xml(formData, { compact: true, spaces: 4 })}
+            />
           </div>
           {extraErrors && (
             <div className="row">
