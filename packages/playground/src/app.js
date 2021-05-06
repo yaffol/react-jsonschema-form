@@ -129,6 +129,43 @@ class GeoPosition extends Component {
 
   onChange(name) {
     return event => {
+     event.preventDefault();
+     return event.target.val;
+    };
+  }
+
+  render() {
+    const { lat, lon } = this.state;
+    return (
+      <div className="geo">
+        <h3>DOI Input</h3>
+        <p>
+          A DOI Input
+        </p>
+        <div className="row">
+          <div className="col-sm-6">
+            <label>DOI Input</label>
+            <input
+              className="form-control"
+              type="string"
+              value={lat}
+              onChange={this.onChange()}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class GeoPositionOrig extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { ...props.formData };
+  }
+
+  onChange(name) {
+    return event => {
       this.setState({ [name]: parseFloat(event.target.value) });
       setImmediate(() => this.props.onChange(this.state));
     };
@@ -564,7 +601,18 @@ class Playground extends Component {
     const theme = "material-ui";
     // initialize state with Simple data sample
     // const { uiSchema, formData, validate } = samples.Simple;
-    const { uiSchema, validate } = samples.Simple;
+    const { validate } = samples.Simple;
+    const uiSchema = {
+      "depositor": {
+        "depositor_name": {
+            "ui:widget": "password"
+          },
+          "email_address": {
+            "ui:widget": "doi",
+            "ui:placeholder": "doi"
+          }
+    }
+    }
     const formData = {};
     const { defaultLocale, locales, defaultTemplate, templates } = Manifest;
     const template = defaultTemplate;
@@ -928,10 +976,10 @@ class Playground extends Component {
               <SaveLink onSave={this.onSave} />
               <LoadLink onLoad={this.onLoad} />
               <SubmitLink onSubmit={this.onSubmit} />
-              <PickerOverlay
+              {/* <PickerOverlay
                 apikey={FILESTACK_API_KEY}
                 onSuccess={(res) => console.log(res)}
-              />
+              /> */}
               {/*<ImportFromFileBodyComponent />*/}
               {/*<ReactFileReader/>*/}
             </div>
