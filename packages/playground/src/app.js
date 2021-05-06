@@ -602,21 +602,11 @@ class Playground extends Component {
     // initialize state with Simple data sample
     // const { uiSchema, formData, validate } = samples.Simple;
     const { validate } = samples.Simple;
-    const uiSchema = {
-      "depositor": {
-        "depositor_name": {
-            "ui:widget": "password"
-          },
-          "email_address": {
-            "ui:widget": "doi",
-            "ui:placeholder": "doi"
-          }
-    }
-    }
     const formData = {};
     const { defaultLocale, locales, defaultTemplate, templates } = Manifest;
     const template = defaultTemplate;
     const schema = templates[template]['locales'][defaultLocale].data;
+    const uiSchema = templates[template]['uiSchema'];
     this.state = {
       form: false,
       defaultLocale,
@@ -713,6 +703,7 @@ class Playground extends Component {
   ) => {
     console.log(`Template selected: ${template}`);
     const localisedSchema = templates[template]['locales'][locale].data;
+    const uiSchema = templates[template]['uiSchema'];
     // debugger
     // const localisedSchema = templates['locales'][locale].data;
 
@@ -723,7 +714,8 @@ class Playground extends Component {
     this.setState({
       locale,
       template,
-      schema: localisedSchema
+      schema: localisedSchema,
+      uiSchema
     });
   };
 

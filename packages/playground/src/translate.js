@@ -136,7 +136,6 @@ const main = async function() {
 
 const dereference = async function() {
   const templateFiles = getTemplateFiles();
-  debugger;
   for (const templateFile of templateFiles) {
     const template = require(`./data/${templateFile}`);
     const templateDerefed = await $RefParser.dereference(template);
@@ -159,7 +158,6 @@ const translate = async function forLoop() {
   // .demandOption('file')
   // .argv;
   const templateFiles = getTemplateFiles('dereferenced');
-  debugger;
   for (const templateFile of templateFiles) {
     const template = require(`./data/${templateFile}`);
     // const templateName = argv.file.match(/(.+)_template.json/)[1];
