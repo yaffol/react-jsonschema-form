@@ -1,0 +1,11 @@
+{
+    "depositor": {
+      "depositor_name": {
+        "ui:widget": "password"
+      },
+      "email_address": {
+        "ui:widget": "doi",
+        "ui:placeholder": "doi"
+      }
+    }
+  }
