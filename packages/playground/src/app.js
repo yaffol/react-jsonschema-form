@@ -924,9 +924,9 @@ class Playground extends Component {
     return (
       <div className="container-fluid">
         <div className="page-header">
-          <h1>Crossref Form Runner</h1>
           <div className="row">
             <div className="col-sm-8">
+              <h1>Crossref Form Runner</h1>
               <Selector onSelected={this.load} />
             </div>
             <div className="col-sm-2">
