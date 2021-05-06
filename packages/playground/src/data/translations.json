@@ -1,0 +1,994 @@
+{
+    "Crossref grant deposits": {
+        "machine": {
+            "fr": "Dépôts de subventions Crossref",
+            "pt-br": "Depósitos de concessão Crossref",
+            "id": "Setoran hibah Crossref",
+            "ko": "Crossref 보조금 예금",
+            "ru": "Грантовые депозиты Crossref"
+        },
+        "human": {}
+    },
+    "Person": {
+        "machine": {
+            "fr": "Personne",
+            "pt-br": "Pessoa",
+            "id": "Orang",
+            "ko": "사람",
+            "ru": "Человек"
+        },
+        "human": {}
+    },
+    "Role": {
+        "machine": {
+            "fr": "Rôle",
+            "pt-br": "Função",
+            "id": "Wewenang",
+            "ko": "역할",
+            "ru": "Роль"
+        },
+        "human": {}
+    },
+    "ORCID identifier": {
+        "machine": {
+            "fr": "Identifiant ORCID",
+            "pt-br": "Identificador ORCID",
+            "id": "Pengenal ORCID",
+            "ko": "ORCID 식별자",
+            "ru": "Идентификатор ORCID"
+        },
+        "human": {}
+    },
+    "Affiliation": {
+        "machine": {
+            "fr": "Affiliation",
+            "pt-br": "Afiliação",
+            "id": "Afiliasi",
+            "ko": "입회",
+            "ru": "Принадлежность"
+        },
+        "human": {}
+    },
+    "Institution name": {
+        "machine": {
+            "fr": "Nom de l'institution",
+            "pt-br": "Nome da Instituição",
+            "id": "Nama Lembaga",
+            "ko": "기관 이름",
+            "ru": "Название учебного заведения"
+        },
+        "human": {}
+    },
+    "ROR identifier": {
+        "machine": {
+            "fr": "Identifiant ROR",
+            "pt-br": "Identificador ROR",
+            "id": "Pengenal ROR",
+            "ko": "ROR 식별자",
+            "ru": "Идентификатор ROR"
+        },
+        "human": {}
+    },
+    "Alternate name": {
+        "machine": {
+            "fr": "Nom alternatif",
+            "pt-br": "Nome alternativo",
+            "id": "nama alternatif, nama yang lain",
+            "ko": "대체 이름",
+            "ru": "Альтернативное имя"
+        },
+        "human": {}
+    },
+    "Family name": {
+        "machine": {
+            "fr": "Nom de famille",
+            "pt-br": "Sobrenome",
+            "id": "Nama keluarga",
+            "ko": "성",
+            "ru": "Фамилия"
+        },
+        "human": {}
+    },
+    "Given name": {
+        "machine": {
+            "fr": "Prénom",
+            "pt-br": "Nome dado",
+            "id": "Nama pemberian",
+            "ko": "이름",
+            "ru": "Собственное имя"
+        },
+        "human": {}
+    },
+    "Depositor Information": {
+        "machine": {
+            "fr": "Informations sur le déposant",
+            "pt-br": "Informação do depositante",
+            "id": "Informasi Penyimpan",
+            "ko": "예금자 정보",
+            "ru": "Информация о вкладчике"
+        },
+        "human": {}
+    },
+    "Depositor name": {
+        "machine": {
+            "fr": "Nom du déposant",
+            "pt-br": "Nome do depositante",
+            "id": "Nama deposan",
+            "ko": "예금자 이름",
+            "ru": "Имя вкладчика"
+        },
+        "human": {}
+    },
+    "Email address": {
+        "machine": {
+            "fr": "Adresse e-mail",
+            "pt-br": "Endereço de e-mail",
+            "id": "Alamat email",
+            "ko": "이메일 주소",
+            "ru": "Адрес электронной почты"
+        },
+        "human": {}
+    },
+    "Grants": {
+        "machine": {
+            "fr": "Subventions",
+            "pt-br": "Grants",
+            "id": "Hibah",
+            "ko": "보조금",
+            "ru": "Гранты"
+        },
+        "human": {}
+    },
+    "Award number": {
+        "machine": {
+            "fr": "Numéro de récompense",
+            "pt-br": "Número do prêmio",
+            "id": "Nomor penghargaan",
+            "ko": "보너스 번호",
+            "ru": "Номер награды"
+        },
+        "human": {}
+    },
+    "Award start date": {
+        "machine": {
+            "fr": "Date de début du prix",
+            "pt-br": "Data de início do prêmio",
+            "id": "Tanggal mulai penghargaan",
+            "ko": "보너스 시작일",
+            "ru": "Дата начала премии"
+        },
+        "human": {}
+    },
+    "DOI Resolution": {
+        "machine": {
+            "fr": "Résolution DOI",
+            "pt-br": "Resolução DOI",
+            "id": "Resolusi DOI",
+            "ko": "DOI 해상도",
+            "ru": "Разрешение DOI"
+        },
+        "human": {}
+    },
+    "DOI": {
+        "machine": {
+            "fr": "EST CE QUE JE",
+            "pt-br": "DOI",
+            "id": "DOI",
+            "ko": "DOI",
+            "ru": "DOI"
+        },
+        "human": {}
+    },
+    "Resource": {
+        "machine": {
+            "fr": "Ressource",
+            "pt-br": "Recurso",
+            "id": "Sumber",
+            "ko": "자원",
+            "ru": "Ресурс"
+        },
+        "human": {}
+    },
+    "Project": {
+        "machine": {
+            "fr": "Projet",
+            "pt-br": "Projeto",
+            "id": "Proyek",
+            "ko": "계획",
+            "ru": "Проект"
+        },
+        "human": {}
+    },
+    "Project title": {
+        "machine": {
+            "fr": "Titre du projet",
+            "pt-br": "Título do projeto",
+            "id": "Judul Proyek",
+            "ko": "프로젝트 제목",
+            "ru": "Название Проекта"
+        },
+        "human": {}
+    },
+    "Title text": {
+        "machine": {
+            "fr": "Texte du titre",
+            "pt-br": "Texto do título",
+            "id": "Teks judul",
+            "ko": "제목 텍스트",
+            "ru": "Текст заголовка"
+        },
+        "human": {}
+    },
+    "Title language": {
+        "machine": {
+            "fr": "Langue du titre",
+            "pt-br": "Língua do título",
+            "id": "Bahasa judul",
+            "ko": "제목 언어",
+            "ru": "Язык заголовка"
+        },
+        "human": {}
+    },
+    "Award dates": {
+        "machine": {
+            "fr": "Dates d'attribution",
+            "pt-br": "Datas de premiação",
+            "id": "Tanggal penghargaan",
+            "ko": "수상 날짜",
+            "ru": "Даты награждения"
+        },
+        "human": {}
+    },
+    "Start date": {
+        "machine": {
+            "fr": "Date de début",
+            "pt-br": "Data de início",
+            "id": "Mulai tanggal",
+            "ko": "시작일",
+            "ru": "Дата начала"
+        },
+        "human": {}
+    },
+    "End date": {
+        "machine": {
+            "fr": "Date de fin",
+            "pt-br": "Data final",
+            "id": "Tanggal akhir",
+            "ko": "종료일",
+            "ru": "Дата окончания"
+        },
+        "human": {}
+    },
+    "Award amount": {
+        "machine": {
+            "fr": "Montant du prix",
+            "pt-br": "Valor do prêmio",
+            "id": "Jumlah penghargaan",
+            "ko": "보너스 금액",
+            "ru": "Сумма вознаграждения"
+        },
+        "human": {}
+    },
+    "Amount": {
+        "machine": {
+            "fr": "Montant",
+            "pt-br": "Resultar",
+            "id": "Jumlah",
+            "ko": "양",
+            "ru": "Количество"
+        },
+        "human": {}
+    },
+    "Currency": {
+        "machine": {
+            "fr": "Devise",
+            "pt-br": "Moeda",
+            "id": "Mata uang",
+            "ko": "통화",
+            "ru": "Валюта"
+        },
+        "human": {}
+    },
+    "Description": {
+        "machine": {
+            "fr": "La description",
+            "pt-br": "Descrição",
+            "id": "Deskripsi",
+            "ko": "기술",
+            "ru": "Описание"
+        },
+        "human": {}
+    },
+    "Language": {
+        "machine": {
+            "fr": "Langue",
+            "pt-br": "Língua",
+            "id": "Bahasa",
+            "ko": "언어",
+            "ru": "Язык"
+        },
+        "human": {}
+    },
+    "Investigators": {
+        "machine": {
+            "fr": "Les enquêteurs",
+            "pt-br": "Investigadores",
+            "id": "Penyelidik",
+            "ko": "수사관",
+            "ru": "Следователи"
+        },
+        "human": {}
+    },
+    "Funding": {
+        "machine": {
+            "fr": "Financement",
+            "pt-br": "Financiamento",
+            "id": "Pendanaan",
+            "ko": "자금",
+            "ru": "Финансирование"
+        },
+        "human": {}
+    },
+    "Funder name": {
+        "machine": {
+            "fr": "Nom du bailleur de fonds",
+            "pt-br": "Nome do financiador",
+            "id": "Nama penyumbang",
+            "ko": "기금 자 이름",
+            "ru": "Имя спонсора"
+        },
+        "human": {}
+    },
+    "Funder ID": {
+        "machine": {
+            "fr": "ID du bailleur de fonds",
+            "pt-br": "ID do financiador",
+            "id": "ID Penyandang Dana",
+            "ko": "펀더 ID",
+            "ru": "ID спонсора"
+        },
+        "human": {}
+    },
+    "Funding scheme": {
+        "machine": {
+            "fr": "Schéma de financement",
+            "pt-br": "Esquema de financiamento",
+            "id": "Skema pendanaan",
+            "ko": "기금 계획",
+            "ru": "Схема финансирования"
+        },
+        "human": {}
+    },
+    "Funding type": {
+        "machine": {
+            "fr": "Type de financement",
+            "pt-br": "Tipo de Financiamento",
+            "id": "Jenis pendanaan",
+            "ko": "자금 유형",
+            "ru": "Тип финансирования"
+        },
+        "human": {}
+    },
+    "Funding percentage": {
+        "machine": {
+            "fr": "Pourcentage de financement",
+            "pt-br": "Porcentagem de financiamento",
+            "id": "Persentase pendanaan",
+            "ko": "자금 비율",
+            "ru": "Процент финансирования"
+        },
+        "human": {}
+    },
+    "This information allows us to update you on the progress of the deposit": {
+        "machine": {
+            "fr": "Ces informations nous permettent de vous tenir au courant de l'avancement du dépôt",
+            "pt-br": "Essas informações nos permitem atualizá-lo sobre o andamento do depósito",
+            "id": "Informasi ini memungkinkan kami untuk memberi tahu Anda tentang kemajuan setoran",
+            "ko": "이 정보를 통해 입금 진행 상황을 업데이트 할 수 있습니다.",
+            "ru": "Эта информация позволяет нам информировать вас о ходе депозита."
+        },
+        "human": {}
+    },
+    "your name": {
+        "machine": {
+            "fr": "votre nom",
+            "pt-br": "seu nome",
+            "id": "namamu",
+            "ko": "당신의 이름",
+            "ru": "твое имя"
+        },
+        "human": {}
+    },
+    "email address to send errors to": {
+        "machine": {
+            "fr": "adresse e-mail à laquelle envoyer les erreurs",
+            "pt-br": "endereço de e-mail para o qual enviar erros",
+            "id": "alamat email tujuan pengiriman kesalahan",
+            "ko": "오류를 보낼 이메일 주소",
+            "ru": "адрес электронной почты для отправки ошибок"
+        },
+        "human": {}
+    },
+    "The DOI to assign to this grant": {
+        "machine": {
+            "fr": "Le DOI à attribuer à cette subvention",
+            "pt-br": "O DOI para atribuir a esta concessão",
+            "id": "DOI yang akan diberikan untuk hibah ini",
+            "ko": "이 보조금에 할당 할 DOI",
+            "ru": "DOI для присвоения этому гранту"
+        },
+        "human": {}
+    },
+    "The URL the DOI should point to": {
+        "machine": {
+            "fr": "L'URL vers laquelle le DOI doit pointer",
+            "pt-br": "O URL para o qual o DOI deve apontar",
+            "id": "URL yang harus diarahkan oleh DOI",
+            "ko": "DOI가 가리켜 야하는 URL",
+            "ru": "URL-адрес, на который должен указывать DOI"
+        },
+        "human": {}
+    },
+    "[object Object]": {
+        "machine": {
+            "fr": "[objet Objet]",
+            "pt-br": "[objeto objeto]",
+            "id": "[Objek Objek]",
+            "ko": "[객체 객체]",
+            "ru": "[Объект Object]"
+        },
+        "human": {}
+    },
+    "Crossref article deposit": {
+        "machine": {
+            "fr": "Dépôt d'article Crossref",
+            "pt-br": "Depósito de artigo Crossref",
+            "id": "Setoran artikel Crossref",
+            "ko": "Crossref 기사 입금",
+            "ru": "Залог статьи Crossref"
+        },
+        "human": {
+            "fr": "Dépôt d'article Crossref *human*"
+        }
+    },
+    "DOI Only Reference": {
+        "machine": {
+            "fr": "Référence DOI uniquement",
+            "pt-br": "Referência apenas DOI",
+            "id": "DOI Only Reference",
+            "ko": "DOI 전용 참조",
+            "ru": "Только ссылка DOI"
+        },
+        "human": {}
+    },
+    "Unstructured reference": {
+        "machine": {
+            "fr": "Référence non structurée",
+            "pt-br": "Referência não estruturada",
+            "id": "Referensi tidak terstruktur",
+            "ko": "구조화되지 않은 참조",
+            "ru": "Неструктурированная ссылка"
+        },
+        "human": {}
+    },
+    "Structured reference": {
+        "machine": {
+            "fr": "Référence structurée",
+            "pt-br": "Referência estruturada",
+            "id": "Referensi terstruktur",
+            "ko": "구조화 된 참조",
+            "ru": "Структурированная ссылка"
+        },
+        "human": {}
+    },
+    "Page span": {
+        "machine": {
+            "fr": "Durée de la page",
+            "pt-br": "Extensão de página",
+            "id": "Rentang halaman",
+            "ko": "페이지 범위",
+            "ru": "Размах страниц"
+        },
+        "human": {}
+    },
+    "First page": {
+        "machine": {
+            "fr": "Première page",
+            "pt-br": "Primeira página",
+            "id": "Halaman pertama",
+            "ko": "첫 페이지",
+            "ru": "Первая страница"
+        },
+        "human": {}
+    },
+    "Last page": {
+        "machine": {
+            "fr": "Dernière page",
+            "pt-br": "Última página",
+            "id": "Halaman terakhir",
+            "ko": "마지막 페이지",
+            "ru": "Последняя страница"
+        },
+        "human": {}
+    },
+    "Article number": {
+        "machine": {
+            "fr": "Numéro de l'article",
+            "pt-br": "Número do artigo",
+            "id": "Nomor artikel",
+            "ko": "문서 번호",
+            "ru": "Номер статьи"
+        },
+        "human": {}
+    },
+    "Number": {
+        "machine": {
+            "fr": "Nombre",
+            "pt-br": "Número",
+            "id": "Jumlah",
+            "ko": "번호",
+            "ru": "Число"
+        },
+        "human": {}
+    },
+    "eISSN": {
+        "machine": {
+            "fr": "eISSN",
+            "pt-br": "eISSN",
+            "id": "eISSN",
+            "ko": "eISSN",
+            "ru": "eISSN"
+        },
+        "human": {}
+    },
+    "ISSN": {
+        "machine": {
+            "fr": "ISSN",
+            "pt-br": "ISSN",
+            "id": "ISSN",
+            "ko": "ISSN",
+            "ru": "ISSN"
+        },
+        "human": {}
+    },
+    "ISSNs": {
+        "machine": {
+            "fr": "ISSN",
+            "pt-br": "ISSNs",
+            "id": "ISSN",
+            "ko": "ISSN",
+            "ru": "ISSN"
+        },
+        "human": {}
+    },
+    "JAV version": {
+        "machine": {
+            "fr": "Version JAV",
+            "pt-br": "Versão JAV",
+            "id": "Versi JAV",
+            "ko": "JAV 버전",
+            "ru": "Версия JAV"
+        },
+        "human": {}
+    },
+    "Creative Common License": {
+        "machine": {
+            "fr": "Licence commune créative",
+            "pt-br": "Licença Creative Comum",
+            "id": "Lisensi Umum Kreatif",
+            "ko": "크리에이티브 커먼 라이선스",
+            "ru": "Creative Common License"
+        },
+        "human": {}
+    },
+    "Creative Commons license url": {
+        "machine": {
+            "fr": "URL de la licence Creative Commons",
+            "pt-br": "URL da licença Creative Commons",
+            "id": "Url lisensi Creative Commons",
+            "ko": "크리에이티브 커먼즈 라이센스 URL",
+            "ru": "URL лицензии Creative Commons"
+        },
+        "human": {}
+    },
+    "Other License": {
+        "machine": {
+            "fr": "Autre licence",
+            "pt-br": "Outra Licença",
+            "id": "Lisensi Lainnya",
+            "ko": "기타 라이선스",
+            "ru": "Другая лицензия"
+        },
+        "human": {}
+    },
+    "License url": {
+        "machine": {
+            "fr": "URL de la licence",
+            "pt-br": "URL da licença",
+            "id": "URL lisensi",
+            "ko": "라이선스 URL",
+            "ru": "URL лицензии"
+        },
+        "human": {}
+    },
+    "License information": {
+        "machine": {
+            "fr": "Informations sur la licence",
+            "pt-br": "Informação de licença",
+            "id": "Informasi lisensi",
+            "ko": "라이선스 정보",
+            "ru": "Информация о лицензии"
+        },
+        "human": {}
+    },
+    "Journal Information": {
+        "machine": {
+            "fr": "Informations sur le journal",
+            "pt-br": "Informação do diário",
+            "id": "Informasi Jurnal",
+            "ko": "저널 정보",
+            "ru": "Информация о журнале"
+        },
+        "human": {}
+    },
+    "Journal title": {
+        "machine": {
+            "fr": "Titre du journal",
+            "pt-br": "Título do jornal",
+            "id": "Judul jurnal",
+            "ko": "저널 제목",
+            "ru": "Название журнала"
+        },
+        "human": {}
+    },
+    "Abbreviated journal title": {
+        "machine": {
+            "fr": "Titre abrégé de la revue",
+            "pt-br": "Título abreviado do periódico",
+            "id": "Judul jurnal yang disingkat",
+            "ko": "약식 저널 제목",
+            "ru": "Сокращенное название журнала"
+        },
+        "human": {}
+    },
+    "Volume": {
+        "machine": {
+            "fr": "Le volume",
+            "pt-br": "Volume",
+            "id": "Volume",
+            "ko": "음량",
+            "ru": "Объем"
+        },
+        "human": {}
+    },
+    "Issue": {
+        "machine": {
+            "fr": "Publier",
+            "pt-br": "Emitir",
+            "id": "Isu",
+            "ko": "발행물",
+            "ru": "Проблема"
+        },
+        "human": {}
+    },
+    "Publication date": {
+        "machine": {
+            "fr": "Date de publication",
+            "pt-br": "Data de publicação",
+            "id": "Tanggal penerbitan",
+            "ko": "발행일",
+            "ru": "Дата публикации"
+        },
+        "human": {}
+    },
+    "Articles": {
+        "machine": {
+            "fr": "Des articles",
+            "pt-br": "Artigos",
+            "id": "Artikel",
+            "ko": "조항",
+            "ru": "Статьи"
+        },
+        "human": {}
+    },
+    "Journal Article": {
+        "machine": {
+            "fr": "Article de revue",
+            "pt-br": "Artigo de jornal",
+            "id": "Artikel Jurnal",
+            "ko": "저널 기사",
+            "ru": "Журнальная статья"
+        },
+        "human": {}
+    },
+    "Titles": {
+        "machine": {
+            "fr": "Titres",
+            "pt-br": "Títulos",
+            "id": "Judul",
+            "ko": "타이틀",
+            "ru": "Титулы"
+        },
+        "human": {}
+    },
+    "title": {
+        "machine": {
+            "fr": "Titre",
+            "pt-br": "título",
+            "id": "judul",
+            "ko": "표제",
+            "ru": "заглавие"
+        },
+        "human": {}
+    },
+    "Resolution Information": {
+        "machine": {
+            "fr": "Informations sur la résolution",
+            "pt-br": "Informação de Resolução",
+            "id": "Informasi Resolusi",
+            "ko": "해결 정보",
+            "ru": "Информация о разрешении"
+        },
+        "human": {}
+    },
+    "Resolution URL": {
+        "machine": {
+            "fr": "URL de résolution",
+            "pt-br": "URL de resolução",
+            "id": "URL Resolusi",
+            "ko": "해결 URL",
+            "ru": "URL-адрес разрешения"
+        },
+        "human": {}
+    },
+    "Similarity Check URL": {
+        "machine": {
+            "fr": "URL de vérification de similarité",
+            "pt-br": "URL de verificação de similaridade",
+            "id": "URL Periksa Kemiripan",
+            "ko": "유사성 확인 URL",
+            "ru": "URL проверки сходства"
+        },
+        "human": {}
+    },
+    "Article location": {
+        "machine": {
+            "fr": "Emplacement de l'article",
+            "pt-br": "Localização do artigo",
+            "id": "Lokasi artikel",
+            "ko": "기사 위치",
+            "ru": "Расположение статьи"
+        },
+        "human": {}
+    },
+    "Abstract": {
+        "machine": {
+            "fr": "Abstrait",
+            "pt-br": "Abstrato",
+            "id": "Abstrak",
+            "ko": "요약",
+            "ru": "Абстрактный"
+        },
+        "human": {}
+    },
+    "Contributors": {
+        "machine": {
+            "fr": "Contributeurs",
+            "pt-br": "Contribuidores",
+            "id": "Kontributor",
+            "ko": "기여자",
+            "ru": "Авторы"
+        },
+        "human": {}
+    },
+    "People": {
+        "machine": {
+            "fr": "Gens",
+            "pt-br": "Pessoas",
+            "id": "Orang-orang",
+            "ko": "사람들",
+            "ru": "Люди"
+        },
+        "human": {}
+    },
+    "Contributor role": {
+        "machine": {
+            "fr": "Rôle de contributeur",
+            "pt-br": "Função de contribuidor",
+            "id": "Peran kontributor",
+            "ko": "기여자 역할",
+            "ru": "Роль участника"
+        },
+        "human": {}
+    },
+    "Contributor sequence": {
+        "machine": {
+            "fr": "Séquence des contributeurs",
+            "pt-br": "Sequência de contribuidor",
+            "id": "Urutan kontributor",
+            "ko": "기여자 순서",
+            "ru": "Последовательность участников"
+        },
+        "human": {}
+    },
+    "ORCID": {
+        "machine": {
+            "fr": "ORCID",
+            "pt-br": "ORCID",
+            "id": "ORCID",
+            "ko": "ORCID",
+            "ru": "ORCID"
+        },
+        "human": {}
+    },
+    "Surname": {
+        "machine": {
+            "fr": "Nom de famille",
+            "pt-br": "Sobrenome",
+            "id": "Nama keluarga",
+            "ko": "성",
+            "ru": "Фамилия"
+        },
+        "human": {}
+    },
+    "Suffix": {
+        "machine": {
+            "fr": "Suffixe",
+            "pt-br": "Sufixo",
+            "id": "Akhiran",
+            "ko": "접미사",
+            "ru": "Суффикс"
+        },
+        "human": {}
+    },
+    "References": {
+        "machine": {
+            "fr": "Les références",
+            "pt-br": "Referências",
+            "id": "Referensi",
+            "ko": "참고 문헌",
+            "ru": "Рекомендации"
+        },
+        "human": {}
+    },
+    "ISSN for online version": {
+        "machine": {
+            "fr": "ISSN pour la version en ligne",
+            "pt-br": "ISSN para versão online",
+            "id": "ISSN untuk versi online",
+            "ko": "온라인 버전 용 ISSN",
+            "ru": "ISSN для онлайн-версии"
+        },
+        "human": {}
+    },
+    "ISSN for print version": {
+        "machine": {
+            "fr": "ISSN pour la version imprimée",
+            "pt-br": "ISSN para versão impressa",
+            "id": "ISSN untuk versi cetak",
+            "ko": "인쇄 버전 용 ISSN",
+            "ru": "ISSN для печатной версии"
+        },
+        "human": {}
+    },
+    "online and print ISSNs": {
+        "machine": {
+            "fr": "ISSN en ligne et imprimés",
+            "pt-br": "ISSNs online e impressos",
+            "id": "online dan mencetak ISSN",
+            "ko": "온라인 및 인쇄 ISSN",
+            "ru": "ISSN в Интернете и в печати"
+        },
+        "human": {}
+    },
+    "The date at which the license takes effect (usually the same as the publication date)": {
+        "machine": {
+            "fr": "La date à laquelle la licence prend effet (généralement la même que la date de publication)",
+            "pt-br": "A data em que a licença entra em vigor (geralmente a mesma que a data de publicação)",
+            "id": "Tanggal berlakunya lisensi (biasanya sama dengan tanggal publikasi)",
+            "ko": "라이센스가 효력을 발생하는 날짜 (일반적으로 발행일과 동일)",
+            "ru": "Дата вступления лицензии в силу (обычно совпадает с датой публикации)"
+        },
+        "human": {}
+    },
+    "The URL of the Creative Commons license": {
+        "machine": {
+            "fr": "L'URL de la licence Creative Commons",
+            "pt-br": "O URL da licença Creative Commons",
+            "id": "URL lisensi Creative Commons",
+            "ko": "크리에이티브 커먼즈 라이선스의 URL",
+            "ru": "URL-адрес лицензии Creative Commons"
+        },
+        "human": {}
+    },
+    "A URL that points to a copyright statement or terms & conditions": {
+        "machine": {
+            "fr": "Une URL qui pointe vers une déclaration de droits d'auteur ou des conditions générales",
+            "pt-br": "Um URL que aponta para uma declaração de direitos autorais ou termos e condições",
+            "id": "URL yang mengarah ke pernyataan hak cipta atau syarat & ketentuan",
+            "ko": "저작권 진술 또는 이용 약관을 가리키는 URL",
+            "ru": "URL-адрес, указывающий на заявление об авторских правах или условия использования."
+        },
+        "human": {}
+    },
+    "License information for AM, VOR": {
+        "machine": {
+            "fr": "Informations de licence pour AM, VOR",
+            "pt-br": "Informações de licença para AM, VOR",
+            "id": "Informasi lisensi untuk AM, VOR",
+            "ko": "AM, VOR의 라이선스 정보",
+            "ru": "Информация о лицензии для AM, VOR"
+        },
+        "human": {}
+    },
+    "The ISO code for the language the title text is in": {
+        "machine": {
+            "fr": "Le code ISO de la langue dans laquelle se trouve le texte du titre",
+            "pt-br": "O código ISO para o idioma do texto do título",
+            "id": "Kode ISO untuk bahasa teks judul",
+            "ko": "제목 텍스트가있는 언어의 ISO 코드",
+            "ru": "Код ISO для языка, на котором находится текст заголовка."
+        },
+        "human": {}
+    },
+    "The title of the article in the language selected": {
+        "machine": {
+            "fr": "Le titre de l'article dans la langue sélectionnée",
+            "pt-br": "O título do artigo no idioma selecionado",
+            "id": "Judul artikel dalam bahasa yang dipilih",
+            "ko": "선택한 언어로 된 기사 제목",
+            "ru": "Название статьи на выбранном языке"
+        },
+        "human": {}
+    },
+    "The DOI you want to assign to this article": {
+        "machine": {
+            "fr": "Le DOI que vous souhaitez attribuer à cet article",
+            "pt-br": "O DOI que você deseja atribuir a este artigo",
+            "id": "DOI yang ingin Anda tetapkan untuk artikel ini",
+            "ko": "이 기사에 할당 할 DOI",
+            "ru": "DOI, который вы хотите присвоить этой статье"
+        },
+        "human": {}
+    },
+    "URL the DOI should resolve to": {
+        "machine": {
+            "fr": "URL vers laquelle le DOI doit résoudre",
+            "pt-br": "URL para o qual o DOI deve resolver",
+            "id": "URL yang harus diselesaikan oleh DOI",
+            "ko": "DOI가 해결해야하는 URL",
+            "ru": "URL-адрес, на который должен разрешить DOI"
+        },
+        "human": {}
+    },
+    "URL for Similarity Check to get full text": {
+        "machine": {
+            "fr": "URL de la vérification de similarité pour obtenir le texte intégral",
+            "pt-br": "URL para verificação de similaridade para obter o texto completo",
+            "id": "URL untuk Similarity Check untuk mendapatkan teks lengkap",
+            "ko": "유사성 확인을위한 URL 전체 텍스트",
+            "ru": "URL для проверки сходства, чтобы получить полный текст"
+        },
+        "human": {}
+    },
+    "enter either the page-span or the article number": {
+        "machine": {
+            "fr": "entrez la longueur de page ou le numéro d'article",
+            "pt-br": "insira a extensão da página ou o número do artigo",
+            "id": "masukkan rentang halaman atau nomor artikel",
+            "ko": "페이지 범위 또는 기사 번호를 입력하십시오.",
+            "ru": "введите либо диапазон страниц, либо номер статьи"
+        },
+        "human": {}
+    },
+    "enter a JATs abstract": {
+        "machine": {
+            "fr": "entrez un résumé des JAT",
+            "pt-br": "insira um resumo JATs",
+            "id": "masukkan abstrak JAT",
+            "ko": "JAT 초록 입력",
+            "ru": "введите аннотацию JAT"
+        },
+        "human": {}
+    }
+}
