@@ -19,7 +19,7 @@ with open('./settings.json') as settings_file:
 tSchemas.update({'locales': settings['locales']})
 tSchemas.update({'defaultLocale': settings['defaultLocale']})
 
-print(json.dumps(tFiles))
+# print(json.dumps(tFiles))
 
 for filePath in templateFiles:
     nameSearch = re.search('(.*)_template_dereferenced\.json', filePath)
@@ -52,7 +52,7 @@ for templateName in templateNames:
                 data = json.load(json_file)
                 tSchemas['templates'][templateName]['locales'][locale] = {
                     'data': data,
-                    'schema': data, 
+                    'schema': data,
                     'fileName': filepath
                 }
         except Exception as e:
@@ -72,6 +72,7 @@ for templateName in templateNames:
 #         logger.warning(e)
 
 json_out = json.dumps(tSchemas, indent=4, sort_keys=True)
-print(json_out)
+# print(json_out)
 with open('manifest.json', 'w') as outfile:
     outfile.write(json_out)
+print('Wrote manifest.json')
