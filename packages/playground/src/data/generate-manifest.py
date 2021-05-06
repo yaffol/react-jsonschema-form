@@ -8,7 +8,7 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 files = os.listdir('./')
-templateFiles = glob.glob('*_template.json')
+templateFiles = glob.glob('*_template_dereferenced.json')
 tFiles = glob.glob('*_template_translated_*.json')
 tSchemas = {'templates': {}, 'locales': {}}
 templateNames = []
@@ -22,7 +22,7 @@ tSchemas.update({'defaultLocale': settings['defaultLocale']})
 print(json.dumps(tFiles))
 
 for filePath in templateFiles:
-    nameSearch = re.search('(.*)_template\.json', filePath)
+    nameSearch = re.search('(.*)_template_dereferenced\.json', filePath)
     try:
         name = nameSearch.group(1)
         templateNames.append(name)
@@ -32,8 +32,17 @@ for filePath in templateFiles:
 tSchemas.update({'defaultTemplate': templateNames[0]})
 
 for templateName in templateNames:
+    uiSchemaFilePath = f"{templateName}_uischema.json"
+    uiSchema = {}
+    if (os.path.isfile(uiSchemaFilePath)):
+        with open(uiSchemaFilePath) as uischema_json_file:
+            try:
+                uiSchema = json.load(uischema_json_file)
+            except Exception as e:
+                logger.warning(e)
     tSchemas['templates'][templateName] = {
-        'locales': {}
+        'locales': {},
+        'uiSchema': uiSchema
     }
     for filepath in tFiles:
         localeSearch = re.search(f"{templateName}_template_translated_(.*)\.json", filepath)
@@ -43,6 +52,7 @@ for templateName in templateNames:
                 data = json.load(json_file)
                 tSchemas['templates'][templateName]['locales'][locale] = {
                     'data': data,
+                    'schema': data, 
                     'fileName': filepath
                 }
         except Exception as e:
