@@ -7,7 +7,7 @@ import DemoFrame from "./DemoFrame";
 import { saveAs } from "file-saver";
 import * as Loadfile4DOM from "loadfile4dom";
 import FileReaderInput from 'react-file-reader-input';
-import * as Manifest from './data/manifest.json';
+import * as Manifest from './data/dist/manifest.json';
 import * as convert from 'xml-js';
 import { PickerOverlay } from 'filestack-react';
 

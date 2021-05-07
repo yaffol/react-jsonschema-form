@@ -8,8 +8,10 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 files = os.listdir('./')
-templateFiles = glob.glob('*_template_dereferenced.json')
-tFiles = glob.glob('*_template_translated_*.json')
+dataPath = './'
+distPath = './dist/'
+templateFiles = glob.glob(f'{distPath}*_template_dereferenced.json')
+tFiles = glob.glob(f'{distPath}*_template_translated_*.json')
 tSchemas = {'templates': {}, 'locales': {}}
 templateNames = []
 templateHashes = {}
@@ -23,7 +25,7 @@ tSchemas.update({'defaultLocale': settings['defaultLocale']})
 # print(json.dumps(tFiles))
 
 for filePath in templateFiles:
-    nameSearch = re.search('(.*)_template_dereferenced\.json', filePath)
+    nameSearch = re.search(f'{distPath}(.*)_template_dereferenced\.json', filePath)
     try:
         name = nameSearch.group(1)
         templateNames.append(name)
@@ -51,7 +53,7 @@ for templateName in templateNames:
         'md5': templateHashes[templateName]
     }
     for filepath in tFiles:
-        localeSearch = re.search(f"{templateName}_template_translated_(.*)\.json", filepath)
+        localeSearch = re.search(f"{distPath}{templateName}_template_translated_(.*).json", filepath)
         try:
             locale = localeSearch.group(1)
             with open(filepath) as json_file:
@@ -82,3 +84,7 @@ json_out = json.dumps(tSchemas, indent=4, sort_keys=True)
 with open('manifest.json', 'w') as outfile:
     outfile.write(json_out)
 print('Wrote manifest.json')
+
+with open(f'{distPath}manifest.json', 'w') as outfile:
+    outfile.write(json_out)
+print('Wrote manifest.json to distPath')

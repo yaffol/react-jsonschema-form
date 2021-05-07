@@ -10,6 +10,8 @@ const $RefParser = require("@apidevtools/json-schema-ref-parser");
 const translations = require('./data/translations.json');
 const settings = require('./data/settings.json');
 const transFields = ['title', 'description'];
+const dataPath = './data';
+const distPath = './data/dist';
 
 /**
  * TODO(developer): Uncomment these variables before running the sample.
@@ -113,9 +115,9 @@ async function translateTemplate(){
 const getTemplateFiles = function(format = 'raw'){
   switch (format){
     case 'raw':
-      return glob.sync('*_template.json',{ cwd:'./data' });
+      return glob.sync('*_template.json',{ cwd: dataPath });
     case 'dereferenced':
-      return glob.sync('*_template_dereferenced.json',{ cwd:'./data' });
+      return glob.sync('*_template_dereferenced.json',{ cwd: distPath });
   }
 };
 
@@ -144,12 +146,11 @@ const dereference = async function() {
       `./data/${templateName}_dereferenced.json`,
       JSON.stringify(templateDerefed, null, 4)
       );
+    fs.writeFileSync(
+      `${distPath}/${templateName}_dereferenced.json`,
+      JSON.stringify(templateDerefed, null, 4)
+      );
   }
-};
-
-const genUISchema = function() {
-  const templateFiles = getDerefencedTemplateFiles();
-  
 };
 
 const translate = async function forLoop() {
@@ -159,7 +160,7 @@ const translate = async function forLoop() {
   // .argv;
   const templateFiles = getTemplateFiles('dereferenced');
   for (const templateFile of templateFiles) {
-    const template = require(`./data/${templateFile}`);
+    const template = require(`${distPath}/${templateFile}`);
     // const templateName = argv.file.match(/(.+)_template.json/)[1];
     const templateName = templateFile.match(/(.+_template)_dereferenced.json/)[1];
     console.log(templateName[1]);
@@ -178,14 +179,19 @@ const translate = async function forLoop() {
       }
       translatedTemplate[locale] = localisedTemplate;
       fs.writeFileSync(
-        `./data/${templateName}_translated_${locale}.json`,
+        `${dataPath}/${templateName}_translated_${locale}.json`,
+        JSON.stringify(localisedTemplate, null, 4)
+        );
+      translatedTemplate[locale] = localisedTemplate;
+      fs.writeFileSync(
+        `${distPath}/${templateName}_translated_${locale}.json`,
         JSON.stringify(localisedTemplate, null, 4)
         );
     }
   }
 
   fs.writeFileSync(
-    './data/translations.json',
+    `${dataPath}/translations.json`,
     JSON.stringify(translations, null, 4)
     );
 
