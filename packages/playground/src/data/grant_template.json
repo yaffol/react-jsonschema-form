@@ -1,4 +1,10 @@
 {
+  "self": {
+    "vendor": "org.crossref",
+    "name": "grant",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
     "title": "Crossref grant deposits",
     "type": "object",
     "definitions": {
@@ -42,7 +48,7 @@
           }
         }
       }
-      
+
     },
     "properties": {
       "depositor": {

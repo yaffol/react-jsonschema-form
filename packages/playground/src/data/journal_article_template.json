@@ -1,4 +1,10 @@
 {
+  "self": {
+    "vendor": "org.crossref",
+    "name": "journal_article",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
     "title": "Crossref article deposit",
     "type": "object",
     "definitions": {

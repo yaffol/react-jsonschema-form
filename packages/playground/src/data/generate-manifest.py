@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import glob, os, json, re
+import glob, os, json, re, hashlib
 import logging
 
 logger = logging.getLogger(__name__)
@@ -12,6 +12,7 @@ templateFiles = glob.glob('*_template_dereferenced.json')
 tFiles = glob.glob('*_template_translated_*.json')
 tSchemas = {'templates': {}, 'locales': {}}
 templateNames = []
+templateHashes = {}
 
 with open('./settings.json') as settings_file:
     settings = json.load(settings_file)
@@ -28,6 +29,10 @@ for filePath in templateFiles:
         templateNames.append(name)
     except Exception as e:
         logger.warning(e)
+    with open(filePath, "rb") as templateFile:
+        content = templateFile.read()
+        md5 = hashlib.md5(content).hexdigest()
+        templateHashes[name] = md5
 
 tSchemas.update({'defaultTemplate': templateNames[0]})
 
@@ -42,7 +47,8 @@ for templateName in templateNames:
                 logger.warning(e)
     tSchemas['templates'][templateName] = {
         'locales': {},
-        'uiSchema': uiSchema
+        'uiSchema': uiSchema,
+        'md5': templateHashes[templateName]
     }
     for filepath in tFiles:
         localeSearch = re.search(f"{templateName}_template_translated_(.*)\.json", filepath)

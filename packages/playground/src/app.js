@@ -101,6 +101,14 @@ function shouldRender(comp, nextProps, nextState) {
   return !deepEquals(props, nextProps) || !deepEquals(state, nextState);
 }
 
+function getDateString() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, '0');
+  const day =`${date.getDate()}`.padStart(2, '0');
+  return `${year}${month}${day}`;
+}
+
 const log = type => console.log.bind(console, type);
 const toJson = val => JSON.stringify(val, null, 2);
 const liveSettingsSchema = {
@@ -607,6 +615,8 @@ class Playground extends Component {
     const template = defaultTemplate;
     const schema = templates[template]['locales'][defaultLocale].data;
     const uiSchema = templates[template]['uiSchema'];
+    const md5 = templates[template]['md5'];
+    const version = schema.self.version;
     this.state = {
       form: false,
       defaultLocale,
@@ -616,7 +626,9 @@ class Playground extends Component {
       locale: defaultLocale,
       locales,
       schema,
+      version,
       uiSchema,
+      md5,
       formData,
       validate,
       transformErrors: this.transformErrors,
@@ -703,7 +715,9 @@ class Playground extends Component {
   ) => {
     console.log(`Template selected: ${template}`);
     const localisedSchema = templates[template]['locales'][locale].data;
+    const version = localisedSchema.self.version;
     const uiSchema = templates[template]['uiSchema'];
+    const md5 = templates[template]['md5'];
     // debugger
     // const localisedSchema = templates['locales'][locale].data;
 
@@ -715,7 +729,9 @@ class Playground extends Component {
       locale,
       template,
       schema: localisedSchema,
-      uiSchema
+      uiSchema,
+      md5,
+      version
     });
   };
 
@@ -836,6 +852,8 @@ class Playground extends Component {
         console.log(parsedCode);
         this.setState({
           schema: parsedCode.schema,
+          version: parsedCode.version,
+          md5: parsedCode.md5,
           uiSchema: parsedCode.uiSchema,
           formData: parsedCode.formData,
           locales: parsedCode.locales,
@@ -860,6 +878,8 @@ class Playground extends Component {
     const {
       formData,
       schema,
+      version,
+      md5,
       uiSchema,
       liveSettings,
       errorSchema,
@@ -872,6 +892,8 @@ class Playground extends Component {
     const payload = {
       formData,
       schema,
+      version,
+      md5,
       uiSchema,
       liveSettings,
       errorSchema,
@@ -885,7 +907,7 @@ class Playground extends Component {
     const blob = new Blob([JSON.stringify(payload)], {
       type: "text/plain;charset=utf-8",
     });
-    saveAs(blob, "hello_world.json");
+    saveAs(blob, `${template}-${getDateString()}.json`);
   };
 
   render() {
@@ -921,13 +943,20 @@ class Playground extends Component {
       templateProps.extraErrors = extraErrors;
     }
 
+    // const schemaSelf = JSON.stringify(schema.self);
+
     return (
       <div className="container-fluid">
         <div className="page-header">
           <div className="row">
-            <div className="col-sm-8">
+            <div className="col-sm-6">
               <h1>Crossref Form Runner</h1>
               <Selector onSelected={this.load} />
+            </div>
+            <div className="col-sm-2">
+              <pre style={liveSettings.proMode ? { display:'block' } : { display : 'none' } }>
+                {JSON.stringify(schema.self, null, 4)}
+              </pre>
             </div>
             <div className="col-sm-2">
               <Form
