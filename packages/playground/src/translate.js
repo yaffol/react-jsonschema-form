@@ -103,7 +103,7 @@ const lookupText = async function lookupText(text='', targetLocale=''){
 
 
 async function translateTemplate(){
-   
+
   // for (const locale of settings.locales) {
   //   for (const text of titles) {
   //     console.log(`Looking up ${text} for ${locale}`);
@@ -125,10 +125,18 @@ const getDerefencedTemplateFiles = function() {
   return getTemplateFiles('dereferenced');
 };
 
+const createPaths = function(){
+  if (!fs.existsSync(distPath)){
+    fs.mkdirSync(distPath);
+  }
+
+};
+
 const main = async function() {
   const argv = await yargs
   .command('*', 'The default pipeline command', () => {}, async () => {
     console.log('this is a command');
+    createPaths();
     await dereference();
     await translate();
     // translate();
@@ -143,7 +151,7 @@ const dereference = async function() {
     const templateDerefed = await $RefParser.dereference(template);
     const templateName = templateFile.match(/(.+_template).json/)[1];
     fs.writeFileSync(
-      `./data/${templateName}_dereferenced.json`,
+      `${dataPath}/${templateName}_dereferenced.json`,
       JSON.stringify(templateDerefed, null, 4)
       );
     fs.writeFileSync(
@@ -168,7 +176,7 @@ const translate = async function forLoop() {
     for (const locale of settings.locales) {
       const localisedTemplate = JSON.parse(JSON.stringify(template));
       for (const field of transFields) {
-        const jsonpathFields = JSONPath( { 
+        const jsonpathFields = JSONPath( {
           path: `$..${field}`, resultType: 'all', json: template
         });
         for await (const item of jsonpathFields) {

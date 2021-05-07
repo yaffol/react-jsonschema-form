@@ -8,15 +8,15 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 files = os.listdir('./')
-dataPath = './'
-distPath = './dist/'
+dataPath = './data/'
+distPath = './data/dist/'
 templateFiles = glob.glob(f'{distPath}*_template_dereferenced.json')
 tFiles = glob.glob(f'{distPath}*_template_translated_*.json')
 tSchemas = {'templates': {}, 'locales': {}}
 templateNames = []
 templateHashes = {}
 
-with open('./settings.json') as settings_file:
+with open(f'{dataPath}settings.json') as settings_file:
     settings = json.load(settings_file)
 
 tSchemas.update({'locales': settings['locales']})
@@ -39,7 +39,7 @@ for filePath in templateFiles:
 tSchemas.update({'defaultTemplate': templateNames[0]})
 
 for templateName in templateNames:
-    uiSchemaFilePath = f"{templateName}_uischema.json"
+    uiSchemaFilePath = f"{dataPath}{templateName}_uischema.json"
     uiSchema = {}
     if (os.path.isfile(uiSchemaFilePath)):
         with open(uiSchemaFilePath) as uischema_json_file:
@@ -81,7 +81,7 @@ for templateName in templateNames:
 
 json_out = json.dumps(tSchemas, indent=4, sort_keys=True)
 # print(json_out)
-with open('manifest.json', 'w') as outfile:
+with open(f'{dataPath}manifest.json', 'w') as outfile:
     outfile.write(json_out)
 print('Wrote manifest.json')
 
