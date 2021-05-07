@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-cd /app/packages/playground/src
-node translate.js
-cd /app/packages/playground/src/data
-python3 generate-manifest.py
+./update_manifest.sh
 cd /app/packages/playground
 npm run start
