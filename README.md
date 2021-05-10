@@ -1,10 +1,12 @@
 # Crossref Form-Runner Prototype
 
-This repo forms the basis for the Proof of Concept demonstration of the new Deposit UI framework.
+Proof of Concept demonstration of the new Deposit UI framework.
 
-It is based on [React JSONSchema Form](https://github.com/rjsf-team/react-jsonschema-form) which was originally sponsored by Mozilla.
+Based on [React JSONSchema Form](https://github.com/rjsf-team/react-jsonschema-form), a project originally sponsored by Mozilla.
 
-To run the demo, execute `./run.sh` in the root of the project.
-This will build a docker container which will compile and serve the form-runner. 
+To run the project in a docker container, execute `./run.sh` in the root of the project. 
 
-When it's finished the build process, you can access the form at [http://localhost:8080](http://localhost:8080) - it will open a browser at `http:0.0.0.0:8080` automatically but this will not work
+Then open [http://localhost:8080](http://localhost:8080) in a browser.
+
+To enable the translation service, and get new translations (for new locales or changed messages), provide the full path to a Google Cloud Service Account credentials file (.json ormat) for an account with access to the translations API as the `GOOGLE_APPLICATION_CREDENTIALS` environment variable.
+

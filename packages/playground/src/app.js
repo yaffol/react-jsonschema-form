@@ -381,7 +381,7 @@ function TemplateSelector({ template, templates, locale, select }) {
       }>
       <div />
     </Form>
-  );  
+  );
 }
 
 function LocaleSelector({ locale, locales, template, templates, select }) {
@@ -616,7 +616,13 @@ class Playground extends Component {
     const schema = templates[template]['locales'][defaultLocale].data;
     const uiSchema = templates[template]['uiSchema'];
     const md5 = templates[template]['md5'];
-    const version = schema.self.version;
+    let version = '';
+    try {
+      version = schema.self.version
+    }
+    catch (e) {
+      console.warn('No version defined in schema.self')
+    }
     this.state = {
       form: false,
       defaultLocale,
@@ -972,7 +978,7 @@ class Playground extends Component {
                 template={template}
                 templates={templates}
                 locale={locale}
-                select={this.onTemplateSelected} 
+                select={this.onTemplateSelected}
               />
               <LocaleSelector
                 locales={locales}

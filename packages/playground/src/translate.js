@@ -1,4 +1,5 @@
-process.env['GOOGLE_APPLICATION_CREDENTIALS'] = "/home/patrick/contracting/crossref/jsonschema/yaffol-react-jsonschema-form/GoogleCloudKey_form-runner_MyServiceAccount.json";
+// process.env['GOOGLE_APPLICATION_CREDENTIALS'] = "/home/patrick/contracting/crossref/jsonschema/yaffol-react-jsonschema-form/GoogleCloudKey_form-runner_MyServiceAccount.json";
+process.env['GOOGLE_APPLICATION_CREDENTIALS'] = "/creds/gcsa.json";
 // import * as json from './data/translations.json';
 // import { TranslationServiceClient } from '@google-cloud/translate';
 const fs = require('fs');
@@ -150,10 +151,10 @@ const dereference = async function() {
     const template = require(`./data/${templateFile}`);
     const templateDerefed = await $RefParser.dereference(template);
     const templateName = templateFile.match(/(.+_template).json/)[1];
-    fs.writeFileSync(
-      `${dataPath}/${templateName}_dereferenced.json`,
-      JSON.stringify(templateDerefed, null, 4)
-      );
+    // fs.writeFileSync(
+    //   `${dataPath}/${templateName}_dereferenced.json`,
+    //   JSON.stringify(templateDerefed, null, 4)
+    //   );
     fs.writeFileSync(
       `${distPath}/${templateName}_dereferenced.json`,
       JSON.stringify(templateDerefed, null, 4)
@@ -186,10 +187,10 @@ const translate = async function forLoop() {
         }
       }
       translatedTemplate[locale] = localisedTemplate;
-      fs.writeFileSync(
-        `${dataPath}/${templateName}_translated_${locale}.json`,
-        JSON.stringify(localisedTemplate, null, 4)
-        );
+      // fs.writeFileSync(
+      //   `${dataPath}/${templateName}_translated_${locale}.json`,
+      //   JSON.stringify(localisedTemplate, null, 4)
+      //   );
       translatedTemplate[locale] = localisedTemplate;
       fs.writeFileSync(
         `${distPath}/${templateName}_translated_${locale}.json`,
