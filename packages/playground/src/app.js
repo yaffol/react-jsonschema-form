@@ -951,6 +951,7 @@ class Playground extends Component {
           <div className="row">
             <div className="col-sm-6">
               <h1>Crossref Form Runner</h1>
+              <img src={`https://assets.crossref.org/logo/crossref-logo-landscape-200.svg`} width={`200`} height={`68`} alt={`Crossref logo`}></img>
               <Selector onSelected={this.load} />
             </div>
             <div className="col-sm-2">
@@ -964,7 +965,6 @@ class Playground extends Component {
                 schema={liveSettingsSchema}
                 formData={liveSettings}
                 onChange={this.setLiveSettings}>
-                <div />
               </Form>
             </div>
             <div className="col-sm-2">
