@@ -30,4 +30,3 @@ RUN npm run build
 EXPOSE 8080
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
-CMD bash cmd.sh
