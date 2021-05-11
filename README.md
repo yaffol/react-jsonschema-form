@@ -10,7 +10,7 @@ Then open [http://localhost:8080](http://localhost:8080) in a browser.
 
 ## Configure
 
-The `GOOGLE_APPLICATION_CREDENTIALS` environment variable should be the full path to a Google Cloud Service Account credentials file (json format) for an account with access to the translations API.
+The `GOOGLE_APPLICATION_CREDENTIALS` environment variable MUST be the full path to a Google Cloud Service Account credentials file (json format) for an account with access to the translations API. If not set, the docker run command will fail with the message `docker: Error response from daemon: invalid mount config for type "bind": field Source must not be empty.`.
 
 Data files are mounted into the container via the `data` directory in the root of the project.
 
