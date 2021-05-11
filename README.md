@@ -21,6 +21,8 @@ Any file matching `*_template.json` will be processed by the pipeline:
 
 Dereferenced and translated templates, and the application `manifest.json` are generated and stored in `data/dist`.
 
+Any file matching `template_name_uischema.json` will be imported as the UISchema applicable to `template_name`.
+
 Application settings are stored in `data/settings.json` - you can set the locales to translate to, as well as the default locale.
 
 Translations are stored in `data/translations.json`. You can set `human: { ... }` versions of the messages in here. New messages and new locales will persist across container runs (the file is loaded, added to if needed, and written out again on every run).

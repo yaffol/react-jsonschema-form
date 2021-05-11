@@ -1,0 +1,12 @@
+{
+    "articles": {
+        "items": {
+          "resolution_information": {
+              "doi":{
+                  "ui:placeholder": "doi",
+                  "ui:widget": "doi"
+              }
+          }
+        }
+    }
+}
