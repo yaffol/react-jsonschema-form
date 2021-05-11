@@ -4,7 +4,7 @@ Proof of Concept demonstration of the new Deposit UI framework, based on [React 
 
 ## Run
 
-To run the project in a docker container, execute `./run.sh` in the root of the project. 
+To run the project in a docker container, execute `./run.sh` in the root of the project (success is indicated by `ℹ ｢wdm｣: Compiled successfully.`).
 
 Then open [http://localhost:8080](http://localhost:8080) in a browser.
 

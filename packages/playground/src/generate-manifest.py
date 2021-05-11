@@ -81,9 +81,6 @@ for templateName in templateNames:
 
 json_out = json.dumps(tSchemas, indent=4, sort_keys=True)
 # print(json_out)
-with open(f'{dataPath}manifest.json', 'w') as outfile:
-    outfile.write(json_out)
-print('Wrote manifest.json')
 
 with open(f'{distPath}manifest.json', 'w') as outfile:
     outfile.write(json_out)
