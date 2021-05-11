@@ -4,11 +4,19 @@ Proof of Concept demonstration of the new Deposit UI framework, based on [React 
 
 ## Run
 
-To run the project in a docker container, execute `./run.sh` in the root of the project (success is indicated by `ℹ ｢wdm｣: Compiled successfully.`).
+To run the project in a docker container execute `./run.sh` in the root of the project (success is indicated by `ℹ ｢wdm｣: Compiled successfully.`).
 
 Then open [http://localhost:8080](http://localhost:8080) in a browser.
 
 `/run.sh` checks for a container tagged with the latest git commit hash. If you have newer commits but don't want to rebuild the container, alter the docker run command to target the `:latest` tag instead.
+
+## Build
+
+To build the project to an `index.html` and associated javascript that can be run directly in a browser, pass a build name as the first argument to `run.sh`.
+
+The built assets will be written out to `build/build_name` in the project root.
+
+To run the built project, open the corresponding `index.html` in a browser.
 
 ## Configure
 
