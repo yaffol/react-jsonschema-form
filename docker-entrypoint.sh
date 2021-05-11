@@ -5,10 +5,10 @@ umask 0000
 ./update_manifest.sh
 cd /app/packages/playground
 if [ -z ${1+x} ]
-then echo "arg1 is unset"
+then echo "Build ouput is unset, running live dev server..."
   npm run start
 else
-  echo "arg1 is set to '$1'"
+  echo "Build output is set to '$1'... Building package..."
   # SHOW_NETLIFY_BADGE causes the playground build process to use
   # an empty webpack publicPath
   export SHOW_NETLIFY_BADGE=1
