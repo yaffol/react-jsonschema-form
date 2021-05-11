@@ -8,7 +8,7 @@ To run the project in a docker container, execute `./run.sh` in the root of the 
 
 Then open [http://localhost:8080](http://localhost:8080) in a browser.
 
-`/run.sh` checks for a containing tagged with the latest git commit hash. If you have newer commits but don't want to rebuild the container, alter the docker run command to target the `:latest` tag instead.
+`/run.sh` checks for a container tagged with the latest git commit hash. If you have newer commits but don't want to rebuild the container, alter the docker run command to target the `:latest` tag instead.
 
 ## Configure
 
