@@ -5,4 +5,4 @@ echo $TAG
 echo $IMG
 
 docker build . -t $IMG
-docker tag $IMG $LATEST
+#docker tag $IMG $LATEST
