@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
-source config.sh
+NAME="yaffol/deposit-ui-poc"
+HASH=$(git log -1 --format=%H)
+TAG=${HASH:-"MISSING"}
+LATEST="${NAME}:latest"
+#IMG="${NAME}:${TAG}"
+IMG=$LATEST
 
 echo "Looking for docker image: ${IMG}"
-docker image inspect $IMG  >/dev/null 2>&1 && echo 'Form runner image exists... Starting container...' || ./build.sh
+#docker image inspect $IMG  >/dev/null 2>&1 && echo 'Form runner image exists... Starting container...' || ./build.sh
 if [ -z ${GOOGLE_APPLICATION_CREDENTIALS+x} ]
 then
   echo "Google service account credentials not supplied."
