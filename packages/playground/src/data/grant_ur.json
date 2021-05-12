@@ -1,0 +1,204 @@
+{
+    "title": "",
+    "type": "object",
+    "properties": {
+        "doi_batch": {
+            "title": "",
+            "type": "object",
+            "properties": {
+                "-schemaLocation": {
+                    "type": "string"
+                },
+                "-xmlns": {
+                    "type": "string"
+                },
+                "-xsi": {
+                    "type": "string"
+                },
+                "body": {
+                    "title": "",
+                    "type": "object",
+                    "properties": {
+                        "grant": {
+                            "type": "array",
+                            "items": {
+                                "title": "",
+                                "type": "object",
+                                "properties": {
+                                    "award-number": {
+                                        "type": "string"
+                                    },
+                                    "award-start-date": {
+                                        "type": "string"
+                                    },
+                                    "doi_data": {
+                                        "title": "",
+                                        "type": "object",
+                                        "properties": {
+                                            "doi": {
+                                                "type": "string"
+                                            },
+                                            "resource": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "project": {
+                                        "title": "",
+                                        "type": "object",
+                                        "properties": {
+                                            "award-dates": {
+                                                "title": "",
+                                                "type": "object",
+                                                "properties": {
+                                                    "-end-date": {
+                                                        "type": "string"
+                                                    },
+                                                    "-start-date": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "award_amount": {
+                                                "title": "",
+                                                "type": "object",
+                                                "properties": {
+                                                    "#text": {
+                                                        "type": "string"
+                                                    },
+                                                    "-currency": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "description": {
+                                                "type": "array",
+                                                "items": {
+                                                    "title": "",
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "#text": {
+                                                            "type": "string"
+                                                        },
+                                                        "-lang": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "funding": {
+                                                "title": "",
+                                                "type": "object",
+                                                "properties": {
+                                                    "-amount": {
+                                                        "type": "string"
+                                                    },
+                                                    "-currency": {
+                                                        "type": "string"
+                                                    },
+                                                    "-funding-percentage": {
+                                                        "type": "string"
+                                                    },
+                                                    "-funding-type": {
+                                                        "type": "string"
+                                                    },
+                                                    "funder-id": {
+                                                        "type": "string"
+                                                    },
+                                                    "funder-name": {
+                                                        "type": "string"
+                                                    },
+                                                    "funding-scheme": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "investigators": {
+                                                "title": "",
+                                                "type": "object",
+                                                "properties": {
+                                                    "person": {
+                                                        "title": "",
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "-role": {
+                                                                "type": "string"
+                                                            },
+                                                            "ORCID": {
+                                                                "type": "string"
+                                                            },
+                                                            "affiliation": {
+                                                                "title": "",
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "institution": {
+                                                                        "type": "string"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "alternateName": {
+                                                                "type": "string"
+                                                            },
+                                                            "familyName": {
+                                                                "type": "string"
+                                                            },
+                                                            "givenName": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            "project-title": {
+                                                "type": "array",
+                                                "items": {
+                                                    "title": "",
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "#text": {
+                                                            "type": "string"
+                                                        },
+                                                        "-lang": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "head": {
+                    "title": "",
+                    "type": "object",
+                    "properties": {
+                        "depositor": {
+                            "title": "",
+                            "type": "object",
+                            "properties": {
+                                "depositor_name": {
+                                    "type": "string"
+                                },
+                                "email_address": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "doi_batch_id": {
+                            "type": "string"
+                        },
+                        "registrant": {
+                            "type": "string"
+                        },
+                        "timestamp": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

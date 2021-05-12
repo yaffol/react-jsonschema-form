@@ -37,6 +37,7 @@ const widgetMap = {
     "alt-datetime": "AltDateTimeWidget",
     color: "ColorWidget",
     file: "FileWidget",
+    doi: "DOIWidget",
   },
   number: {
     text: "TextWidget",

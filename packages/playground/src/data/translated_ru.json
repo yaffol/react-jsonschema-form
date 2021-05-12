@@ -1,0 +1,432 @@
+{
+    "title": "\u0417\u0430\u043b\u043e\u0433 \u0441\u0442\u0430\u0442\u044c\u0438 Crossref",
+    "type": "object",
+    "definitions": {
+        "doi_ref": {
+            "title": "\u0422\u043e\u043b\u044c\u043a\u043e \u0441\u0441\u044b\u043b\u043a\u0430 DOI",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "DOI": {
+                    "type": "string",
+                    "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+"
+                }
+            },
+            "required": [
+                "DOI"
+            ]
+        },
+        "unstructured_ref": {
+            "title": "\u041d\u0435\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u0441\u0441\u044b\u043b\u043a\u0430",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "reference": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "reference"
+            ]
+        },
+        "structured_ref": {
+            "title": "\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u0441\u0441\u044b\u043b\u043a\u0430",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "journal_title": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "first_page": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9][0-9][0-9]$"
+                }
+            },
+            "required": [
+                "journal_title",
+                "author",
+                "year"
+            ]
+        },
+        "page_span": {
+            "title": "\u0420\u0430\u0437\u043c\u0430\u0445 \u0441\u0442\u0440\u0430\u043d\u0438\u0446",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "first_page": {
+                    "title": "\u041f\u0435\u0440\u0432\u0430\u044f \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0430",
+                    "type": "number"
+                },
+                "last_page": {
+                    "title": "\u041f\u043e\u0441\u043b\u0435\u0434\u043d\u044f\u044f \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0430",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "first_page",
+                "last_page"
+            ]
+        },
+        "article_number": {
+            "title": "\u041d\u043e\u043c\u0435\u0440 \u0441\u0442\u0430\u0442\u044c\u0438",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "number": {
+                    "title": "\u0427\u0438\u0441\u043b\u043e",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "number"
+            ]
+        },
+        "online_issn": {
+            "title": "eISSN",
+            "description": "ISSN \u0434\u043b\u044f \u043e\u043d\u043b\u0430\u0439\u043d-\u0432\u0435\u0440\u0441\u0438\u0438",
+            "type": "string",
+            "pattern": "[\\S]{4}\\-[\\S]{4}"
+        },
+        "print_issn": {
+            "title": "ISSN",
+            "description": "ISSN \u0434\u043b\u044f \u043f\u0435\u0447\u0430\u0442\u043d\u043e\u0439 \u0432\u0435\u0440\u0441\u0438\u0438",
+            "type": "string",
+            "pattern": "[\\S]{4}\\-[\\S]{4}"
+        },
+        "issn_section": {
+            "title": "ISSN",
+            "description": "ISSN \u0432 \u0418\u043d\u0442\u0435\u0440\u043d\u0435\u0442\u0435 \u0438 \u0432 \u043f\u0435\u0447\u0430\u0442\u0438",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/online_issn"
+                    },
+                    {
+                        "$ref": "#/definitions/print_issn"
+                    }
+                ]
+            }
+        },
+        "lic_qualifiers": {
+            "title": "",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "start_date": {
+                    "title": "\u0414\u0430\u0442\u0430 \u043d\u0430\u0447\u0430\u043b\u0430",
+                    "description": "\u0414\u0430\u0442\u0430 \u0432\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u044f \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438 \u0432 \u0441\u0438\u043b\u0443 (\u043e\u0431\u044b\u0447\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0430\u0435\u0442 \u0441 \u0434\u0430\u0442\u043e\u0439 \u043f\u0443\u0431\u043b\u0438\u043a\u0430\u0446\u0438\u0438)",
+                    "type": "string",
+                    "format": "date"
+                },
+                "jav": {
+                    "title": "\u0412\u0435\u0440\u0441\u0438\u044f JAV",
+                    "type": "string",
+                    "enum": [
+                        "Accepted Manuscript",
+                        "Version of Record"
+                    ],
+                    "default": "Version of Record"
+                }
+            },
+            "required": [
+                "start_date",
+                "jav"
+            ]
+        },
+        "cc_license": {
+            "title": "Creative Common License",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "cc_url": {
+                    "title": "URL \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438 Creative Commons",
+                    "description": "URL-\u0430\u0434\u0440\u0435\u0441 \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438 Creative Commons",
+                    "type": "string",
+                    "enum": [
+                        "https://creativecommons.org/licenses/by/4.0/",
+                        "https://creativecommons.org/licenses/by-sa/4.0/",
+                        "https://creativecommons.org/licenses/by-nd/4.0/",
+                        "https://creativecommons.org/licenses/by-nc/4.0/",
+                        "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+                        "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+                    ],
+                    "defualt": "https://creativecommons.org/licenses/by/4.0/"
+                },
+                "qualifiers": {
+                    "$ref": "#/definitions/lic_qualifiers"
+                }
+            },
+            "required": [
+                "cc_url"
+            ]
+        },
+        "other_license": {
+            "title": "\u0414\u0440\u0443\u0433\u0430\u044f \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u044f",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "other_url": {
+                    "title": "URL \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438",
+                    "description": "URL-\u0430\u0434\u0440\u0435\u0441, \u0443\u043a\u0430\u0437\u044b\u0432\u0430\u044e\u0449\u0438\u0439 \u043d\u0430 \u0437\u0430\u044f\u0432\u043b\u0435\u043d\u0438\u0435 \u043e\u0431 \u0430\u0432\u0442\u043e\u0440\u0441\u043a\u0438\u0445 \u043f\u0440\u0430\u0432\u0430\u0445 \u0438\u043b\u0438 \u0443\u0441\u043b\u043e\u0432\u0438\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u044f.",
+                    "type": "string",
+                    "format": "uri",
+                    "default": "https://example.com/license"
+                },
+                "qualifiers": {
+                    "$ref": "#/definitions/lic_qualifiers"
+                }
+            },
+            "required": [
+                "other_url"
+            ]
+        },
+        "license_ref": {
+            "title": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438",
+            "description": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u043b\u0438\u0446\u0435\u043d\u0437\u0438\u0438 \u0434\u043b\u044f AM, VOR",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 10,
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/cc_license"
+                    },
+                    {
+                        "$ref": "#/definitions/other_license"
+                    }
+                ]
+            }
+        }
+    },
+    "properties": {
+        "depositor": {
+            "title": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0432\u043a\u043b\u0430\u0434\u0447\u0438\u043a\u0435",
+            "description": "\u042d\u0442\u0430 \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u043d\u0430\u043c \u0438\u043d\u0444\u043e\u0440\u043c\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432\u0430\u0441 \u043e \u0445\u043e\u0434\u0435 \u0434\u0435\u043f\u043e\u0437\u0438\u0442\u0430.",
+            "type": "object",
+            "properties": {
+                "depositor_name": {
+                    "title": "\u0418\u043c\u044f \u0432\u043a\u043b\u0430\u0434\u0447\u0438\u043a\u0430",
+                    "description": "\u0412\u0430\u0448\u0435 \u0438\u043c\u044f",
+                    "type": "string"
+                },
+                "email_address": {
+                    "type": "string",
+                    "title": "\u0410\u0434\u0440\u0435\u0441 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u043e\u0439 \u043f\u043e\u0447\u0442\u044b",
+                    "description": "\u0430\u0434\u0440\u0435\u0441 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u043e\u0439 \u043f\u043e\u0447\u0442\u044b \u0434\u043b\u044f \u043e\u0442\u043f\u0440\u0430\u0432\u043a\u0438 \u043e\u0448\u0438\u0431\u043e\u043a",
+                    "format": "email"
+                }
+            }
+        },
+        "journal": {
+            "title": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0436\u0443\u0440\u043d\u0430\u043b\u0435",
+            "type": "object",
+            "properties": {
+                "full_title": {
+                    "title": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0436\u0443\u0440\u043d\u0430\u043b\u0430",
+                    "type": "string",
+                    "examples": [
+                        "Journal of Psychoceramics"
+                    ]
+                },
+                "abbrev_title": {
+                    "title": "\u0421\u043e\u043a\u0440\u0430\u0449\u0435\u043d\u043d\u043e\u0435 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0436\u0443\u0440\u043d\u0430\u043b\u0430",
+                    "type": "string",
+                    "examples": [
+                        "JOPC"
+                    ]
+                },
+                "volume": {
+                    "title": "\u041e\u0431\u044a\u0435\u043c",
+                    "type": "number"
+                },
+                "issue": {
+                    "title": "\u041f\u0440\u043e\u0431\u043b\u0435\u043c\u0430",
+                    "type": "number"
+                },
+                "publication_date": {
+                    "title": "\u0414\u0430\u0442\u0430 \u043f\u0443\u0431\u043b\u0438\u043a\u0430\u0446\u0438\u0438",
+                    "type": "string",
+                    "format": "date"
+                },
+                "issns": {
+                    "$ref": "#/definitions/issn_section"
+                }
+            }
+        },
+        "articles": {
+            "title": "\u0421\u0442\u0430\u0442\u044c\u0438",
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "title": "\u0416\u0443\u0440\u043d\u0430\u043b\u044c\u043d\u0430\u044f \u0441\u0442\u0430\u0442\u044c\u044f",
+                "type": "object",
+                "properties": {
+                    "titles": {
+                        "title": "\u0422\u0438\u0442\u0443\u043b\u044b",
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "title": "\u0437\u0430\u0433\u043b\u0430\u0432\u0438\u0435",
+                            "type": "object",
+                            "properties": {
+                                "title_language": {
+                                    "title": "\u042f\u0437\u044b\u043a \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430",
+                                    "description": "\u041a\u043e\u0434 ISO \u0434\u043b\u044f \u044f\u0437\u044b\u043a\u0430, \u043d\u0430 \u043a\u043e\u0442\u043e\u0440\u043e\u043c \u043d\u0430\u0445\u043e\u0434\u0438\u0442\u0441\u044f \u0442\u0435\u043a\u0441\u0442 \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430.",
+                                    "type": "string",
+                                    "default": "en",
+                                    "enum": [
+                                        "en",
+                                        "es",
+                                        "pt"
+                                    ]
+                                },
+                                "title_text": {
+                                    "title": "\u0422\u0435\u043a\u0441\u0442 \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043a\u0430",
+                                    "description": "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435 \u0441\u0442\u0430\u0442\u044c\u0438 \u043d\u0430 \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u043e\u043c \u044f\u0437\u044b\u043a\u0435",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "resolution_information": {
+                        "title": "\u0418\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f \u043e \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043d\u0438\u0438",
+                        "type": "object",
+                        "properties": {
+                            "doi": {
+                                "title": "DOI",
+                                "description": "DOI, \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0432\u044b \u0445\u043e\u0442\u0438\u0442\u0435 \u043f\u0440\u0438\u0441\u0432\u043e\u0438\u0442\u044c \u044d\u0442\u043e\u0439 \u0441\u0442\u0430\u0442\u044c\u0435",
+                                "type": "string",
+                                "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                                "message": "You must enter a valid DOI"
+                            },
+                            "resource": {
+                                "title": "URL-\u0430\u0434\u0440\u0435\u0441 \u0440\u0430\u0437\u0440\u0435\u0448\u0435\u043d\u0438\u044f",
+                                "description": "URL-\u0430\u0434\u0440\u0435\u0441, \u043d\u0430 \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0434\u043e\u043b\u0436\u0435\u043d \u0440\u0430\u0437\u0440\u0435\u0448\u0438\u0442\u044c DOI",
+                                "type": "string",
+                                "format": "url"
+                            },
+                            "similarity_check_url": {
+                                "title": "URL \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u0441\u0445\u043e\u0434\u0441\u0442\u0432\u0430",
+                                "description": "URL \u0434\u043b\u044f \u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0438 \u0441\u0445\u043e\u0434\u0441\u0442\u0432\u0430, \u0447\u0442\u043e\u0431\u044b \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043f\u043e\u043b\u043d\u044b\u0439 \u0442\u0435\u043a\u0441\u0442",
+                                "type": "string",
+                                "format": "url"
+                            }
+                        }
+                    },
+                    "publication_date": {
+                        "title": "\u0414\u0430\u0442\u0430 \u043f\u0443\u0431\u043b\u0438\u043a\u0430\u0446\u0438\u0438",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "article_location": {
+                        "title": "\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u0441\u0442\u0430\u0442\u044c\u0438",
+                        "description": "\u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u043b\u0438\u0431\u043e \u0434\u0438\u0430\u043f\u0430\u0437\u043e\u043d \u0441\u0442\u0440\u0430\u043d\u0438\u0446, \u043b\u0438\u0431\u043e \u043d\u043e\u043c\u0435\u0440 \u0441\u0442\u0430\u0442\u044c\u0438",
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 1,
+                        "items": {
+                            "oneOf": [
+                                {
+                                    "$ref": "#/definitions/page_span"
+                                },
+                                {
+                                    "$ref": "#/definitions/article_number"
+                                }
+                            ]
+                        }
+                    },
+                    "abstract": {
+                        "title": "\u0410\u0431\u0441\u0442\u0440\u0430\u043a\u0442\u043d\u044b\u0439",
+                        "description": "\u0432\u0432\u0435\u0434\u0438\u0442\u0435 \u0430\u043d\u043d\u043e\u0442\u0430\u0446\u0438\u044e JAT",
+                        "type": "string"
+                    },
+                    "contributors": {
+                        "title": "\u0410\u0432\u0442\u043e\u0440\u044b",
+                        "type": "object",
+                        "properties": {
+                            "people": {
+                                "title": "\u041b\u044e\u0434\u0438",
+                                "type": "array",
+                                "items": {
+                                    "title": "\u0427\u0435\u043b\u043e\u0432\u0435\u043a",
+                                    "type": "object",
+                                    "properties": {
+                                        "-contributor_role": {
+                                            "title": "\u0420\u043e\u043b\u044c \u0443\u0447\u0430\u0441\u0442\u043d\u0438\u043a\u0430",
+                                            "type": "string",
+                                            "enum": [
+                                                "author",
+                                                "editor",
+                                                "chair",
+                                                "translator"
+                                            ],
+                                            "default": "author"
+                                        },
+                                        "-sequence": {
+                                            "title": "\u041f\u043e\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c\u043d\u043e\u0441\u0442\u044c \u0430\u0432\u0442\u043e\u0440\u043e\u0432",
+                                            "type": "string",
+                                            "enum": [
+                                                "first",
+                                                "addtional"
+                                            ]
+                                        },
+                                        "ORCID": {
+                                            "type": "string",
+                                            "title": "ORCID",
+                                            "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))"
+                                        },
+                                        "given_name": {
+                                            "title": "\u0421\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0435 \u0438\u043c\u044f",
+                                            "type": "string"
+                                        },
+                                        "surname": {
+                                            "title": "\u0424\u0430\u043c\u0438\u043b\u0438\u044f",
+                                            "type": "string"
+                                        },
+                                        "suffix": {
+                                            "title": "\u0421\u0443\u0444\u0444\u0438\u043a\u0441",
+                                            "description": "",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "license": {
+                        "$ref": "#/definitions/license_ref"
+                    },
+                    "references": {
+                        "title": "\u0420\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0430\u0446\u0438\u0438",
+                        "type": "array",
+                        "minLength": 1,
+                        "uniqueItems": true,
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/definitions/doi_ref"
+                                },
+                                {
+                                    "$ref": "#/definitions/unstructured_ref"
+                                },
+                                {
+                                    "$ref": "#/definitions/structured_ref"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

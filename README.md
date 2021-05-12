@@ -1,59 +1,44 @@
-[![Build Status][build-shield]][build-url]
-[![Contributors][contributors-shield]][contributors-url]
-[![Apache 2.0 License][license-shield]][license-url]
+# Crossref Deposit Form POC
+Proof of Concept demonstration of the new Deposit UI framework, based on [React JSONSchema Form](https://github.com/rjsf-team/react-jsonschema-form).
 
 
-<p align="center">
-  <a href="https://github.com/rjsf-team/react-jsonschema-form">
-    <img src="https://raw.githubusercontent.com/rjsf-team/react-jsonschema-form/59a8206e148474bea854bbb004f624143fbcbac8/packages/core/logo.png" alt="Logo" width="180" height="120">
-  </a>
+## Run
 
-  <h3 align="center">react-jsonschema-form</h3>
+To run the project in a docker container execute `./run.sh` in the root of the project (success is indicated by `ℹ ｢wdm｣: Compiled successfully.`).
 
-  <p align="center">
-    A simple <a href="http://facebook.github.io/react/">React</a> component capable of using <a href="http://json-schema.org/">JSON Schema</a> to declaratively build and customize web forms.
-    <br />
-    <a href="https://react-jsonschema-form.readthedocs.io/en/latest/"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://rjsf-team.github.io/react-jsonschema-form/">View Playground</a>
-    ·
-    <a href="https://github.com/rjsf-team/react-jsonschema-form/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/rjsf-team/react-jsonschema-form/issues">Request Feature</a>
-  </p>
-</p>
+Then open [http://localhost:8080](http://localhost:8080) in a browser.
 
-[![playground animation](https://i.imgur.com/M8ZCES5.gif)](https://rjsf-team.github.io/react-jsonschema-form/)
+~~`/run.sh` checks for a container tagged with the latest git commit hash. If you have newer commits but don't want to rebuild the container, alter the docker run command to target the `:latest` tag instead.~~
 
+`./run.sh` targets `yaffol/deposit-ui-poc:latest` on Docker Hub. To build a new version of the container locally, use `./build.sh` which will tag the container `yaffol/deposit-ui-poc:GIT_COMMIT_HASH`.
 
-## Supported Themes
+## Build
 
-- [Ant Design](https://github.com/rjsf-team/react-jsonschema-form/tree/master/packages/antd)
-- [Bootstrap 3](https://github.com/rjsf-team/react-jsonschema-form/tree/master/packages/core)
-- [Bootstrap 4](https://github.com/rjsf-team/react-jsonschema-form/tree/master/packages/bootstrap-4)
-- [Fluent UI](https://github.com/rjsf-team/react-jsonschema-form/tree/master/packages/fluent-ui)
-- [Material UI](https://github.com/rjsf-team/react-jsonschema-form/tree/master/packages/material-ui)
-- [Semantic UI](https://github.com/rjsf-team/react-jsonschema-form/tree/master/packages/semantic-ui)
+To build the project to an `index.html` and associated javascript that can be run directly in a browser, pass a build name as the first argument to `run.sh`.
 
-## Documentation
-Read our [documentation](https://react-jsonschema-form.readthedocs.io/en/latest/) on Read the Docs.
+The built assets will be written out to `build/build_name` in the project root.
 
-## Live Playground
-A [live playground](https://rjsf-team.github.io/react-jsonschema-form/) is hosted on gh-pages.
+To run the built project, open the corresponding `index.html` in a browser.
 
-## Contributing
-Read our [contributors' guide](https://react-jsonschema-form.readthedocs.io/en/latest/contributing/) to get started.
+## Configure
 
-## Credits
+The `GOOGLE_APPLICATION_CREDENTIALS` environment variable MUST be the full path to a Google Cloud Service Account credentials file (json format) for an account with access to the translations API. If not set, the docker run command will fail with the message `docker: Error response from daemon: invalid mount config for type "bind": field Source must not be empty.`.
 
-Testing powered by BrowserStack<br>
-<a target="_blank" href="https://www.browserstack.com/"><img width="200" src="https://user-images.githubusercontent.com/1689183/51487090-4ea04f80-1d57-11e9-9a91-79b7ef8d2013.png"></a>
+Data files are mounted into the container via the `data` directory in the root of the project.
 
+Any file matching `*_template.json` will be processed by the pipeline:
+- Dereferenced
+- Translated
+- Added to the manifest
 
-[build-shield]: https://github.com/rjsf-team/react-jsonschema-form/workflows/CI/badge.svg
-[build-url]: https://github.com/rjsf-team/react-jsonschema-form/actions
-[contributors-shield]: https://img.shields.io/github/contributors/rjsf-team/react-jsonschema-form.svg
-[contributors-url]: https://github.com/rjsf-team/react-jsonschema-form/graphs/contributors
-[license-shield]: https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat-square
-[license-url]: https://choosealicense.com/licenses/apache-2.0/
+Dereferenced and translated templates, and the application `manifest.json` are generated and stored in `data/dist`.
+
+Any file matching `template_name_uischema.json` will be imported as the UISchema applicable to `template_name`.
+
+Application settings are stored in `data/settings.json` - you can set the locales to translate to, as well as the default locale.
+
+Translations are stored in `data/translations.json`. You can set `human: { ... }` versions of the messages in here. New messages and new locales will persist across container runs (the file is loaded, added to if needed, and written out again on every run).
+
+## Example data
+Example templates for journal_article and grant are included within the `data` directory, as are translations and settings for the default locales.
+

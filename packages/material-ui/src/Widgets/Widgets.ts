@@ -3,6 +3,7 @@ import CheckboxesWidget from "../CheckboxesWidget/CheckboxesWidget";
 import ColorWidget from "../ColorWidget/ColorWidget";
 import DateWidget from "../DateWidget/DateWidget";
 import DateTimeWidget from "../DateTimeWidget/DateTimeWidget";
+import DOIWidget from "../DOIWidget/"
 import EmailWidget from "../EmailWidget/EmailWidget";
 import PasswordWidget from "../PasswordWidget/PasswordWidget";
 import RadioWidget from "../RadioWidget/RadioWidget";
@@ -19,6 +20,7 @@ export default {
   ColorWidget,
   DateWidget,
   DateTimeWidget,
+  DOIWidget,
   EmailWidget,
   PasswordWidget,
   RadioWidget,

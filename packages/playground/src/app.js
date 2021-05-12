@@ -4,6 +4,14 @@ import { samples } from "./samples";
 import "react-app-polyfill/ie11";
 import Form, { withTheme } from "@rjsf/core";
 import DemoFrame from "./DemoFrame";
+import { saveAs } from "file-saver";
+import * as Loadfile4DOM from "loadfile4dom";
+import FileReaderInput from 'react-file-reader-input';
+import * as Manifest from './data/dist/manifest.json';
+import * as convert from 'xml-js';
+import { PickerOverlay } from 'filestack-react';
+
+const FILESTACK_API_KEY = 'AKNfh0y4GTtKCMFGBD4ACz';
 
 // deepEquals and shouldRender and isArguments are copied from rjsf-core. TODO: unify these utility functions.
 
@@ -93,11 +101,20 @@ function shouldRender(comp, nextProps, nextState) {
   return !deepEquals(props, nextProps) || !deepEquals(state, nextState);
 }
 
+function getDateString() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, '0');
+  const day =`${date.getDate()}`.padStart(2, '0');
+  return `${year}${month}${day}`;
+}
+
 const log = type => console.log.bind(console, type);
 const toJson = val => JSON.stringify(val, null, 2);
 const liveSettingsSchema = {
   type: "object",
   properties: {
+    proMode: { type: "boolean", title: "PRO Mode" },
     validate: { type: "boolean", title: "Live validation" },
     disable: { type: "boolean", title: "Disable whole form" },
     omitExtraData: { type: "boolean", title: "Omit extra data" },
@@ -113,6 +130,43 @@ const monacoEditorOptions = {
 };
 
 class GeoPosition extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { ...props.formData };
+  }
+
+  onChange(name) {
+    return event => {
+     event.preventDefault();
+     return event.target.val;
+    };
+  }
+
+  render() {
+    const { lat, lon } = this.state;
+    return (
+      <div className="geo">
+        <h3>DOI Input</h3>
+        <p>
+          A DOI Input
+        </p>
+        <div className="row">
+          <div className="col-sm-6">
+            <label>DOI Input</label>
+            <input
+              className="form-control"
+              type="string"
+              value={lat}
+              onChange={this.onChange()}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class GeoPositionOrig extends Component {
   constructor(props) {
     super(props);
     this.state = { ...props.formData };
@@ -157,6 +211,58 @@ class GeoPosition extends Component {
             />
           </div>
         </div>
+      </div>
+    );
+  }
+}
+
+class XMLEditor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { valid: true, code: props.code };
+  }
+
+  UNSAFE_componentWillReceiveProps(props) {
+    this.setState({ valid: true, code: props.code });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.valid) {
+      return (
+        nextProps.code !== this.state.code
+      );
+    }
+    return false;
+  }
+
+  onCodeChange = code => {
+    try {
+      this.setState({ valid: true, code }, () =>
+        this.props.onChange(code)
+      );
+    } catch (err) {
+      this.setState({ valid: false, code });
+    }
+  };
+
+  render() {
+    const { title } = this.props;
+    const icon = this.state.valid ? "ok" : "remove";
+    const cls = this.state.valid ? "valid" : "invalid";
+    return (
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <span className={`${cls} glyphicon glyphicon-${icon}`} />
+          {" " + title}
+        </div>
+        <MonacoEditor
+          language="xml"
+          value={this.state.code}
+          theme="vs-light"
+          onChange={this.onCodeChange}
+          height={400}
+          options={monacoEditorOptions}
+        />
       </div>
     );
   }
@@ -235,6 +341,7 @@ class Selector extends Component {
   };
 
   render() {
+    return null;
     return (
       <ul className="nav nav-pills">
         {Object.keys(samples).map((label, i) => {
@@ -252,6 +359,52 @@ class Selector extends Component {
       </ul>
     );
   }
+}
+
+function TemplateSelector({ template, templates, locale, select }) {
+  const schema = {
+    type: "string",
+    enum: Object.keys(templates),
+  };
+  const uiSchema = {
+    "ui:placeholder": "Select template",
+  };
+  return (
+    <Form
+      className="form_rjsf_templateSelector"
+      idPrefix="rjsf_templateSelector"
+      schema={schema}
+      uiSchema={uiSchema}
+      formData={template}
+      onChange={({ formData }) =>
+        formData && select(formData, templates, locale)
+      }>
+      <div />
+    </Form>
+  );
+}
+
+function LocaleSelector({ locale, locales, template, templates, select }) {
+  const schema = {
+    type: "string",
+    enum: locales,
+  };
+  const uiSchema = {
+    "ui:placeholder": "Select locale",
+  };
+  return (
+    <Form
+      className="form_rjsf_localeSelector"
+      idPrefix="rjsf_localeSelector"
+      schema={schema}
+      uiSchema={uiSchema}
+      formData={locale}
+      onChange={({ formData }) =>
+        formData && select(formData, locales, template, templates)
+      }>
+      <div />
+    </Form>
+  );
 }
 
 function ThemeSelector({ theme, themes, select }) {
@@ -300,6 +453,117 @@ function SubthemeSelector({ subtheme, subthemes, select }) {
   );
 }
 
+
+class ReactFileReader extends React.Component {
+  handleFileRead = e => {
+    const content = this.fileReader.result;
+    console.log(content);
+    // … do something with the 'content' …
+  };
+
+  handleFileChosen = file => {
+    this.fileReader = new ReactFileReader();
+    this.fileReader.onloadend = this.handleFileRead;
+    this.fileReader.readAsText(file);
+  };
+
+  handleChange = (e, results) => {
+    results.forEach(result => {
+      const [e, file] = result;
+      // this.props.dispatch(uploadFile(e.target.result));
+      console.log(`Successfully uploaded ${file.name}!${e}`);
+      this.handleFileChosen(file);
+    });
+  }
+  render() {
+    return (
+      <div>
+        <label htmlFor="my-file-input">Upload a File:</label>
+        <FileReaderInput as="text" id="my-file-input"
+                         onChange={this.handleChange}>
+          <button>Select a file!</button>
+        </FileReaderInput>
+      </div>
+    );
+  }
+}
+
+class ImportFromFileBodyComponent extends Component {
+  constructor() {
+    super();
+    this.state = {
+      fileReader: null,
+    };
+  }
+
+  handleFileRead = e => {
+    const content = this.fileReader.result;
+    console.log(content);
+    // … do something with the 'content' …
+  };
+
+  handleFileChosen = file => {
+    this.fileReader = new ReactFileReader();
+    this.fileReader.onloadend = this.handleFileRead;
+    this.fileReader.readAsText(file);
+  };
+
+  render() {
+    return (
+      <div className="upload-expense">
+        <input
+          type="file"
+          id="file"
+          className="input-file"
+          accept=".csv"
+          onChange={e => this.handleFileChosen(e.target.files[0])}
+        />
+      </div>
+    );
+  }
+}
+
+class SubmitLink extends Component {
+  render() {
+    const { onSubmit } = this.props;
+    return (
+      <button className="btn btn-default" type="button" onClick={onSubmit}>
+        Submit
+      </button>
+    );
+  }
+}
+
+class LoadLink extends Component {
+  onLoadClick = event => {
+    console.log("Load clicked...");
+  };
+
+  render() {
+    const { onLoad } = this.props;
+    return (
+      <button className="btn btn-default" type="button" onClick={onLoad}>
+        Load
+      </button>
+    );
+  }
+}
+
+class SaveLink extends Component {
+  onSaveClick = event => {
+    console.log("Save clicked...");
+  };
+
+  render() {
+    const { onSave } = this.props;
+    return (
+      <button className="btn btn-default" type="button" onClick={onSave}>
+        Save
+      </button>
+    );
+  }
+}
+
 class CopyLink extends Component {
   onCopyClick = event => {
     this.input.select();
@@ -341,18 +605,43 @@ class Playground extends Component {
     super(props);
 
     // set default theme
-    const theme = "default";
+    // const theme = "default";
+    const theme = "material-ui";
     // initialize state with Simple data sample
-    const { schema, uiSchema, formData, validate } = samples.Simple;
+    // const { uiSchema, formData, validate } = samples.Simple;
+    const { validate } = samples.Simple;
+    const formData = {};
+    const { defaultLocale, locales, defaultTemplate, templates } = Manifest;
+    const template = defaultTemplate;
+    const schema = templates[template]['locales'][defaultLocale].data;
+    const uiSchema = templates[template]['uiSchema'];
+    const md5 = templates[template]['md5'];
+    let version = '';
+    try {
+      version = schema.self.version
+    }
+    catch (e) {
+      console.warn('No version defined in schema.self')
+    }
     this.state = {
       form: false,
+      defaultLocale,
+      defaultTemplate,
+      template,
+      templates,
+      locale: defaultLocale,
+      locales,
       schema,
+      version,
       uiSchema,
+      md5,
       formData,
       validate,
+      transformErrors: this.transformErrors,
       theme,
       subtheme: null,
       liveSettings: {
+        proMode: false,
         validate: false,
         disable: false,
         omitExtraData: false,
@@ -409,6 +698,13 @@ class Playground extends Component {
     );
   };
 
+  transformErrors = errors => {
+    if (errors){
+      console.log(errors);
+    }
+    return errors;
+  };
+
   onSchemaEdited = schema => this.setState({ schema, shareURL: null });
 
   onUISchemaEdited = uiSchema => this.setState({ uiSchema, shareURL: null });
@@ -417,6 +713,54 @@ class Playground extends Component {
 
   onExtraErrorsEdited = extraErrors =>
     this.setState({ extraErrors, shareURL: null });
+
+  onTemplateSelected = (
+    template,
+    templates,
+    locale
+  ) => {
+    console.log(`Template selected: ${template}`);
+    const localisedSchema = templates[template]['locales'][locale].data;
+    const version = localisedSchema.self.version;
+    const uiSchema = templates[template]['uiSchema'];
+    const md5 = templates[template]['md5'];
+    // debugger
+    // const localisedSchema = templates['locales'][locale].data;
+
+    if (!localisedSchema) {
+      console.warn(`No localised schema found for: ${locale}`);
+      return;
+    }
+    this.setState({
+      locale,
+      template,
+      schema: localisedSchema,
+      uiSchema,
+      md5,
+      version
+    });
+  };
+
+  onLocaleSelected = (
+    locale,
+    locales,
+    template,
+    templates
+  ) => {
+    console.log(`Locale selected: ${locale}`);
+    const localisedSchema = templates[template]['locales'][locale].data;
+    // debugger
+    // const localisedSchema = templates['locales'][locale].data;
+
+    if (!localisedSchema) {
+      console.warn(`No localised schema found for: ${locale}`);
+      return;
+    }
+    this.setState({
+      locale,
+      schema: localisedSchema
+    });
+  };
 
   onThemeSelected = (
     theme,
@@ -472,11 +816,115 @@ class Playground extends Component {
     }
   };
 
+  onSubmit = () => {
+    console.log("Submit clicked...");
+    const {
+      formData
+    } = this.state;
+    console.log(formData);
+    const xml = convert.js2xml(formData, { compact: true, spaces: 4 });
+    console.log(xml);
+    alert(xml);
+  };
+
+  onLoad = () => {
+    console.log("Load clicked...");
+    const lf4d = new Loadfile4DOM();
+    const options = {
+      debug: false, // if true, it will show the hidden <input type="file" ...> loaders in DOM
+    };
+    lf4d.init(document, options);
+    //-----------------------------------------------
+    //----- Create a new Loader "txtfile" -----------
+    //-----------------------------------------------
+    // with MIME type filter use type="text"
+    //var txtfile = lf4d.get_loader_options("mytxtfile","text");
+
+    // if arbitray files are allowed use type="all"
+    const txtfile = lf4d.get_loader_options("mytxtfile", "text");
+    // Define what to do with the loaded data
+    txtfile.returntype = "file"; // data contains the file
+    console.log("txtfile: " + JSON.stringify(txtfile));
+    const onLoadCallback = (data, err) => {
+      if (err) {
+        // do something on error, perr contains error message
+        console.error(err);
+        alert("ERROR: " + err);
+      } else {
+        // do something with the file content in data e.g. store  in a HTML textarea (e.g. <textarea id="mytextarea" ...>
+        console.log("CALL: txtfile.onload()");
+        console.log(data);
+        const parsedCode = JSON.parse(data);
+        console.log(parsedCode);
+        this.setState({
+          schema: parsedCode.schema,
+          version: parsedCode.version,
+          md5: parsedCode.md5,
+          uiSchema: parsedCode.uiSchema,
+          formData: parsedCode.formData,
+          locales: parsedCode.locales,
+          locale: parsedCode.locale,
+          templates: parsedCode.templates,
+          template: parsedCode.template
+        });
+        // this.onSchemaEdited(parsedCode.schema);
+        // document.getElementById("mytextarea").value = data;
+      }
+      return data;
+    };
+
+    txtfile.onload = onLoadCallback;
+
+    // create the loader txtfile
+    lf4d.create_load_dialog(txtfile);
+    lf4d.open_dialog("mytxtfile");
+  };
+
+  onSave = () => {
+    const {
+      formData,
+      schema,
+      version,
+      md5,
+      uiSchema,
+      liveSettings,
+      errorSchema,
+      theme,
+      locale,
+      locales,
+      template,
+      templates
+    } = this.state;
+    const payload = {
+      formData,
+      schema,
+      version,
+      md5,
+      uiSchema,
+      liveSettings,
+      errorSchema,
+      theme,
+      locale,
+      locales,
+      template,
+      templates
+    };
+    console.log(payload);
+    const blob = new Blob([JSON.stringify(payload)], {
+      type: "text/plain;charset=utf-8",
+    });
+    saveAs(blob, `${template}-${getDateString()}.json`);
+  };
+
   render() {
     const {
       schema,
       uiSchema,
       formData,
+      locale,
+      locales,
+      template,
+      templates,
       extraErrors,
       liveSettings,
       validate,
@@ -485,9 +933,9 @@ class Playground extends Component {
       FormComponent,
       ArrayFieldTemplate,
       ObjectFieldTemplate,
-      transformErrors,
+      transformErrors
     } = this.state;
-
+    console.log(transformErrors);
     const { themes } = this.props;
 
     let templateProps = {};
@@ -501,13 +949,21 @@ class Playground extends Component {
       templateProps.extraErrors = extraErrors;
     }
 
+    // const schemaSelf = JSON.stringify(schema.self);
+
     return (
       <div className="container-fluid">
         <div className="page-header">
-          <h1>react-jsonschema-form</h1>
           <div className="row">
-            <div className="col-sm-8">
+            <div className="col-sm-6">
+              <h1>Crossref Form Runner</h1>
+              <img src={`https://assets.crossref.org/logo/crossref-logo-landscape-200.svg`} width={`200`} height={`68`} alt={`Crossref logo`}></img>
               <Selector onSelected={this.load} />
+            </div>
+            <div className="col-sm-2">
+              <pre style={liveSettings.proMode ? { display:'block' } : { display : 'none' } }>
+                {JSON.stringify(schema.self, null, 4)}
+              </pre>
             </div>
             <div className="col-sm-2">
               <Form
@@ -515,10 +971,22 @@ class Playground extends Component {
                 schema={liveSettingsSchema}
                 formData={liveSettings}
                 onChange={this.setLiveSettings}>
-                <div />
               </Form>
             </div>
             <div className="col-sm-2">
+              <TemplateSelector
+                template={template}
+                templates={templates}
+                locale={locale}
+                select={this.onTemplateSelected}
+              />
+              <LocaleSelector
+                locales={locales}
+                locale={locale}
+                template={template}
+                templates={templates}
+                select={this.onLocaleSelected}
+              />
               <ThemeSelector
                 themes={themes}
                 theme={theme}
@@ -532,10 +1000,19 @@ class Playground extends Component {
                 />
               )}
               <CopyLink shareURL={this.state.shareURL} onShare={this.onShare} />
+              <SaveLink onSave={this.onSave} />
+              <LoadLink onLoad={this.onLoad} />
+              <SubmitLink onSubmit={this.onSubmit} />
+              {/* <PickerOverlay
+                apikey={FILESTACK_API_KEY}
+                onSuccess={(res) => console.log(res)}
+              /> */}
+              {/*<ImportFromFileBodyComponent />*/}
+              {/*<ReactFileReader/>*/}
             </div>
           </div>
         </div>
-        <div className="col-sm-7">
+        <div className={liveSettings.proMode ? "col-sm-7" : ""} style={liveSettings.proMode ? { display:'block' } : { display : 'none' } }>
           <Editor
             title="JSONSchema"
             code={toJson(schema)}
@@ -557,6 +1034,12 @@ class Playground extends Component {
               />
             </div>
           </div>
+          <div className="col-sm-12">
+            <XMLEditor
+              title="xml"
+              code={convert.js2xml(formData, { compact: true, spaces: 4 })}
+            />
+          </div>
           {extraErrors && (
             <div className="row">
               <div className="col">
@@ -569,7 +1052,8 @@ class Playground extends Component {
             </div>
           )}
         </div>
-        <div className="col-sm-5">
+        <div className={liveSettings.proMode ? "col-sm-5" : "col-sm-6"}
+             style={liveSettings.proMode ? {} : { float: "none", margin: "0 auto" }}>
           {this.state.form && (
             <DemoFrame
               head={

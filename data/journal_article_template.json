@@ -1,0 +1,439 @@
+{
+  "self": {
+    "vendor": "org.crossref",
+    "name": "journal_article",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+    "title": "Crossref article deposit",
+    "type": "object",
+    "definitions": {
+      "doi_ref": {
+        "title": "DOI Only Reference",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "DOI": {
+            "type": "string",
+            "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+"
+          }
+        },
+        "required": [
+          "DOI"
+        ]
+      },
+      "unstructured_ref": {
+        "title": "Unstructured reference",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "reference": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "reference"
+        ]
+      },
+      "structured_ref": {
+        "title": "Structured reference",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "journal_title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "first_page": {
+            "type": "number"
+          },
+          "year": {
+            "type": "string",
+            "pattern": "^[1-9][0-9][0-9][0-9]$"
+          }
+        },
+        "required": [
+          "journal_title",
+          "author",
+          "year"
+        ]
+      },
+      "page_span": {
+        "title": "Page span",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "first_page": {
+            "title": "First page",
+            "type": "number"
+          },
+          "last_page": {
+            "title": "Last page",
+            "type": "number"
+          }
+        },
+        "required": [
+          "first_page",
+          "last_page"
+        ]
+      },
+      "article_number": {
+        "title": "Article number",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "number": {
+            "title": "Number",
+            "type": "number"
+          }
+        },
+        "required": [
+          "number"
+        ]
+      },
+      "online_issn": {
+        "title": "eISSN",
+        "description": "ISSN for online version",
+        "type": "string",
+        "pattern": "[\\S]{4}\\-[\\S]{4}"
+      },
+      "print_issn": {
+        "title": "ISSN",
+        "description": "ISSN for print version",
+        "type": "string",
+        "pattern": "[\\S]{4}\\-[\\S]{4}"
+      },
+      "issn_section": {
+        "title": "ISSNs",
+        "description": "online and print ISSNs",
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 2,
+        "items": {
+          "type": "object",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/online_issn"
+            },
+            {
+              "$ref": "#/definitions/print_issn"
+            }
+          ]
+        }
+      },
+      "lic_qualifiers": {
+        "title": "",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "start_date": {
+            "title": "Start date",
+            "description": "The date at which the license takes effect (usually the same as the publication date)",
+            "type": "string",
+            "format": "date"
+          },
+          "jav": {
+            "title": "JAV version",
+            "type": "string",
+            "enum": [
+              "Accepted Manuscript",
+              "Version of Record"
+            ],
+            "default": "Version of Record"
+          }
+        },
+        "required": [
+          "start_date",
+          "jav"
+        ]
+      },
+      "cc_license": {
+        "title": "Creative Common License",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cc_url": {
+            "title": "Creative Commons license url",
+            "description": "The URL of the Creative Commons license",
+            "type": "string",
+            "enum": [
+              "https://creativecommons.org/licenses/by/4.0/",
+              "https://creativecommons.org/licenses/by-sa/4.0/",
+              "https://creativecommons.org/licenses/by-nd/4.0/",
+              "https://creativecommons.org/licenses/by-nc/4.0/",
+              "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+              "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+            ],
+            "defualt": "https://creativecommons.org/licenses/by/4.0/"
+          },
+          "qualifiers": {
+            "$ref": "#/definitions/lic_qualifiers"
+          }
+        },
+        "required": [
+          "cc_url"
+        ]
+      },
+      "other_license": {
+        "title": "Other License",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "other_url": {
+            "title": "License url",
+            "description": "A URL that points to a copyright statement or terms & conditions",
+            "type": "string",
+            "format": "uri",
+            "default": "https://example.com/license"
+          },
+          "qualifiers": {
+            "$ref": "#/definitions/lic_qualifiers"
+          }
+        },
+        "required": [
+          "other_url"
+        ]
+      },
+      "license_ref": {
+        "title": "License information",
+        "description": "License information for AM, VOR",
+        "type": "array",
+        "minItems": 0,
+        "maxItems": 10,
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/cc_license"
+            },
+            {
+              "$ref": "#/definitions/other_license"
+            }
+          ]
+        }
+      }
+    },
+    "properties": {
+      "depositor": {
+        "title": "Depositor Information",
+        "description": "This information allows us to update you on the progress of the deposit",
+        "type": "object",
+        "properties": {
+          "depositor_name": {
+            "title": "Depositor name",
+            "description": "your name",
+            "type": "string"
+          },
+          "email_address": {
+            "type": "string",
+            "title": "Email address",
+            "description": "email address to send errors to",
+            "format": "email"
+          }
+        }
+      },
+      "journal": {
+        "title": "Journal Information",
+        "type": "object",
+        "properties": {
+          "full_title": {
+            "title": "Journal title",
+            "type": "string",
+            "examples": [
+              "Journal of Psychoceramics"
+            ]
+          },
+          "abbrev_title": {
+            "title": "Abbreviated journal title",
+            "type": "string",
+            "examples": [
+              "JOPC"
+            ]
+          },
+          "volume": {
+            "title": "Volume",
+            "type": "number"
+          },
+          "issue": {
+            "title": "Issue",
+            "type": "number"
+          },
+          "publication_date": {
+            "title": "Publication date",
+            "type": "string",
+            "format": "date"
+          },
+          "issns": {
+            "$ref": "#/definitions/issn_section"
+          }
+        }
+      },
+      "articles": {
+        "title": "Articles",
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+          "title": "Journal Article",
+          "type": "object",
+          "properties": {
+            "titles": {
+              "title": "Titles",
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "title": "title",
+                "type": "object",
+                "properties": {
+                  "title_language": {
+                    "title": "Title language",
+                    "description": "The ISO code for the language the title text is in",
+                    "type": "string",
+                    "default": "en",
+                    "enum": [
+                      "en",
+                      "es",
+                      "pt"
+                    ]
+                  },
+                  "title_text": {
+                    "title": "Title text",
+                    "description": "The title of the article in the language selected",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "resolution_information": {
+              "title": "Resolution Information",
+              "type": "object",
+              "properties": {
+                "doi": {
+                  "title": "DOI",
+                  "description": "The DOI you want to assign to this article",
+                  "type": "string",
+                  "pattern": "^10\\.\\d{4,9}/[-._;()/:A-Z0-9^\\s]+",
+                  "message": "You must enter a valid DOI"
+                },
+                "resource": {
+                  "title": "Resolution URL",
+                  "description": "URL the DOI should resolve to",
+                  "type": "string",
+                  "format": "url"
+                },
+                "similarity_check_url": {
+                  "title": "Similarity Check URL",
+                  "description": "URL for Similarity Check to get full text",
+                  "type": "string",
+                  "format": "url"
+                }
+              }
+            },
+            "publication_date": {
+              "title": "Publication date",
+              "type": "string",
+              "format": "date"
+            },
+            "article_location": {
+              "title": "Article location",
+              "description": "enter either the page-span or the article number",
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 1,
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/page_span"
+                  },
+                  {
+                    "$ref": "#/definitions/article_number"
+                  }
+                ]
+              }
+            },
+            "abstract": {
+              "title": "Abstract",
+              "description": "enter a JATs abstract",
+              "type": "string"
+            },
+            "contributors": {
+              "title": "Contributors",
+              "type": "object",
+              "properties": {
+                "people": {
+                  "title": "People",
+                  "type": "array",
+                  "items": {
+                    "title": "Person",
+                    "type": "object",
+                    "properties": {
+                      "-contributor_role": {
+                        "title": "Contributor role",
+                        "type": "string",
+                        "enum": [
+                          "author",
+                          "editor",
+                          "chair",
+                          "translator"
+                        ],
+                        "default": "author"
+                      },
+                      "-sequence": {
+                        "title": "Contributor sequence",
+                        "type": "string",
+                        "enum": [
+                          "first",
+                          "addtional"
+                        ]
+                      },
+                      "ORCID": {
+                        "type": "string",
+                        "title": "ORCID",
+                        "pattern": "(\\d{4}\\-\\d{4}\\-\\d{4}\\-\\d{3}(?:\\d|X))"
+                      },
+                      "given_name": {
+                        "title": "Given name",
+                        "type": "string"
+                      },
+                      "surname": {
+                        "title": "Surname",
+                        "type": "string"
+                      },
+                      "suffix": {
+                        "title": "Suffix",
+                        "description": "",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "license": {
+              "$ref": "#/definitions/license_ref"
+            },
+            "references": {
+              "title": "References",
+              "type": "array",
+              "minLength": 1,
+              "uniqueItems": true,
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/doi_ref"
+                  },
+                  {
+                    "$ref": "#/definitions/unstructured_ref"
+                  },
+                  {
+                    "$ref": "#/definitions/structured_ref"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
