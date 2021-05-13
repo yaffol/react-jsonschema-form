@@ -3,8 +3,8 @@ NAME="yaffol/deposit-ui-poc"
 HASH=$(git log -1 --format=%H)
 TAG=${HASH:-"MISSING"}
 LATEST="${NAME}:latest"
-IMG="${NAME}:${TAG}"
-#IMG=$LATEST
+#IMG="${NAME}:${TAG}"
+IMG=$LATEST
 #PULL=""
 PULL="--pull always"
 
