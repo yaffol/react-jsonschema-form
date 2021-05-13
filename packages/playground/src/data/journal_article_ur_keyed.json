@@ -1,0 +1,365 @@
+{
+    "title": "",
+    "type": "object",
+    "properties": {
+        "doi_batch": {
+            "title": "",
+            "type": "object",
+            "properties": {
+                "-schemaLocation": {
+                    "type": "string",
+                    "key": "/properties/doi_batch/properties/-schemaLocation",
+                    "path": "$['properties']['doi_batch']['properties']['-schemaLocation']"
+                },
+                "-version": {
+                    "type": "string",
+                    "key": "/properties/doi_batch/properties/-version",
+                    "path": "$['properties']['doi_batch']['properties']['-version']"
+                },
+                "-xmlns": {
+                    "type": "string",
+                    "key": "/properties/doi_batch/properties/-xmlns",
+                    "path": "$['properties']['doi_batch']['properties']['-xmlns']"
+                },
+                "-xsi": {
+                    "type": "string",
+                    "key": "/properties/doi_batch/properties/-xsi",
+                    "path": "$['properties']['doi_batch']['properties']['-xsi']"
+                },
+                "body": {
+                    "title": "",
+                    "type": "object",
+                    "properties": {
+                        "journal": {
+                            "title": "",
+                            "type": "object",
+                            "properties": {
+                                "journal_article": {
+                                    "title": "",
+                                    "type": "object",
+                                    "properties": {
+                                        "-publication_type": {
+                                            "type": "string",
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/-publication_type",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['-publication_type']"
+                                        },
+                                        "citation_list": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "citation": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "title": "",
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "-key": {
+                                                                "type": "string",
+                                                                "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/citation_list/properties/citation/items/properties/-key",
+                                                                "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['citation_list']['properties']['citation']['items']['properties']['-key']"
+                                                            },
+                                                            "author": {
+                                                                "type": "string",
+                                                                "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/citation_list/properties/citation/items/properties/author",
+                                                                "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['citation_list']['properties']['citation']['items']['properties']['author']"
+                                                            },
+                                                            "cYear": {
+                                                                "type": "string",
+                                                                "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/citation_list/properties/citation/items/properties/cYear",
+                                                                "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['citation_list']['properties']['citation']['items']['properties']['cYear']"
+                                                            },
+                                                            "first_page": {
+                                                                "type": "string",
+                                                                "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/citation_list/properties/citation/items/properties/first_page",
+                                                                "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['citation_list']['properties']['citation']['items']['properties']['first_page']"
+                                                            },
+                                                            "journal_title": {
+                                                                "type": "string",
+                                                                "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/citation_list/properties/citation/items/properties/journal_title",
+                                                                "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['citation_list']['properties']['citation']['items']['properties']['journal_title']"
+                                                            },
+                                                            "volume": {
+                                                                "type": "string",
+                                                                "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/citation_list/properties/citation/items/properties/volume",
+                                                                "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['citation_list']['properties']['citation']['items']['properties']['volume']"
+                                                            }
+                                                        },
+                                                        "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/citation_list/properties/citation/items",
+                                                        "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['citation_list']['properties']['citation']['items']"
+                                                    },
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/citation_list/properties/citation",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['citation_list']['properties']['citation']"
+                                                }
+                                            },
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/citation_list",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['citation_list']"
+                                        },
+                                        "contributors": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "person_name": {
+                                                    "title": "",
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "-contributor_role": {
+                                                            "type": "string",
+                                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/contributors/properties/person_name/properties/-contributor_role",
+                                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['contributors']['properties']['person_name']['properties']['-contributor_role']"
+                                                        },
+                                                        "-sequence": {
+                                                            "type": "string",
+                                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/contributors/properties/person_name/properties/-sequence",
+                                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['contributors']['properties']['person_name']['properties']['-sequence']"
+                                                        },
+                                                        "ORCID": {
+                                                            "type": "string",
+                                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/contributors/properties/person_name/properties/ORCID",
+                                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['contributors']['properties']['person_name']['properties']['ORCID']"
+                                                        },
+                                                        "given_name": {
+                                                            "type": "string",
+                                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/contributors/properties/person_name/properties/given_name",
+                                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['contributors']['properties']['person_name']['properties']['given_name']"
+                                                        },
+                                                        "surname": {
+                                                            "type": "string",
+                                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/contributors/properties/person_name/properties/surname",
+                                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['contributors']['properties']['person_name']['properties']['surname']"
+                                                        }
+                                                    },
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/contributors/properties/person_name",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['contributors']['properties']['person_name']"
+                                                }
+                                            },
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/contributors",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['contributors']"
+                                        },
+                                        "doi_data": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "doi": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/doi_data/properties/doi",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['doi_data']['properties']['doi']"
+                                                },
+                                                "resource": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/doi_data/properties/resource",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['doi_data']['properties']['resource']"
+                                                }
+                                            },
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/doi_data",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['doi_data']"
+                                        },
+                                        "pages": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "first_page": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/pages/properties/first_page",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['pages']['properties']['first_page']"
+                                                },
+                                                "last_page": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/pages/properties/last_page",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['pages']['properties']['last_page']"
+                                                }
+                                            },
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/pages",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['pages']"
+                                        },
+                                        "publication_date": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "-media_type": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/publication_date/properties/-media_type",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['publication_date']['properties']['-media_type']"
+                                                },
+                                                "day": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/publication_date/properties/day",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['publication_date']['properties']['day']"
+                                                },
+                                                "month": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/publication_date/properties/month",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['publication_date']['properties']['month']"
+                                                },
+                                                "year": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/publication_date/properties/year",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['publication_date']['properties']['year']"
+                                                }
+                                            },
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/publication_date",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['publication_date']"
+                                        },
+                                        "titles": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "title": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/titles/properties/title",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['titles']['properties']['title']"
+                                                }
+                                            },
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article/properties/titles",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']['properties']['titles']"
+                                        }
+                                    },
+                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_article",
+                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_article']"
+                                },
+                                "journal_issue": {
+                                    "title": "",
+                                    "type": "object",
+                                    "properties": {
+                                        "issue": {
+                                            "type": "string",
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_issue/properties/issue",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_issue']['properties']['issue']"
+                                        },
+                                        "journal_volume": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "volume": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_issue/properties/journal_volume/properties/volume",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_issue']['properties']['journal_volume']['properties']['volume']"
+                                                }
+                                            },
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_issue/properties/journal_volume",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_issue']['properties']['journal_volume']"
+                                        },
+                                        "publication_date": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "-media_type": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_issue/properties/publication_date/properties/-media_type",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_issue']['properties']['publication_date']['properties']['-media_type']"
+                                                },
+                                                "day": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_issue/properties/publication_date/properties/day",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_issue']['properties']['publication_date']['properties']['day']"
+                                                },
+                                                "month": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_issue/properties/publication_date/properties/month",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_issue']['properties']['publication_date']['properties']['month']"
+                                                },
+                                                "year": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_issue/properties/publication_date/properties/year",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_issue']['properties']['publication_date']['properties']['year']"
+                                                }
+                                            },
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_issue/properties/publication_date",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_issue']['properties']['publication_date']"
+                                        }
+                                    },
+                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_issue",
+                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_issue']"
+                                },
+                                "journal_metadata": {
+                                    "title": "",
+                                    "type": "object",
+                                    "properties": {
+                                        "abbrev_title": {
+                                            "type": "string",
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_metadata/properties/abbrev_title",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_metadata']['properties']['abbrev_title']"
+                                        },
+                                        "full_title": {
+                                            "type": "string",
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_metadata/properties/full_title",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_metadata']['properties']['full_title']"
+                                        },
+                                        "issn": {
+                                            "title": "",
+                                            "type": "object",
+                                            "properties": {
+                                                "#text": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_metadata/properties/issn/properties/#text",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_metadata']['properties']['issn']['properties']['#text']"
+                                                },
+                                                "-media_type": {
+                                                    "type": "string",
+                                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_metadata/properties/issn/properties/-media_type",
+                                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_metadata']['properties']['issn']['properties']['-media_type']"
+                                                }
+                                            },
+                                            "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_metadata/properties/issn",
+                                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_metadata']['properties']['issn']"
+                                        }
+                                    },
+                                    "key": "/properties/doi_batch/properties/body/properties/journal/properties/journal_metadata",
+                                    "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']['properties']['journal_metadata']"
+                                }
+                            },
+                            "key": "/properties/doi_batch/properties/body/properties/journal",
+                            "path": "$['properties']['doi_batch']['properties']['body']['properties']['journal']"
+                        }
+                    },
+                    "key": "/properties/doi_batch/properties/body",
+                    "path": "$['properties']['doi_batch']['properties']['body']"
+                },
+                "head": {
+                    "title": "",
+                    "type": "object",
+                    "properties": {
+                        "depositor": {
+                            "title": "",
+                            "type": "object",
+                            "properties": {
+                                "depositor_name": {
+                                    "type": "string",
+                                    "key": "/properties/doi_batch/properties/head/properties/depositor/properties/depositor_name",
+                                    "path": "$['properties']['doi_batch']['properties']['head']['properties']['depositor']['properties']['depositor_name']"
+                                },
+                                "email_address": {
+                                    "type": "string",
+                                    "key": "/properties/doi_batch/properties/head/properties/depositor/properties/email_address",
+                                    "path": "$['properties']['doi_batch']['properties']['head']['properties']['depositor']['properties']['email_address']"
+                                }
+                            },
+                            "key": "/properties/doi_batch/properties/head/properties/depositor",
+                            "path": "$['properties']['doi_batch']['properties']['head']['properties']['depositor']"
+                        },
+                        "doi_batch_id": {
+                            "type": "string",
+                            "key": "/properties/doi_batch/properties/head/properties/doi_batch_id",
+                            "path": "$['properties']['doi_batch']['properties']['head']['properties']['doi_batch_id']"
+                        },
+                        "registrant": {
+                            "type": "string",
+                            "key": "/properties/doi_batch/properties/head/properties/registrant",
+                            "path": "$['properties']['doi_batch']['properties']['head']['properties']['registrant']"
+                        },
+                        "timestamp": {
+                            "type": "string",
+                            "key": "/properties/doi_batch/properties/head/properties/timestamp",
+                            "path": "$['properties']['doi_batch']['properties']['head']['properties']['timestamp']"
+                        }
+                    },
+                    "key": "/properties/doi_batch/properties/head",
+                    "path": "$['properties']['doi_batch']['properties']['head']"
+                }
+            },
+            "key": "/properties/doi_batch",
+            "path": "$['properties']['doi_batch']"
+        }
+    },
+    "key": "",
+    "path": "$"
+}
