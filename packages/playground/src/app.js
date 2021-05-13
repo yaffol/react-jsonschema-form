@@ -82,29 +82,50 @@ const journal_article_xml_tpl = `
      <day>{{#dayFromDate}}{{ publication_date }}{{/dayFromDate}}</day>
      <year>{{#yearFromDate}}{{ publication_date }}{{/yearFromDate}}</year>
     </publication_date>
+    {{#article_location.number}}
+      
+    {{/article_location.number}}
+    {{#article_location}}
     <pages>
-     <first_page>100</first_page>
-     <last_page>200</last_page>
+     {{#first_page}}
+     <first_page>{{first_page}}</first_page>
+     {{/first_page}}
+     {{#last_page}}
+     <last_page>{{last_page}}</last_page>
+     {{/last_page}}
     </pages>
+    <!-- ====== TODO: handle article_location which is a number ====== -->
+    {{/article_location}}
+
     <doi_data>
-     <doi>10.50505/test_20051229930</doi>
-     <resource>http://www.crossref.org/</resource>
+     <doi>{{resolution_information.doi}}</doi>
+     <resource>{{resolution_information.resource}}</resource>
     </doi_data>
     <!-- =========  Here is the list of references cited in the above article -->
     <citation_list>
-     <citation key="ref1">
-      <journal_title>Current Opinion in Oncology</journal_title>
-      <author>Chauncey</author>
-      <volume>13</volume>
-      <first_page>21</first_page>
-      <cYear>2001</cYear>
-     </citation>
+    {{#references}}
+    <!-- ====== TODO: handle key="refX" index ====== -->
+     {{#DOI}}
      <citation key="ref2">
-      <doi>10.5555/small_md_0001</doi>
+      <doi>{{DOI}}</doi>
      </citation>
+     {{/DOI}}
+     {{#reference}}
      <citation key="ref=3">
-     <unstructured_citation>Clow GD, McKay CP, Simmons Jr. GM, and Wharton RA, Jr. 1988. Climatological observations and           predicted sublimation rates at Lake Hoare, Antarctica. Journal of Climate 1:715-728.</unstructured_citation>
+       <unstructured_citation>{{ reference }}</unstructured_citation>
      </citation>
+     {{/reference}}
+     {{#author}}
+      <citation key="ref1">
+        <journal_title>{{journal_title}}</journal_title>
+        <author>{{author}}</author>
+        <volume></volume>
+        <first_page>{{first_page}}</first_page>
+        <cYear>{{year}}</cYear>
+     </citation>
+     {{/author}}
+     {{#index}}references{{/index}}
+    {{/references}}
     </citation_list>
    </journal_article>
    {{/articles}}
@@ -925,20 +946,6 @@ class Playground extends Component {
       formData
     } = this.state;
     console.log(formData);
-    let publication_date = null;
-    try {
-      if (formData.journal.publication_date) {
-        const pubDate = new Date(Date.parse(formData.journal.publication_date));
-        publication_date = {
-          year: pubDate.getUTCFullYear(),
-          month: pubDate.getUTCMonth()+1,
-          day: pubDate.getUTCDate()
-        };
-      }
-    }
-    catch (e) {
-      console.log('error parsing publication date: ', e);
-    }
     const stringFromDate = function(date, key){
       try {
         const pubDate = new Date(Date.parse(date));
@@ -968,11 +975,24 @@ class Playground extends Component {
         return stringFromDate(this.publication_date, 'day');
       };
     };
+    formData.indexOf = function() {
+      return function(array, render) {
+        return formData[array].indexOf(this);
+      };
+    };
+    try {
+      for (const i of formData.articles) {
+
+      }
+    }
+    catch (e) {
+      console.log(e)
+    }
     // const data = { formDataDefaults, ...formData };
     console.log(data);
     // const xml = journal_article2xml_tpl({ formDataDefaults, ...formData });
     // const xml = convert.js2xml(formData, { compact: true, spaces: 4 });
-    const data = {faker: faker, timestamp: Date.now(), publication_date: publication_date, ...formData}
+    const data = {faker: faker, timestamp: Date.now(), ...formData}
     const xml = mustache.render(journal_article_xml_tpl, data)
     console.log(formData)
     console.log(xml);
