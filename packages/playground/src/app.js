@@ -10,6 +10,7 @@ import FileReaderInput from 'react-file-reader-input';
 import * as Manifest from './data/dist/manifest.json';
 // import * as formDataDefaultsObj from './data/journal_article_data.json'
 const Mustache = require('mustache')
+const jsYaml = require('js-yaml')
 // const Handlebars = require('handlebars')
 const faker = require('faker')
 const formDataDefaults = {}
@@ -233,10 +234,20 @@ function getDateString() {
 
 const log = type => console.log.bind(console, type);
 const toJson = val => JSON.stringify(val, null, 2);
+const toYaml = val => {
+  try {
+    const yaml = jsYaml.dump(val);
+    return yaml
+  }
+  catch (e) {
+    console.log('error dumping yaml: ',e,val)
+  }
+}
 const liveSettingsSchema = {
   type: "object",
   properties: {
     proMode: { type: "boolean", title: "PRO Mode" },
+    yamlMode: { type: "boolean", title: "YAML Mode" },
     validate: { type: "boolean", title: "Live validation" },
     disable: { type: "boolean", title: "Disable whole form" },
     omitExtraData: { type: "boolean", title: "Omit extra data" },
@@ -390,6 +401,60 @@ class XMLEditor extends Component {
   }
 }
 
+class YAMLEditor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { valid: true, code: props.code };
+  }
+
+  UNSAFE_componentWillReceiveProps(props) {
+    this.setState({ valid: true, code: props.code });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+    if (this.state.valid) {
+      return (
+        JSON.stringify(JSON.parse(nextProps.code)) !==
+        JSON.stringify(JSON.parse(this.state.code))
+      );
+    }
+    return false;
+  }
+
+  onCodeChange = code => {
+    try {
+      const parsedCode = jsYaml.load(code);
+      this.setState({ valid: true, code }, () =>
+        this.props.onChange(parsedCode)
+      );
+    } catch (err) {
+      this.setState({ valid: false, code });
+    }
+  };
+
+  render() {
+    const { title } = this.props;
+    const icon = this.state.valid ? "ok" : "remove";
+    const cls = this.state.valid ? "valid" : "invalid";
+    return (
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <span className={`${cls} glyphicon glyphicon-${icon}`} />
+          {" " + title}
+        </div>
+        <MonacoEditor
+          language="yaml"
+          value={this.state.code}
+          theme="vs-light"
+          onChange={this.onCodeChange}
+          height={400}
+          options={monacoEditorOptions}
+        />
+      </div>
+    );
+  }
+}
 class Editor extends Component {
   constructor(props) {
     super(props);
@@ -729,6 +794,7 @@ class Playground extends Component {
     // set default theme
     // const theme = "default";
     const theme = "material-ui";
+    const xmlTransformTpl = journal_article_xml_tpl;
     // initialize state with Simple data sample
     // const { uiSchema, formData, validate } = samples.Simple;
     const { validate } = samples.Simple;
@@ -768,6 +834,7 @@ class Playground extends Component {
       subtheme: null,
       liveSettings: {
         proMode: false,
+        yamlMode: false,
         validate: false,
         disable: false,
         omitExtraData: false,
@@ -948,6 +1015,7 @@ class Playground extends Component {
   };
 
   renderXML = (formData) => {
+    const data = {};
     console.log(formData);
     const stringFromDate = function(date, key){
       if (!date) {
@@ -966,22 +1034,22 @@ class Playground extends Component {
         console.log('error parsing date: ', e);
       }
     }
-    formData.yearFromDate = function(){
+    data.yearFromDate = function(){
       return function(timestamp, render) {
         return stringFromDate(this.publication_date, 'year');
       };
     };
-    formData.monthFromDate = function(){
+    data.monthFromDate = function(){
       return function(timestamp, render) {
         return stringFromDate(this.publication_date, 'month');
       };
     };
-    formData.dayFromDate = function(){
+    data.dayFromDate = function(){
       return function(timestamp, render) {
         return stringFromDate(this.publication_date, 'day');
       };
     };
-    formData.indexOf = function() {
+    data.indexOf = function() {
       return function(array, render) {
         return formData[array].indexOf(this);
       };
@@ -998,8 +1066,8 @@ class Playground extends Component {
     console.log(data);
     // const xml = journal_article2xml_tpl({ formDataDefaults, ...formData });
     // const xml = convert.js2xml(formData, { compact: true, spaces: 4 });
-    const data = {faker: faker, timestamp: Date.now(), ...formData}
-    const xml = mustache.render(journal_article_xml_tpl, data)
+    const viewData = { faker: faker, timestamp: Date.now(), ...data, ...formData };
+    const xml = mustache.render(journal_article_xml_tpl, viewData);
     return xml;
   }
 
@@ -1082,6 +1150,9 @@ class Playground extends Component {
       templates
     } = this.state;
     const payload = {
+      transforms: {
+        journal_article_xml: journal_article_xml_tpl
+      },
       formData,
       schema,
       version,
@@ -1201,32 +1272,53 @@ class Playground extends Component {
           </div>
         </div>
         <div className={liveSettings.proMode ? "col-sm-7" : ""} style={liveSettings.proMode ? { display:'block' } : { display : 'none' } }>
-          <Editor
-            title="JSONSchema"
-            code={toJson(schema)}
-            onChange={this.onSchemaEdited}
-          />
+          <div style={!liveSettings.yamlMode ? { display:'block' } : { display : 'none' } }>
+            <Editor
+              title="JSONSchema"
+              code={toJson(schema)}
+              onChange={this.onSchemaEdited}
+            />
+          </div>
+          <div style={liveSettings.yamlMode ? { display:'block' } : { display : 'none' } }>
+            <YAMLEditor
+              title="JSONSchema"
+              code={toYaml(schema)}
+              onChange={this.onSchemaEdited}
+            />
+          </div>
           <div className="row">
             <div className="col-sm-6">
-              <Editor
-                title="UISchema"
-                code={toJson(uiSchema)}
-                onChange={this.onUISchemaEdited}
-              />
+              <div style={!liveSettings.yamlMode ? { display:'block' } : { display : 'none' } }>
+                <Editor
+                  title="UISchema"
+                  code={toJson(uiSchema)}
+                  onChange={this.onUISchemaEdited}
+                />
+              </div>
+              <div style={liveSettings.yamlMode ? { display:'block' } : { display : 'none' } }>
+                <YAMLEditor
+                  title="UISchema"
+                  code={toYaml(uiSchema)}
+                  onChange={this.onUISchemaEdited}
+                />
+              </div>
             </div>
             <div className="col-sm-6">
-              <Editor
-                title="formData"
-                code={toJson(formData)}
-                onChange={this.onFormDataEdited}
-              />
+              <div style={!liveSettings.yamlMode ? { display:'block' } : { display : 'none' } }>
+                <Editor
+                  title="formData"
+                  code={toJson(formData)}
+                  onChange={this.onFormDataEdited}
+                />
+              </div>
+              <div style={liveSettings.yamlMode ? { display:'block' } : { display : 'none' } }>
+                <YAMLEditor
+                  title="formData"
+                  code={toYaml(formData)}
+                  onChange={this.onFormDataEdited}
+                />
+              </div>
             </div>
-          </div>
-          <div className="col-sm-12">
-            <XMLEditor
-              title="xml"
-              code={XML}
-            />
           </div>
           {extraErrors && (
             <div className="row">
@@ -1295,6 +1387,12 @@ class Playground extends Component {
               />
             </DemoFrame>
           )}
+        </div>
+        <div className="col-sm-12 mt-3" style={liveSettings.proMode ? { display:'block' } : { display : 'none' } }>
+          <XMLEditor
+            title="xml"
+            code={XML}
+          />
         </div>
         <div className="col-sm-12">
           <p style={{ textAlign: "center" }}>
