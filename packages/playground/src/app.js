@@ -8,10 +8,132 @@ import { saveAs } from "file-saver";
 import * as Loadfile4DOM from "loadfile4dom";
 import FileReaderInput from 'react-file-reader-input';
 import * as Manifest from './data/dist/manifest.json';
+import * as formDataDefaultsObj from './data/journal_article_data.json'
+const Mustache = require('mustache')
+// const Handlebars = require('handlebars')
+const faker = require('faker')
+const formDataDefaults = formDataDefaultsObj.default
+formDataDefaults.doi_batch_id = faker.internet.password(10, false, /[0-9A-Z]/);
+console.log(formDataDefaults)
 import * as convert from 'xml-js';
 import { PickerOverlay } from 'filestack-react';
-
+import mustache from 'mustache/mustache.mjs'
+// const journal_article2xml_tpl = require("ejs-compiled-loader!./journal_article2xml.ejs?with=false");
+// const journal_article_xml_tpl = fs.readFileSync('./journal_article2xml.hb');
 const FILESTACK_API_KEY = 'AKNfh0y4GTtKCMFGBD4ACz';
+mustache.escape = function (value)
+{
+  return value;
+};
+const journal_article_xml_tpl = `
+  <?xml version="1.0" encoding="UTF-8"?>
+<doi_batch version="4.3.7" xmlns="http://www.crossref.org/schema/4.3.7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/schema/4.3.7 http://www.crossref.org/schema/deposit/crossref4.3.7.xsd">
+ <head>
+  <doi_batch_id>{{ faker.internet.password }}</doi_batch_id>
+  <timestamp>{{ timestamp }}</timestamp>
+  <depositor>
+   <depositor_name>{{ depositor.depositor_name }}</depositor_name>
+   <email_address>{{ depositor.email_address }}<%-  %></email_address>
+  </depositor>
+  <registrant>WEB-FORM</registrant>
+ </head>
+ <body>
+  <journal>
+   <journal_metadata>
+    <full_title>{{ journal.full_title }}</full_title>
+    <abbrev_title>{{ journal.abbrev_title }}</abbrev_title>
+    {{#journal.issns}}
+        <issn media_type="print">{{.}}</issn>
+    {{/journal.issns}}
+   </journal_metadata>
+   <journal_issue>
+    <publication_date media_type="print">
+     <month>{{ publication_date.month }}</month>
+     <day>{{ publication_date.day }}</day>
+     <year>{{ publication_date.year }}</year>
+    </publication_date>
+    <journal_volume>
+     <volume>{{ journal.volume }}</volume>
+    </journal_volume>
+    <issue>{{ journal.issue }}</issue>
+   </journal_issue>
+   <!-- ====== This is the article's metadata ======== -->
+   {{#articles}}
+   <journal_article publication_type="full_text">
+     <titles>
+      {{#titles}}
+        <!-- ====== added lang attribute here ====== -->
+         <title lang="{{ title_language }}">{{ title_text }}</title>
+      {{/titles}}
+      </titles>
+    <contributors>
+     {{#contributors.people}}
+     <person_name sequence="{{ -sequence }}" contributor_role="{{ -contributor_role }}">
+      <given_name>{{ given_name }}</given_name>
+      <surname>{{ surname }}</surname>
+      <ORCID>{{ ORCID }}</ORCID>
+      <!-- ====== added suffix tag ====== -->
+      <suffix>{{ suffix }}</suffix>
+     </person_name>
+     {{/contributors.people}}
+    </contributors>
+    <publication_date media_type="print">
+     <month>{{#monthFromDate}}{{ publication_date }}{{/monthFromDate}}</month>
+     <day>{{#dayFromDate}}{{ publication_date }}{{/dayFromDate}}</day>
+     <year>{{#yearFromDate}}{{ publication_date }}{{/yearFromDate}}</year>
+    </publication_date>
+    {{#article_location.number}}
+      
+    {{/article_location.number}}
+    {{#article_location}}
+    <pages>
+     {{#first_page}}
+     <first_page>{{first_page}}</first_page>
+     {{/first_page}}
+     {{#last_page}}
+     <last_page>{{last_page}}</last_page>
+     {{/last_page}}
+    </pages>
+    <!-- ====== TODO: handle article_location which is a number ====== -->
+    {{/article_location}}
+
+    <doi_data>
+     <doi>{{resolution_information.doi}}</doi>
+     <resource>{{resolution_information.resource}}</resource>
+    </doi_data>
+    <!-- =========  Here is the list of references cited in the above article -->
+    <citation_list>
+    {{#references}}
+    <!-- ====== TODO: handle key="refX" index ====== -->
+     {{#DOI}}
+     <citation key="ref2">
+      <doi>{{DOI}}</doi>
+     </citation>
+     {{/DOI}}
+     {{#reference}}
+     <citation key="ref=3">
+       <unstructured_citation>{{ reference }}</unstructured_citation>
+     </citation>
+     {{/reference}}
+     {{#author}}
+      <citation key="ref1">
+        <journal_title>{{journal_title}}</journal_title>
+        <author>{{author}}</author>
+        <volume></volume>
+        <first_page>{{first_page}}</first_page>
+        <cYear>{{year}}</cYear>
+     </citation>
+     {{/author}}
+     {{#index}}references{{/index}}
+    {{/references}}
+    </citation_list>
+   </journal_article>
+   {{/articles}}
+  </journal>
+ </body>
+</doi_batch>
+
+`;
 
 // deepEquals and shouldRender and isArguments are copied from rjsf-core. TODO: unify these utility functions.
 
@@ -226,14 +348,14 @@ class XMLEditor extends Component {
     this.setState({ valid: true, code: props.code });
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.valid) {
-      return (
-        nextProps.code !== this.state.code
-      );
-    }
-    return false;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (this.state.valid) {
+  //     return (
+  //       nextProps.code !== this.state.code
+  //     );
+  //   }
+  //   return false;
+  // }
 
   onCodeChange = code => {
     try {
@@ -610,7 +732,8 @@ class Playground extends Component {
     // initialize state with Simple data sample
     // const { uiSchema, formData, validate } = samples.Simple;
     const { validate } = samples.Simple;
-    const formData = {};
+    const formData = {
+    };
     const { defaultLocale, locales, defaultTemplate, templates } = Manifest;
     const template = defaultTemplate;
     const schema = templates[template]['locales'][defaultLocale].data;
@@ -618,10 +741,10 @@ class Playground extends Component {
     const md5 = templates[template]['md5'];
     let version = '';
     try {
-      version = schema.self.version
+      version = schema.self.version;
     }
     catch (e) {
-      console.warn('No version defined in schema.self')
+      console.warn('No version defined in schema.self');
     }
     this.state = {
       form: false,
@@ -636,12 +759,13 @@ class Playground extends Component {
       uiSchema,
       md5,
       formData,
+      formDataDefaults,
       validate,
       transformErrors: this.transformErrors,
       theme,
       subtheme: null,
       liveSettings: {
-        proMode: false,
+        proMode: true,
         validate: false,
         disable: false,
         omitExtraData: false,
@@ -822,7 +946,55 @@ class Playground extends Component {
       formData
     } = this.state;
     console.log(formData);
-    const xml = convert.js2xml(formData, { compact: true, spaces: 4 });
+    const stringFromDate = function(date, key){
+      try {
+        const pubDate = new Date(Date.parse(date));
+        const publication_date = {
+          year: pubDate.getUTCFullYear(),
+          month: pubDate.getUTCMonth()+1,
+          day: pubDate.getUTCDate()
+        };
+        return publication_date[key];
+      }
+      catch (e) {
+        console.log('error parsing date: ', e);
+      }
+    }
+    formData.yearFromDate = function(){
+      return function(timestamp, render) {
+        return stringFromDate(this.publication_date, 'year');
+      };
+    };
+    formData.monthFromDate = function(){
+      return function(timestamp, render) {
+        return stringFromDate(this.publication_date, 'month');
+      };
+    };
+    formData.dayFromDate = function(){
+      return function(timestamp, render) {
+        return stringFromDate(this.publication_date, 'day');
+      };
+    };
+    formData.indexOf = function() {
+      return function(array, render) {
+        return formData[array].indexOf(this);
+      };
+    };
+    try {
+      for (const i of formData.articles) {
+
+      }
+    }
+    catch (e) {
+      console.log(e)
+    }
+    // const data = { formDataDefaults, ...formData };
+    console.log(data);
+    // const xml = journal_article2xml_tpl({ formDataDefaults, ...formData });
+    // const xml = convert.js2xml(formData, { compact: true, spaces: 4 });
+    const data = {faker: faker, timestamp: Date.now(), ...formData}
+    const xml = mustache.render(journal_article_xml_tpl, data)
+    console.log(formData)
     console.log(xml);
     alert(xml);
   };
@@ -921,6 +1093,7 @@ class Playground extends Component {
       schema,
       uiSchema,
       formData,
+      formDataDefaults,
       locale,
       locales,
       template,
@@ -1037,7 +1210,10 @@ class Playground extends Component {
           <div className="col-sm-12">
             <XMLEditor
               title="xml"
-              code={convert.js2xml(formData, { compact: true, spaces: 4 })}
+              code={ Mustache.render(
+                journal_article_xml_tpl,
+                { formData }
+              ) }
             />
           </div>
           {extraErrors && (
