@@ -8,11 +8,11 @@ import { saveAs } from "file-saver";
 import * as Loadfile4DOM from "loadfile4dom";
 import FileReaderInput from 'react-file-reader-input';
 import * as Manifest from './data/dist/manifest.json';
-import * as formDataDefaultsObj from './data/journal_article_data.json'
+// import * as formDataDefaultsObj from './data/journal_article_data.json'
 const Mustache = require('mustache')
 // const Handlebars = require('handlebars')
 const faker = require('faker')
-const formDataDefaults = formDataDefaultsObj.default
+const formDataDefaults = {}
 formDataDefaults.doi_batch_id = faker.internet.password(10, false, /[0-9A-Z]/);
 console.log(formDataDefaults)
 import * as convert from 'xml-js';
@@ -33,7 +33,7 @@ const journal_article_xml_tpl = `
   <timestamp>{{ timestamp }}</timestamp>
   <depositor>
    <depositor_name>{{ depositor.depositor_name }}</depositor_name>
-   <email_address>{{ depositor.email_address }}<%-  %></email_address>
+   <email_address>{{ depositor.email_address }}</email_address>
   </depositor>
   <registrant>WEB-FORM</registrant>
  </head>
