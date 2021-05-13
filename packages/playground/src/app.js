@@ -25,8 +25,8 @@ mustache.escape = function (value)
 {
   return value;
 };
-const journal_article_xml_tpl = `
-  <?xml version="1.0" encoding="UTF-8"?>
+const journal_article_xml_tpl =
+  `<?xml version="1.0" encoding="UTF-8"?>
 <doi_batch version="4.3.7" xmlns="http://www.crossref.org/schema/4.3.7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/schema/4.3.7 http://www.crossref.org/schema/deposit/crossref4.3.7.xsd">
  <head>
   <doi_batch_id>{{ faker.internet.password }}</doi_batch_id>
@@ -259,8 +259,8 @@ class GeoPosition extends Component {
 
   onChange(name) {
     return event => {
-     event.preventDefault();
-     return event.target.val;
+      event.preventDefault();
+      return event.target.val;
     };
   }
 
@@ -734,6 +734,7 @@ class Playground extends Component {
     const { validate } = samples.Simple;
     const formData = {
     };
+    const XML = '';
     const { defaultLocale, locales, defaultTemplate, templates } = Manifest;
     const template = defaultTemplate;
     const schema = templates[template]['locales'][defaultLocale].data;
@@ -760,12 +761,13 @@ class Playground extends Component {
       md5,
       formData,
       formDataDefaults,
+      XML,
       validate,
       transformErrors: this.transformErrors,
       theme,
       subtheme: null,
       liveSettings: {
-        proMode: true,
+        proMode: false,
         validate: false,
         disable: false,
         omitExtraData: false,
@@ -908,8 +910,13 @@ class Playground extends Component {
 
   setLiveSettings = ({ formData }) => this.setState({ liveSettings: formData });
 
-  onFormDataChange = ({ formData = "" }) =>
-    this.setState({ formData, shareURL: null });
+  onFormDataChange = ({ formData = "" }) => {
+    const XML = this.renderXML(formData);
+    console.log(XML)
+    this.setState({
+      formData, shareURL: null, XML
+    });
+  }
 
   onShare = () => {
     const {
@@ -940,13 +947,12 @@ class Playground extends Component {
     }
   };
 
-  onSubmit = () => {
-    console.log("Submit clicked...");
-    const {
-      formData
-    } = this.state;
+  renderXML = (formData) => {
     console.log(formData);
     const stringFromDate = function(date, key){
+      if (!date) {
+        return '';
+      }
       try {
         const pubDate = new Date(Date.parse(date));
         const publication_date = {
@@ -994,7 +1000,15 @@ class Playground extends Component {
     // const xml = convert.js2xml(formData, { compact: true, spaces: 4 });
     const data = {faker: faker, timestamp: Date.now(), ...formData}
     const xml = mustache.render(journal_article_xml_tpl, data)
-    console.log(formData)
+    return xml;
+  }
+
+  onSubmit = () => {
+    console.log("Submit clicked...");
+    const {
+      formData
+    } = this.state;
+    const xml = this.renderXML(formData);
     console.log(xml);
     alert(xml);
   };
@@ -1094,6 +1108,7 @@ class Playground extends Component {
       uiSchema,
       formData,
       formDataDefaults,
+      XML,
       locale,
       locales,
       template,
@@ -1138,7 +1153,7 @@ class Playground extends Component {
                 {JSON.stringify(schema.self, null, 4)}
               </pre>
             </div>
-            <div className="col-sm-2">
+            <div className="col-sm-2 rjsf_options_form">
               <Form
                 idPrefix="rjsf_options"
                 schema={liveSettingsSchema}
@@ -1210,10 +1225,7 @@ class Playground extends Component {
           <div className="col-sm-12">
             <XMLEditor
               title="xml"
-              code={ Mustache.render(
-                journal_article_xml_tpl,
-                { formData }
-              ) }
+              code={XML}
             />
           </div>
           {extraErrors && (
