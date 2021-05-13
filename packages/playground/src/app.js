@@ -790,6 +790,7 @@ class CopyLink extends Component {
 class Playground extends Component {
   constructor(props) {
     super(props);
+    this.setTitle = this.setTitle.bind(this);
 
     // set default theme
     // const theme = "default";
@@ -861,6 +862,7 @@ class Playground extends Component {
 
       this.setState({ form: true });
     }
+    window.addEventListener('setTitle', this.setTitle);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -1133,6 +1135,12 @@ class Playground extends Component {
     lf4d.create_load_dialog(txtfile);
     lf4d.open_dialog("mytxtfile");
   };
+
+  setTitle = event => {
+    this.setState({
+      formData: { ...this.state.formData, journal: { full_title: event.detail } }
+    });
+  }
 
   onSave = () => {
     const {

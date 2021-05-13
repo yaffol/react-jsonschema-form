@@ -34,8 +34,34 @@ const TextWidget = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) =>
     onChange(value === "" ? options.emptyValue : value);
-  const _onBlur = ({ target: { value } }: React.FocusEvent<HTMLInputElement>) =>
+  const _onBlur = async ({ target: { value } }: React.FocusEvent<HTMLInputElement>) => {
+   debugger;
+   const regex = /.*_issns_[0-9]+/
+   if (id.match(regex)){
+     console.log(`matched issn: ${id}`)
+     try {
+       const r = await fetch(`https://api.crossref.org/journals/${value}`)
+       console.log(r)
+       const journal: any = await r.json();
+       console.log(journal)
+       if (r && journal.message.title) {
+         const setTitle = confirm(`Do you want to set the title to ${journal.message.title}?`)
+         if (setTitle){
+           const event = new CustomEvent('setTitle', {
+             detail: journal.message.title
+           });
+           window.dispatchEvent(event);
+         }
+       }
+     }
+     catch (e) {
+       console.log(e)
+     }
+   }
+   console.log(id)
+    console.log('blurrr')
     onBlur(id, value);
+  }
   const _onFocus = ({
     target: { value },
   }: React.FocusEvent<HTMLInputElement>) => onFocus(id, value);
