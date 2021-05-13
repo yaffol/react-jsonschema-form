@@ -97,7 +97,14 @@ const journal_article_xml_tpl =
     </pages>
     <!-- ====== TODO: handle article_location which is a number ====== -->
     {{/article_location}}
-
+    {{#license}}
+    {{#cc_url}}
+    <cc_license>{{cc_url}}</cc_license>
+    {{/cc_url}}
+    {{#other_url}}
+    <other_license>{{other_url}}</other_license>
+    {{/other_url}}
+    {{/license}}
     <doi_data>
      <doi>{{resolution_information.doi}}</doi>
      <resource>{{resolution_information.resource}}</resource>
@@ -393,7 +400,7 @@ class XMLEditor extends Component {
           value={this.state.code}
           theme="vs-light"
           onChange={this.onCodeChange}
-          height={400}
+          height={600}
           options={monacoEditorOptions}
         />
       </div>
@@ -846,7 +853,7 @@ class Playground extends Component {
     };
   }
 
-  componentDidMount() {
+componentDidMount() {
     const { themes } = this.props;
     const { theme } = this.state;
     const hash = document.location.hash.match(/#(.*)/);
@@ -1076,11 +1083,18 @@ class Playground extends Component {
   onSubmit = () => {
     console.log("Submit clicked...");
     const {
-      formData
+      formData,
+      liveSettings
     } = this.state;
     const xml = this.renderXML(formData);
     console.log(xml);
-    alert(xml);
+    const XMLWindowEl = document.querySelector('.xml-window');
+    if (liveSettings.proMode) {
+      XMLWindowEl.scrollIntoView();
+    }
+    else {
+      alert(xml);
+    }
   };
 
   onLoad = () => {
@@ -1396,7 +1410,7 @@ class Playground extends Component {
             </DemoFrame>
           )}
         </div>
-        <div className="col-sm-12 mt-3" style={liveSettings.proMode ? { display:'block' } : { display : 'none' } }>
+        <div className="col-sm-12 mt-3 xml-window" style={liveSettings.proMode ? { display:'block' } : { display : 'none' } }>
           <XMLEditor
             title="xml"
             code={XML}
