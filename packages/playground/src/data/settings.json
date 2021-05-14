@@ -1,4 +1,5 @@
 {
     "defaultLocale": "en",
-    "locales": ["en", "fr", "pt-br", "id", "ko", "ru"]
+    "locales": ["en", "fr", "pt-br", "id", "ko", "ru"],
+    "defaultTemplate": "journal_article_template"
 }

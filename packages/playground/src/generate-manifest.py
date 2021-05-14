@@ -2,6 +2,7 @@
 
 import glob, os, json, re, hashlib
 import logging
+from collections import OrderedDict
 
 logger = logging.getLogger(__name__)
 abspath = os.path.abspath(__file__)
@@ -57,7 +58,7 @@ for templateName in templateNames:
         try:
             locale = localeSearch.group(1)
             with open(filepath) as json_file:
-                data = json.load(json_file)
+                data = json.load(json_file, object_pairs_hook=OrderedDict)
                 tSchemas['templates'][templateName]['locales'][locale] = {
                     'data': data,
                     'schema': data,
@@ -79,7 +80,7 @@ for templateName in templateNames:
 #     except Exception as e:
 #         logger.warning(e)
 
-json_out = json.dumps(tSchemas, indent=4, sort_keys=True)
+json_out = json.dumps(tSchemas, indent=4, sort_keys=False)
 # print(json_out)
 
 with open(f'{distPath}manifest.json', 'w') as outfile:
