@@ -1151,8 +1151,10 @@ componentDidMount() {
   };
 
   setTitle = event => {
+    let journal = this.state.formData.journal || {};
+    journal = { ...journal, full_title: event.detail };
     this.setState({
-      formData: { ...this.state.formData, journal: { full_title: event.detail } }
+      formData: { ...this.state.formData, journal: journal }
     });
   }
 
