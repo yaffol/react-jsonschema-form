@@ -54,7 +54,15 @@ function DemoFrame(props) {
       container: instanceRef.current.contentDocument.body,
       window: () => instanceRef.current.contentWindow,
     });
+    instanceRef.current.contentWindow.addEventListener('keydown', forwardEventToParent);
   };
+
+  const forwardEventToParent = function(e) {
+    if (e.key==='x' && e.ctrlKey) {
+      const event = new CustomEvent('toggleScaryTechnicalDetails');
+      instanceRef.current.contentWindow.parent.dispatchEvent(event);
+    }
+  }.bind(this);
   if (theme === "fluent-ui") {
     // TODO: find a better way to render fluent-ui in an iframe, if we need to do so.
     const { head } = props;
@@ -69,7 +77,7 @@ function DemoFrame(props) {
     );
   }
   return (
-    <Frame ref={handleRef} contentDidMount={onContentDidMount} {...other}>
+    <Frame ref={handleRef} contentDidMount={onContentDidMount} id="demoIFrame" {...other}>
       <div id="demo-frame-jss" />
       {/* We need to wrap the material-ui form in a custom StylesProvider
             so that styles are injected into the iframe, not the parent window. */}

@@ -609,6 +609,7 @@ function ThemeSelector({ theme, themes, select }) {
   const uiSchema = {
     "ui:placeholder": "Select theme",
   };
+  return null;
   return (
     <Form
       className="form_rjsf_themeSelector"
@@ -722,7 +723,7 @@ class SubmitLink extends Component {
     const { onSubmit } = this.props;
     return (
       <button className="btn btn-default" type="button" onClick={onSubmit}>
-        Submit
+        Register
       </button>
     );
   }
@@ -765,6 +766,7 @@ class CopyLink extends Component {
   };
 
   render() {
+    return null;
     const { shareURL, onShare } = this.props;
     if (!shareURL) {
       return (
@@ -798,6 +800,8 @@ class Playground extends Component {
   constructor(props) {
     super(props);
     this.setTitle = this.setTitle.bind(this);
+    this.keydownHandler = this.keydownHandler.bind(this);
+    this.toggleScaryTechincalDetails = this.toggleScaryTechincalDetails.bind(this);
 
     // set default theme
     // const theme = "default";
@@ -822,6 +826,7 @@ class Playground extends Component {
       console.warn('No version defined in schema.self');
     }
     this.state = {
+      scaryTechnicalDetails: false,
       form: false,
       defaultLocale,
       defaultTemplate,
@@ -853,7 +858,24 @@ class Playground extends Component {
     };
   }
 
-componentDidMount() {
+  toggleScaryTechincalDetails(){
+    console.log('!!!TOGGLE SCARY TECHNICAL DETAILS!!!');
+    this.setState({
+      scaryTechnicalDetails: !this.state.scaryTechnicalDetails
+    });
+  }
+
+  keydownHandler(e){
+    if (e.key==='x' && e.ctrlKey) {
+      this.toggleScaryTechincalDetails()
+    }
+  }
+
+  componentWillUnmount () {
+
+  }
+
+  componentDidMount() {
     const { themes } = this.props;
     const { theme } = this.state;
     const hash = document.location.hash.match(/#(.*)/);
@@ -870,6 +892,8 @@ componentDidMount() {
       this.setState({ form: true });
     }
     window.addEventListener('setTitle', this.setTitle);
+    window.addEventListener('toggleScaryTechnicalDetails', this.toggleScaryTechincalDetails);
+    window.addEventListener('keydown', this.keydownHandler);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -1209,6 +1233,7 @@ componentDidMount() {
       template,
       templates,
       extraErrors,
+      scaryTechnicalDetails,
       liveSettings,
       validate,
       theme,
@@ -1218,7 +1243,6 @@ componentDidMount() {
       ObjectFieldTemplate,
       transformErrors
     } = this.state;
-    console.log(transformErrors);
     const { themes } = this.props;
 
     let templateProps = {};
@@ -1239,8 +1263,8 @@ componentDidMount() {
         <div className="page-header">
           <div className="row">
             <div className="col-sm-6">
-              <h1>Crossref Form Runner</h1>
               <img src={`https://assets.crossref.org/logo/crossref-logo-landscape-200.svg`} width={`200`} height={`68`} alt={`Crossref logo`}></img>
+              <h1>Form Runner</h1>
               <Selector onSelected={this.load} />
             </div>
             <div className="col-sm-2">
@@ -1249,12 +1273,14 @@ componentDidMount() {
               </pre>
             </div>
             <div className="col-sm-2 rjsf_options_form">
-              <Form
-                idPrefix="rjsf_options"
-                schema={liveSettingsSchema}
-                formData={liveSettings}
-                onChange={this.setLiveSettings}>
-              </Form>
+              <div style={scaryTechnicalDetails ? { display:'block' } : { display : 'none' } }>
+                <Form
+                  idPrefix="rjsf_options"
+                  schema={liveSettingsSchema}
+                  formData={liveSettings}
+                  onChange={this.setLiveSettings}>
+                </Form>
+              </div>
             </div>
             <div className="col-sm-2">
               <TemplateSelector
@@ -1311,15 +1337,15 @@ componentDidMount() {
             />
           </div>
           <div className="row">
-            <div className="col-sm-6">
-              <div style={!liveSettings.yamlMode ? { display:'block' } : { display : 'none' } }>
+            <div className="">
+              <div style={{ display : 'none' } }>
                 <Editor
                   title="UISchema"
                   code={toJson(uiSchema)}
                   onChange={this.onUISchemaEdited}
                 />
               </div>
-              <div style={liveSettings.yamlMode ? { display:'block' } : { display : 'none' } }>
+              <div style={ { display : 'none' } }>
                 <YAMLEditor
                   title="UISchema"
                   code={toYaml(uiSchema)}
@@ -1327,7 +1353,7 @@ componentDidMount() {
                 />
               </div>
             </div>
-            <div className="col-sm-6">
+            <div className="col-sm-12">
               <div style={!liveSettings.yamlMode ? { display:'block' } : { display : 'none' } }>
                 <Editor
                   title="formData"
