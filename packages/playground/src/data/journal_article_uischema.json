@@ -1,17 +1,3 @@
 {
-    "articles": {
-        "items": {
-          "resolution_information": {
-              "doi":{
-                  "ui:placeholder": "doi",
-                  "ui:widget": "doi"
-              }
-          }
-        }
-    },
-      "email_address": {
-        "ui:placeholder": "doi",
-        "ui:widget": "doi"
-      }
 
 }
