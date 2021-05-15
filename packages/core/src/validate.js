@@ -249,7 +249,20 @@ export default function validateFormData(
   if (typeof customValidate !== "function") {
     return { errors, errorSchema };
   }
-
+  try {
+    let issnErrors = errorSchema.journal.issns
+    for (const i in issnErrors) {
+      if (
+        issnErrors[i].__errors.length === 1 &&
+        issnErrors[i].__errors[0] === 'should be object'
+      ){
+        issnErrors[i].__errors = []
+      }
+    }
+      }
+  catch (e) {
+    console.log(e)
+  }
   const errorHandler = customValidate(formData, createErrorHandler(formData));
   const userErrorSchema = unwrapErrorHandler(errorHandler);
   const newErrorSchema = mergeObjects(errorSchema, userErrorSchema, true);

@@ -256,6 +256,7 @@ const liveSettingsSchema = {
     proMode: { type: "boolean", title: "PRO Mode" },
     yamlMode: { type: "boolean", title: "YAML Mode" },
     validate: { type: "boolean", title: "Live validation" },
+    verboseValidation: { type: "boolean", title: "Verbose validation" },
     disable: { type: "boolean", title: "Disable whole form" },
     omitExtraData: { type: "boolean", title: "Omit extra data" },
     liveOmit: { type: "boolean", title: "Live omit" },
@@ -809,7 +810,7 @@ class Playground extends Component {
     const xmlTransformTpl = journal_article_xml_tpl;
     // initialize state with Simple data sample
     // const { uiSchema, formData, validate } = samples.Simple;
-    const { validate } = samples.Simple;
+    const {validate} = samples.Simple;
     const formData = {
     };
     const XML = '';
@@ -849,6 +850,7 @@ class Playground extends Component {
         proMode: false,
         yamlMode: false,
         validate: false,
+        verboseValidation: false,
         disable: false,
         omitExtraData: false,
         liveOmit: false,
@@ -856,6 +858,21 @@ class Playground extends Component {
       shareURL: null,
       FormComponent: withTheme({}),
     };
+  }
+
+  validate(formData, errors){
+    // debugger;
+    console.log(formData);
+    const e = {
+      journal: {
+        issns: {
+          0: {
+            errors: []
+          }
+        }
+      }
+    }
+    return e;
   }
 
   toggleScaryTechincalDetails(){
@@ -1066,7 +1083,7 @@ class Playground extends Component {
       catch (e) {
         console.log('error parsing date: ', e);
       }
-    }
+    };
     data.yearFromDate = function(){
       return function(timestamp, render) {
         return stringFromDate(this.publication_date, 'year');
@@ -1093,7 +1110,7 @@ class Playground extends Component {
       }
     }
     catch (e) {
-      console.log(e)
+      console.log(e);
     }
     // const data = { formDataDefaults, ...formData };
     console.log(data);
@@ -1393,6 +1410,14 @@ class Playground extends Component {
                     id="theme"
                     href={this.state.stylesheet || ""}
                   />
+                <style type={"text/css"} dangerouslySetInnerHTML={liveSettings.verboseValidation ? {__html: ``} : {__html: `.MuiFormHelperText-root.Mui-error {
+    display: none !important;
+}`} }></style>
+                  <link
+                    rel="stylesheet"
+                    id="theme"
+                    href={"styles.css"}
+                  />
                   {theme === "antd" && (
                     <div
                       dangerouslySetInnerHTML={{
@@ -1425,7 +1450,7 @@ class Playground extends Component {
                   console.log("submit event", e);
                 }}
                 fields={{ geo: GeoPosition }}
-                validate={validate}
+                validate={this.validate}
                 onBlur={(id, value) =>
                   console.log(`Touched ${id} with value ${value}`)
                 }
@@ -1434,6 +1459,7 @@ class Playground extends Component {
                 }
                 transformErrors={transformErrors}
                 onError={log("errors")}
+                showErrorList={liveSettings.verboseValidation}
               />
             </DemoFrame>
           )}
