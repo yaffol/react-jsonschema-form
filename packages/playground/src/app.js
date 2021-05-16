@@ -1413,11 +1413,6 @@ class Playground extends Component {
                 <style type={"text/css"} dangerouslySetInnerHTML={liveSettings.verboseValidation ? {__html: ``} : {__html: `.MuiFormHelperText-root.Mui-error {
     display: none !important;
 }`} }></style>
-                  <link
-                    rel="stylesheet"
-                    id="theme"
-                    href={"styles.css"}
-                  />
                   {theme === "antd" && (
                     <div
                       dangerouslySetInnerHTML={{
