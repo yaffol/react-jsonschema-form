@@ -136,7 +136,6 @@ const createPaths = function(){
 const main = async function() {
   const argv = await yargs
   .command('*', 'The default pipeline command', () => {}, async () => {
-    console.log('this is a command');
     createPaths();
     await dereference();
     await translate();
@@ -150,6 +149,7 @@ const dereference = async function() {
   for (const templateFile of templateFiles) {
     const template = require(`./data/${templateFile}`);
     const templateDerefed = await $RefParser.dereference(template);
+    delete templateDerefed.definitions;
     const templateName = templateFile.match(/(.+_template).json/)[1];
     // fs.writeFileSync(
     //   `${dataPath}/${templateName}_dereferenced.json`,
