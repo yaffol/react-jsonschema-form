@@ -22,6 +22,7 @@ with open(f'{dataPath}settings.json') as settings_file:
 
 tSchemas.update({'locales': settings['locales']})
 tSchemas.update({'defaultLocale': settings['defaultLocale']})
+tSchemas.update({'defaultTemplate': settings['defaultTemplate']})
 
 # print(json.dumps(tFiles))
 
@@ -36,8 +37,6 @@ for filePath in templateFiles:
         content = templateFile.read()
         md5 = hashlib.md5(content).hexdigest()
         templateHashes[name] = md5
-
-tSchemas.update({'defaultTemplate': templateNames[0]})
 
 for templateName in templateNames:
     uiSchemaFilePath = f"{dataPath}{templateName}_uischema.json"
