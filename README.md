@@ -1,6 +1,7 @@
 # Crossref Deposit Form POC
 Proof of Concept demonstration of the new Deposit UI framework, based on [React JSONSchema Form](https://github.com/rjsf-team/react-jsonschema-form).
 
+N.B. This is a proof of concept. Some modifications have been made directly to the underlying library to support eg the validation of specific data types, or enable custom functionality such as the lookup of title from ISSN. XML generation is based on a [handlebars template](https://github.com/yaffol/react-jsonschema-form/blob/e0d5238fb30c8034c42461c4cdbe3a90e985b09f/packages/playground/src/app.js#L29) which is not feature-complete.
 
 ## Run
 
