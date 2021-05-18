@@ -37,7 +37,9 @@ This will cause the display control checkboxes to appear in the top-right of the
 - To switch the form schema and form data boxes from JSON to YAML format, choose 'YAML mode'. 
 - To enable live validation of form elements, tick 'Live validation'.
 
-To edit the form schema, you can either edit the schema directly in the JSON Schema editor when `PRO Mode` is enabled, or you can edit the `*_template.json` file in the `data/` directory at the root of the project. So to edit the journal article template, you would edit `journal_article_template.json`.
+To edit the form schema, you can either edit the schema directly in the JSON Schema editor when `PRO Mode` is enabled, or you can edit the `*_template.json` file in the `data/` directory at the root of the project.
+
+So to edit the journal article template, you would edit `journal_article_template.json`.
 
 See also [configure](#configure).
 
