@@ -24,8 +24,6 @@ tSchemas.update({'locales': settings['locales']})
 tSchemas.update({'defaultLocale': settings['defaultLocale']})
 tSchemas.update({'defaultTemplate': settings['defaultTemplate']})
 
-# print(json.dumps(tFiles))
-
 for filePath in templateFiles:
     nameSearch = re.search(f'{distPath}(.*)_template_dereferenced\.json', filePath)
     try:
@@ -66,21 +64,7 @@ for templateName in templateNames:
         except Exception as e:
             logger.warning(e)
 
-# for filepath in tFiles:
-#     localeSearch = re.search('.*_translated_(.*)\.json', filepath)
-#     try:
-#         locale = localeSearch.group(1)
-#         with open(filepath) as json_file:
-#             data = json.load(json_file)
-#             tSchemas['locales'][locale] = {
-#                 'data': data,
-#                 'fileName': filepath
-#             }
-#     except Exception as e:
-#         logger.warning(e)
-
 json_out = json.dumps(tSchemas, indent=4, sort_keys=False)
-# print(json_out)
 
 with open(f'{distPath}manifest.json', 'w') as outfile:
     outfile.write(json_out)
