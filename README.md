@@ -11,7 +11,7 @@ To run the project on your local computer, first open a terminal and clone the r
 
 Then change to the directory containing the project:
 
-`cs react-jsonschema-form`
+`cd react-jsonschema-form`
 
 Then run the project by using the `run.sh` script in your terminal:
 
