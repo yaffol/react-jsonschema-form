@@ -65,7 +65,7 @@
             "type": "string",
             "title": "Email address",
             "description": "email address to send errors to",
-            "format": "idn-email"
+            "format": "email"
           }
         }
       },
