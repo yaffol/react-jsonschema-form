@@ -1,4 +1,4 @@
-process.env['GOOGLE_APPLICATION_CREDENTIALS'] = "/creds/gcsa.json";
+// process.env['GOOGLE_APPLICATION_CREDENTIALS'] = "/creds/gcsa.json";
 const fs = require('fs');
 const glob = require('glob');
 const yargs = require('yargs');
@@ -20,9 +20,17 @@ const location = 'global';
 // Imports the Google Cloud Translation library
 const { TranslationServiceClient } = require('@google-cloud/translate');
 
+const term = require('terminal-kit').terminal()
+
 // Instantiates a client
 const translationClient = new TranslationServiceClient();
 const transateText = async function translateText(text = 'text to translate', targetLocale = 'fr') {
+  if (!process.env['GOOGLE_APPLICATION_CREDENTIALS']) {
+
+    // No GCLOUD API Creds available
+    return;
+  }
+
   // Construct request
   const request = {
     parent: `projects/${projectId}/locations/${location}`,
@@ -40,7 +48,7 @@ const transateText = async function translateText(text = 'text to translate', ta
 
 const setTranslation = function setTranslation(key = '', trans = '', targetLocale = '', isMachine = true){
   if (!key || !trans || !targetLocale) {
-    console.warn(`Invalid arguments: ${[...arguments]}`);
+    // // console.warn(`Invalid arguments: ${[...arguments]}`);
   }
   translations[key] = translations[key] || {
     machine: {},
@@ -51,11 +59,11 @@ const setTranslation = function setTranslation(key = '', trans = '', targetLocal
 
 const lookupText = async function lookupText(text='', targetLocale=''){
     if (!text ) {
-        console.warn(`Invalid text to translate: ${text}`);
+        // console.warn(`Invalid text to translate: ${text}`);
         return text;
     }
     if (!targetLocale) {
-        console.warn(`Invalid target locale: ${targetLocale}`);
+        // console.warn(`Invalid target locale: ${targetLocale}`);
         return text;
     }
     if (targetLocale === settings.defaultLocale){
@@ -71,7 +79,7 @@ const lookupText = async function lookupText(text='', targetLocale=''){
         throw `Error looking up human translation`;
     }
     catch (error){
-      console.log(`Error looking up human translation`);
+      // console.log(`Error looking up human translation`);
     }
     try {
       if (
@@ -83,9 +91,13 @@ const lookupText = async function lookupText(text='', targetLocale=''){
         throw `Error looking up human translation`;
     }
     catch (error) {
-      console.log(`Error looking up machine translation`);
+      // console.log(`Error looking up machine translation`);
       const trans = await transateText(text, targetLocale);
-      setTranslation(text, trans, targetLocale);
+      if (trans){
+        console.log(`Adding translation (${targetLocale}) ${text} => ${trans}...`)
+        setTranslation(text, trans, targetLocale);
+      }
+
       return trans;
     }
 };
@@ -109,8 +121,11 @@ const createPaths = function(){
 const main = async function() {
   const argv = await yargs
   .command('*', 'The default pipeline command', () => {}, async () => {
+    console.log('Creating paths...');
     createPaths();
+    console.log('Dereferencing templates...');
     await dereference();
+    console.log(`Translating schemas to ${settings.locales}...`);
     await translate();
   })
   .argv;
@@ -132,10 +147,12 @@ const dereference = async function() {
 
 const translate = async function forLoop() {
   const templateFiles = getTemplateFiles('dereferenced');
+  // console.log(`Translating to ${settings.locales}...`)
   for (const templateFile of templateFiles) {
+    console.log(`Processing ${templateFile}...`)
     const template = require(`${distPath}/${templateFile}`);
     const templateName = templateFile.match(/(.+_template)_dereferenced.json/)[1];
-    console.log(templateName[1]);
+    // console.log(templateName[1]);
     const translatedTemplate = {};
     for (const locale of settings.locales) {
       const localisedTemplate = JSON.parse(JSON.stringify(template));
@@ -145,7 +162,7 @@ const translate = async function forLoop() {
         });
         for await (const item of jsonpathFields) {
           const trans = await lookupText(item.value, locale);
-          console.log(trans);
+          // console.log(trans);
           jsonpointer.set(localisedTemplate, item.pointer, trans);
         }
       }
@@ -157,14 +174,14 @@ const translate = async function forLoop() {
         );
     }
   }
-
+  console.log(`Writing out translations...`);
   fs.writeFileSync(
     `${dataPath}/translations.json`,
     JSON.stringify(translations, null, 4)
     );
 
-  console.log('End');
-  console.log(translations);
+  // console.log('End');
+  // console.log(translations);
 };
 
 main();
