@@ -5,7 +5,8 @@
             "pt-br": "Depósitos de concessão Crossref",
             "id": "Setoran hibah Crossref",
             "ko": "Crossref 보조금 예금",
-            "ru": "Грантовые депозиты Crossref"
+            "ru": "Грантовые депозиты Crossref",
+            "ur": "کراسف گرانٹ کے ذخائر"
         },
         "human": {}
     },
@@ -15,7 +16,8 @@
             "pt-br": "Pessoa",
             "id": "Orang",
             "ko": "사람",
-            "ru": "Человек"
+            "ru": "Человек",
+            "ur": "شخص"
         },
         "human": {}
     },
@@ -25,7 +27,8 @@
             "pt-br": "Função",
             "id": "Wewenang",
             "ko": "역할",
-            "ru": "Роль"
+            "ru": "Роль",
+            "ur": "کردار"
         },
         "human": {}
     },
@@ -35,7 +38,8 @@
             "pt-br": "Identificador ORCID",
             "id": "Pengenal ORCID",
             "ko": "ORCID 식별자",
-            "ru": "Идентификатор ORCID"
+            "ru": "Идентификатор ORCID",
+            "ur": "ORCID شناخت کنندہ"
         },
         "human": {}
     },
@@ -45,7 +49,8 @@
             "pt-br": "Afiliação",
             "id": "Afiliasi",
             "ko": "입회",
-            "ru": "Принадлежность"
+            "ru": "Принадлежность",
+            "ur": "وابستگی"
         },
         "human": {}
     },
@@ -55,7 +60,8 @@
             "pt-br": "Nome da Instituição",
             "id": "Nama Lembaga",
             "ko": "기관 이름",
-            "ru": "Название учебного заведения"
+            "ru": "Название учебного заведения",
+            "ur": "ادارے کا نام"
         },
         "human": {}
     },
@@ -65,7 +71,8 @@
             "pt-br": "Identificador ROR",
             "id": "Pengenal ROR",
             "ko": "ROR 식별자",
-            "ru": "Идентификатор ROR"
+            "ru": "Идентификатор ROR",
+            "ur": "آر او آر شناخت کنندہ"
         },
         "human": {}
     },
@@ -75,7 +82,8 @@
             "pt-br": "Nome alternativo",
             "id": "nama alternatif, nama yang lain",
             "ko": "대체 이름",
-            "ru": "Альтернативное имя"
+            "ru": "Альтернативное имя",
+            "ur": "متبادل نام"
         },
         "human": {}
     },
@@ -85,7 +93,8 @@
             "pt-br": "Sobrenome",
             "id": "Nama keluarga",
             "ko": "성",
-            "ru": "Фамилия"
+            "ru": "Фамилия",
+            "ur": "خاندانی نام"
         },
         "human": {}
     },
@@ -95,7 +104,8 @@
             "pt-br": "Nome dado",
             "id": "Nama pemberian",
             "ko": "이름",
-            "ru": "Собственное имя"
+            "ru": "Собственное имя",
+            "ur": "دیا گیا نام"
         },
         "human": {}
     },
@@ -105,7 +115,8 @@
             "pt-br": "Informação do depositante",
             "id": "Informasi Penyimpan",
             "ko": "예금자 정보",
-            "ru": "Информация о вкладчике"
+            "ru": "Информация о вкладчике",
+            "ur": "ذخیرہ کرنے والی معلومات"
         },
         "human": {}
     },
@@ -115,7 +126,8 @@
             "pt-br": "Nome do depositante",
             "id": "Nama deposan",
             "ko": "예금자 이름",
-            "ru": "Имя вкладчика"
+            "ru": "Имя вкладчика",
+            "ur": "جمع کرنے والا نام"
         },
         "human": {}
     },
@@ -125,7 +137,8 @@
             "pt-br": "Endereço de e-mail",
             "id": "Alamat email",
             "ko": "이메일 주소",
-            "ru": "Адрес электронной почты"
+            "ru": "Адрес электронной почты",
+            "ur": "ای میل اڈریس"
         },
         "human": {}
     },
@@ -135,7 +148,8 @@
             "pt-br": "Grants",
             "id": "Hibah",
             "ko": "보조금",
-            "ru": "Гранты"
+            "ru": "Гранты",
+            "ur": "گرانٹ"
         },
         "human": {}
     },
@@ -145,7 +159,8 @@
             "pt-br": "Número do prêmio",
             "id": "Nomor penghargaan",
             "ko": "보너스 번호",
-            "ru": "Номер награды"
+            "ru": "Номер награды",
+            "ur": "ایوارڈ نمبر"
         },
         "human": {}
     },
@@ -155,7 +170,8 @@
             "pt-br": "Data de início do prêmio",
             "id": "Tanggal mulai penghargaan",
             "ko": "보너스 시작일",
-            "ru": "Дата начала премии"
+            "ru": "Дата начала премии",
+            "ur": "ایوارڈ شروع ہونے کی تاریخ"
         },
         "human": {}
     },
@@ -165,7 +181,8 @@
             "pt-br": "Resolução DOI",
             "id": "Resolusi DOI",
             "ko": "DOI 해상도",
-            "ru": "Разрешение DOI"
+            "ru": "Разрешение DOI",
+            "ur": "ڈی او آئی کی قرارداد"
         },
         "human": {}
     },
@@ -175,7 +192,8 @@
             "pt-br": "DOI",
             "id": "DOI",
             "ko": "DOI",
-            "ru": "DOI"
+            "ru": "DOI",
+            "ur": "ڈی او آئی"
         },
         "human": {}
     },
@@ -185,7 +203,8 @@
             "pt-br": "Recurso",
             "id": "Sumber",
             "ko": "자원",
-            "ru": "Ресурс"
+            "ru": "Ресурс",
+            "ur": "وسیلہ"
         },
         "human": {}
     },
@@ -195,7 +214,8 @@
             "pt-br": "Projeto",
             "id": "Proyek",
             "ko": "계획",
-            "ru": "Проект"
+            "ru": "Проект",
+            "ur": "پروجیکٹ"
         },
         "human": {}
     },
@@ -205,7 +225,8 @@
             "pt-br": "Título do projeto",
             "id": "Judul Proyek",
             "ko": "프로젝트 제목",
-            "ru": "Название Проекта"
+            "ru": "Название Проекта",
+            "ur": "پروجیکٹ کا عنوان"
         },
         "human": {}
     },
@@ -215,7 +236,8 @@
             "pt-br": "Texto do título",
             "id": "Teks judul",
             "ko": "제목 텍스트",
-            "ru": "Текст заголовка"
+            "ru": "Текст заголовка",
+            "ur": "عنوان متن"
         },
         "human": {}
     },
@@ -225,7 +247,8 @@
             "pt-br": "Língua do título",
             "id": "Bahasa judul",
             "ko": "제목 언어",
-            "ru": "Язык заголовка"
+            "ru": "Язык заголовка",
+            "ur": "عنوان زبان"
         },
         "human": {}
     },
@@ -235,7 +258,8 @@
             "pt-br": "Datas de premiação",
             "id": "Tanggal penghargaan",
             "ko": "수상 날짜",
-            "ru": "Даты награждения"
+            "ru": "Даты награждения",
+            "ur": "ایوارڈ کی تاریخ"
         },
         "human": {}
     },
@@ -245,7 +269,8 @@
             "pt-br": "Data de início",
             "id": "Mulai tanggal",
             "ko": "시작일",
-            "ru": "Дата начала"
+            "ru": "Дата начала",
+            "ur": "شروع کرنے کی تاریخ"
         },
         "human": {}
     },
@@ -255,7 +280,8 @@
             "pt-br": "Data final",
             "id": "Tanggal akhir",
             "ko": "종료일",
-            "ru": "Дата окончания"
+            "ru": "Дата окончания",
+            "ur": "آخری تاریخ"
         },
         "human": {}
     },
@@ -265,7 +291,8 @@
             "pt-br": "Valor do prêmio",
             "id": "Jumlah penghargaan",
             "ko": "보너스 금액",
-            "ru": "Сумма вознаграждения"
+            "ru": "Сумма вознаграждения",
+            "ur": "ایوارڈ کی رقم"
         },
         "human": {}
     },
@@ -275,7 +302,8 @@
             "pt-br": "Resultar",
             "id": "Jumlah",
             "ko": "양",
-            "ru": "Количество"
+            "ru": "Количество",
+            "ur": "رقم"
         },
         "human": {}
     },
@@ -285,7 +313,8 @@
             "pt-br": "Moeda",
             "id": "Mata uang",
             "ko": "통화",
-            "ru": "Валюта"
+            "ru": "Валюта",
+            "ur": "کرنسی"
         },
         "human": {}
     },
@@ -295,7 +324,8 @@
             "pt-br": "Descrição",
             "id": "Deskripsi",
             "ko": "기술",
-            "ru": "Описание"
+            "ru": "Описание",
+            "ur": "تفصیل"
         },
         "human": {}
     },
@@ -305,7 +335,8 @@
             "pt-br": "Língua",
             "id": "Bahasa",
             "ko": "언어",
-            "ru": "Язык"
+            "ru": "Язык",
+            "ur": "زبان"
         },
         "human": {}
     },
@@ -315,7 +346,8 @@
             "pt-br": "Investigadores",
             "id": "Penyelidik",
             "ko": "수사관",
-            "ru": "Следователи"
+            "ru": "Следователи",
+            "ur": "تفتیش کار"
         },
         "human": {}
     },
@@ -325,7 +357,8 @@
             "pt-br": "Financiamento",
             "id": "Pendanaan",
             "ko": "자금",
-            "ru": "Финансирование"
+            "ru": "Финансирование",
+            "ur": "فنڈنگ"
         },
         "human": {}
     },
@@ -335,7 +368,8 @@
             "pt-br": "Nome do financiador",
             "id": "Nama penyumbang",
             "ko": "기금 자 이름",
-            "ru": "Имя спонсора"
+            "ru": "Имя спонсора",
+            "ur": "فنڈ کا نام"
         },
         "human": {}
     },
@@ -345,7 +379,8 @@
             "pt-br": "ID do financiador",
             "id": "ID Penyandang Dana",
             "ko": "펀더 ID",
-            "ru": "ID спонсора"
+            "ru": "ID спонсора",
+            "ur": "فنڈر کی شناخت"
         },
         "human": {}
     },
@@ -355,7 +390,8 @@
             "pt-br": "Esquema de financiamento",
             "id": "Skema pendanaan",
             "ko": "기금 계획",
-            "ru": "Схема финансирования"
+            "ru": "Схема финансирования",
+            "ur": "فنڈنگ اسکیم"
         },
         "human": {}
     },
@@ -365,7 +401,8 @@
             "pt-br": "Tipo de Financiamento",
             "id": "Jenis pendanaan",
             "ko": "자금 유형",
-            "ru": "Тип финансирования"
+            "ru": "Тип финансирования",
+            "ur": "فنڈنگ کی قسم"
         },
         "human": {}
     },
@@ -375,7 +412,8 @@
             "pt-br": "Porcentagem de financiamento",
             "id": "Persentase pendanaan",
             "ko": "자금 비율",
-            "ru": "Процент финансирования"
+            "ru": "Процент финансирования",
+            "ur": "فنڈنگ فیصد"
         },
         "human": {}
     },
@@ -385,7 +423,8 @@
             "pt-br": "Essas informações nos permitem atualizá-lo sobre o andamento do depósito",
             "id": "Informasi ini memungkinkan kami untuk memberi tahu Anda tentang kemajuan setoran",
             "ko": "이 정보를 통해 입금 진행 상황을 업데이트 할 수 있습니다.",
-            "ru": "Эта информация позволяет нам информировать вас о ходе депозита."
+            "ru": "Эта информация позволяет нам информировать вас о ходе депозита.",
+            "ur": "یہ معلومات ہمیں آپ کو ڈپازٹ کی پیشرفت پر تازہ کاری کرنے کی اجازت دیتی ہے"
         },
         "human": {}
     },
@@ -395,7 +434,8 @@
             "pt-br": "seu nome",
             "id": "namamu",
             "ko": "당신의 이름",
-            "ru": "твое имя"
+            "ru": "твое имя",
+            "ur": "تمھارا نام"
         },
         "human": {}
     },
@@ -405,7 +445,8 @@
             "pt-br": "endereço de e-mail para o qual enviar erros",
             "id": "alamat email tujuan pengiriman kesalahan",
             "ko": "오류를 보낼 이메일 주소",
-            "ru": "адрес электронной почты для отправки ошибок"
+            "ru": "адрес электронной почты для отправки ошибок",
+            "ur": "کو غلطیاں بھیجنے کے لئے ای میل ایڈریس"
         },
         "human": {}
     },
@@ -415,7 +456,8 @@
             "pt-br": "O DOI para atribuir a esta concessão",
             "id": "DOI yang akan diberikan untuk hibah ini",
             "ko": "이 보조금에 할당 할 DOI",
-            "ru": "DOI для присвоения этому гранту"
+            "ru": "DOI для присвоения этому гранту",
+            "ur": "اس گرانٹ کو تفویض کرنے کیلئے ڈی او آئی"
         },
         "human": {}
     },
@@ -425,7 +467,8 @@
             "pt-br": "O URL para o qual o DOI deve apontar",
             "id": "URL yang harus diarahkan oleh DOI",
             "ko": "DOI가 가리켜 야하는 URL",
-            "ru": "URL-адрес, на который должен указывать DOI"
+            "ru": "URL-адрес, на который должен указывать DOI",
+            "ur": "ڈی او آئی کو جس URL کی نشاندہی کرنا چاہئے"
         },
         "human": {}
     },
@@ -435,7 +478,8 @@
             "pt-br": "[objeto objeto]",
             "id": "[Objek Objek]",
             "ko": "[객체 객체]",
-            "ru": "[Объект Object]"
+            "ru": "[Объект Object]",
+            "ur": "[اعتراض آبجیکٹ]"
         },
         "human": {}
     },
@@ -445,7 +489,8 @@
             "pt-br": "Depósito de artigo Crossref",
             "id": "Setoran artikel Crossref",
             "ko": "Crossref 기사 입금",
-            "ru": "Залог статьи Crossref"
+            "ru": "Залог статьи Crossref",
+            "ur": "کراسٹریف آرٹیکل ڈپازٹ"
         },
         "human": {
             "fr": "Dépôt d'article Crossref *human*"
@@ -457,7 +502,8 @@
             "pt-br": "Referência apenas DOI",
             "id": "DOI Only Reference",
             "ko": "DOI 전용 참조",
-            "ru": "Только ссылка DOI"
+            "ru": "Только ссылка DOI",
+            "ur": "ڈی او آئ صرف حوالہ"
         },
         "human": {}
     },
@@ -467,7 +513,8 @@
             "pt-br": "Referência não estruturada",
             "id": "Referensi tidak terstruktur",
             "ko": "구조화되지 않은 참조",
-            "ru": "Неструктурированная ссылка"
+            "ru": "Неструктурированная ссылка",
+            "ur": "غیر منظم حوالہ"
         },
         "human": {}
     },
@@ -477,7 +524,8 @@
             "pt-br": "Referência estruturada",
             "id": "Referensi terstruktur",
             "ko": "구조화 된 참조",
-            "ru": "Структурированная ссылка"
+            "ru": "Структурированная ссылка",
+            "ur": "ساختہ حوالہ"
         },
         "human": {}
     },
@@ -487,7 +535,8 @@
             "pt-br": "Extensão de página",
             "id": "Rentang halaman",
             "ko": "페이지 범위",
-            "ru": "Размах страниц"
+            "ru": "Размах страниц",
+            "ur": "صفحے کا دورانیہ"
         },
         "human": {}
     },
@@ -497,7 +546,8 @@
             "pt-br": "Primeira página",
             "id": "Halaman pertama",
             "ko": "첫 페이지",
-            "ru": "Первая страница"
+            "ru": "Первая страница",
+            "ur": "پہلا صفحہ"
         },
         "human": {}
     },
@@ -507,7 +557,8 @@
             "pt-br": "Última página",
             "id": "Halaman terakhir",
             "ko": "마지막 페이지",
-            "ru": "Последняя страница"
+            "ru": "Последняя страница",
+            "ur": "اخری صفحہ"
         },
         "human": {}
     },
@@ -517,7 +568,8 @@
             "pt-br": "Número do artigo",
             "id": "Nomor artikel",
             "ko": "문서 번호",
-            "ru": "Номер статьи"
+            "ru": "Номер статьи",
+            "ur": "آرٹیکل نمبر"
         },
         "human": {}
     },
@@ -527,7 +579,8 @@
             "pt-br": "Número",
             "id": "Jumlah",
             "ko": "번호",
-            "ru": "Число"
+            "ru": "Число",
+            "ur": "نمبر"
         },
         "human": {}
     },
@@ -537,7 +590,8 @@
             "pt-br": "eISSN",
             "id": "eISSN",
             "ko": "eISSN",
-            "ru": "eISSN"
+            "ru": "eISSN",
+            "ur": "eISSN"
         },
         "human": {}
     },
@@ -547,7 +601,8 @@
             "pt-br": "ISSN",
             "id": "ISSN",
             "ko": "ISSN",
-            "ru": "ISSN"
+            "ru": "ISSN",
+            "ur": "آئی ایس ایس این"
         },
         "human": {}
     },
@@ -557,7 +612,8 @@
             "pt-br": "ISSNs",
             "id": "ISSN",
             "ko": "ISSN",
-            "ru": "ISSN"
+            "ru": "ISSN",
+            "ur": "آئی ایس ایس این"
         },
         "human": {}
     },
@@ -567,7 +623,8 @@
             "pt-br": "Versão JAV",
             "id": "Versi JAV",
             "ko": "JAV 버전",
-            "ru": "Версия JAV"
+            "ru": "Версия JAV",
+            "ur": "جے اے وی ورژن"
         },
         "human": {}
     },
@@ -577,7 +634,8 @@
             "pt-br": "Licença Creative Comum",
             "id": "Lisensi Umum Kreatif",
             "ko": "크리에이티브 커먼 라이선스",
-            "ru": "Creative Common License"
+            "ru": "Creative Common License",
+            "ur": "تخلیقی کامن لائسنس"
         },
         "human": {}
     },
@@ -587,7 +645,8 @@
             "pt-br": "URL da licença Creative Commons",
             "id": "Url lisensi Creative Commons",
             "ko": "크리에이티브 커먼즈 라이센스 URL",
-            "ru": "URL лицензии Creative Commons"
+            "ru": "URL лицензии Creative Commons",
+            "ur": "تخلیقی العام لائسنس یو آر ایل"
         },
         "human": {}
     },
@@ -597,7 +656,8 @@
             "pt-br": "Outra Licença",
             "id": "Lisensi Lainnya",
             "ko": "기타 라이선스",
-            "ru": "Другая лицензия"
+            "ru": "Другая лицензия",
+            "ur": "دیگر لائسنس"
         },
         "human": {}
     },
@@ -607,7 +667,8 @@
             "pt-br": "URL da licença",
             "id": "URL lisensi",
             "ko": "라이선스 URL",
-            "ru": "URL лицензии"
+            "ru": "URL лицензии",
+            "ur": "لائسنس یو آر ایل"
         },
         "human": {}
     },
@@ -617,7 +678,8 @@
             "pt-br": "Informação de licença",
             "id": "Informasi lisensi",
             "ko": "라이선스 정보",
-            "ru": "Информация о лицензии"
+            "ru": "Информация о лицензии",
+            "ur": "لائسنس کی معلومات"
         },
         "human": {}
     },
@@ -627,7 +689,8 @@
             "pt-br": "Informação do diário",
             "id": "Informasi Jurnal",
             "ko": "저널 정보",
-            "ru": "Информация о журнале"
+            "ru": "Информация о журнале",
+            "ur": "جرنل کی معلومات"
         },
         "human": {}
     },
@@ -637,7 +700,8 @@
             "pt-br": "Título do jornal",
             "id": "Judul jurnal",
             "ko": "저널 제목",
-            "ru": "Название журнала"
+            "ru": "Название журнала",
+            "ur": "جرنل کا عنوان"
         },
         "human": {}
     },
@@ -647,7 +711,8 @@
             "pt-br": "Título abreviado do periódico",
             "id": "Judul jurnal yang disingkat",
             "ko": "약식 저널 제목",
-            "ru": "Сокращенное название журнала"
+            "ru": "Сокращенное название журнала",
+            "ur": "خلاصہ جریدہ کا عنوان"
         },
         "human": {}
     },
@@ -657,7 +722,8 @@
             "pt-br": "Volume",
             "id": "Volume",
             "ko": "음량",
-            "ru": "Объем"
+            "ru": "Объем",
+            "ur": "حجم"
         },
         "human": {}
     },
@@ -667,7 +733,8 @@
             "pt-br": "Emitir",
             "id": "Isu",
             "ko": "발행물",
-            "ru": "Проблема"
+            "ru": "Проблема",
+            "ur": "مسئلہ"
         },
         "human": {}
     },
@@ -677,7 +744,8 @@
             "pt-br": "Data de publicação",
             "id": "Tanggal penerbitan",
             "ko": "발행일",
-            "ru": "Дата публикации"
+            "ru": "Дата публикации",
+            "ur": "تاریخ اشاعت"
         },
         "human": {}
     },
@@ -687,7 +755,8 @@
             "pt-br": "Artigos",
             "id": "Artikel",
             "ko": "조항",
-            "ru": "Статьи"
+            "ru": "Статьи",
+            "ur": "مضامین"
         },
         "human": {}
     },
@@ -697,7 +766,8 @@
             "pt-br": "Artigo de jornal",
             "id": "Artikel Jurnal",
             "ko": "저널 기사",
-            "ru": "Журнальная статья"
+            "ru": "Журнальная статья",
+            "ur": "جرنل مضمون"
         },
         "human": {}
     },
@@ -707,7 +777,8 @@
             "pt-br": "Títulos",
             "id": "Judul",
             "ko": "타이틀",
-            "ru": "Титулы"
+            "ru": "Титулы",
+            "ur": "عنوانات"
         },
         "human": {}
     },
@@ -717,7 +788,8 @@
             "pt-br": "título",
             "id": "judul",
             "ko": "표제",
-            "ru": "заглавие"
+            "ru": "заглавие",
+            "ur": "عنوان"
         },
         "human": {}
     },
@@ -727,7 +799,8 @@
             "pt-br": "Informação de Resolução",
             "id": "Informasi Resolusi",
             "ko": "해결 정보",
-            "ru": "Информация о разрешении"
+            "ru": "Информация о разрешении",
+            "ur": "قرارداد کی معلومات"
         },
         "human": {}
     },
@@ -737,7 +810,8 @@
             "pt-br": "URL de resolução",
             "id": "URL Resolusi",
             "ko": "해결 URL",
-            "ru": "URL-адрес разрешения"
+            "ru": "URL-адрес разрешения",
+            "ur": "ریزولوشن یو آر ایل"
         },
         "human": {}
     },
@@ -747,7 +821,8 @@
             "pt-br": "URL de verificação de similaridade",
             "id": "URL Periksa Kemiripan",
             "ko": "유사성 확인 URL",
-            "ru": "URL проверки сходства"
+            "ru": "URL проверки сходства",
+            "ur": "مماثلت چیک یو آر ایل"
         },
         "human": {}
     },
@@ -757,7 +832,8 @@
             "pt-br": "Localização do artigo",
             "id": "Lokasi artikel",
             "ko": "기사 위치",
-            "ru": "Расположение статьи"
+            "ru": "Расположение статьи",
+            "ur": "آرٹیکل لوکیشن"
         },
         "human": {}
     },
@@ -767,7 +843,8 @@
             "pt-br": "Abstrato",
             "id": "Abstrak",
             "ko": "요약",
-            "ru": "Абстрактный"
+            "ru": "Абстрактный",
+            "ur": "خلاصہ"
         },
         "human": {}
     },
@@ -777,7 +854,8 @@
             "pt-br": "Contribuidores",
             "id": "Kontributor",
             "ko": "기여자",
-            "ru": "Авторы"
+            "ru": "Авторы",
+            "ur": "معاونین"
         },
         "human": {}
     },
@@ -787,7 +865,8 @@
             "pt-br": "Pessoas",
             "id": "Orang-orang",
             "ko": "사람들",
-            "ru": "Люди"
+            "ru": "Люди",
+            "ur": "لوگ"
         },
         "human": {}
     },
@@ -797,7 +876,8 @@
             "pt-br": "Função de contribuidor",
             "id": "Peran kontributor",
             "ko": "기여자 역할",
-            "ru": "Роль участника"
+            "ru": "Роль участника",
+            "ur": "معاون کردار"
         },
         "human": {}
     },
@@ -807,7 +887,8 @@
             "pt-br": "Sequência de contribuidor",
             "id": "Urutan kontributor",
             "ko": "기여자 순서",
-            "ru": "Последовательность участников"
+            "ru": "Последовательность участников",
+            "ur": "معاون ترتیب"
         },
         "human": {}
     },
@@ -817,7 +898,8 @@
             "pt-br": "ORCID",
             "id": "ORCID",
             "ko": "ORCID",
-            "ru": "ORCID"
+            "ru": "ORCID",
+            "ur": "ORCID"
         },
         "human": {}
     },
@@ -827,7 +909,8 @@
             "pt-br": "Sobrenome",
             "id": "Nama keluarga",
             "ko": "성",
-            "ru": "Фамилия"
+            "ru": "Фамилия",
+            "ur": "کنیت"
         },
         "human": {}
     },
@@ -837,7 +920,8 @@
             "pt-br": "Sufixo",
             "id": "Akhiran",
             "ko": "접미사",
-            "ru": "Суффикс"
+            "ru": "Суффикс",
+            "ur": "لاحقہ"
         },
         "human": {}
     },
@@ -847,7 +931,8 @@
             "pt-br": "Referências",
             "id": "Referensi",
             "ko": "참고 문헌",
-            "ru": "Рекомендации"
+            "ru": "Рекомендации",
+            "ur": "حوالہ جات"
         },
         "human": {}
     },
@@ -857,7 +942,8 @@
             "pt-br": "ISSN para versão online",
             "id": "ISSN untuk versi online",
             "ko": "온라인 버전 용 ISSN",
-            "ru": "ISSN для онлайн-версии"
+            "ru": "ISSN для онлайн-версии",
+            "ur": "آن لائن ورژن کے لئے آئی ایس ایس این"
         },
         "human": {}
     },
@@ -867,7 +953,8 @@
             "pt-br": "ISSN para versão impressa",
             "id": "ISSN untuk versi cetak",
             "ko": "인쇄 버전 용 ISSN",
-            "ru": "ISSN для печатной версии"
+            "ru": "ISSN для печатной версии",
+            "ur": "پرنٹ ورژن کے لئے آئی ایس ایس این"
         },
         "human": {}
     },
@@ -877,7 +964,8 @@
             "pt-br": "ISSNs online e impressos",
             "id": "online dan mencetak ISSN",
             "ko": "온라인 및 인쇄 ISSN",
-            "ru": "ISSN в Интернете и в печати"
+            "ru": "ISSN в Интернете и в печати",
+            "ur": "آن لائن اور پرنٹ ISSNs"
         },
         "human": {}
     },
@@ -887,7 +975,8 @@
             "pt-br": "A data em que a licença entra em vigor (geralmente a mesma que a data de publicação)",
             "id": "Tanggal berlakunya lisensi (biasanya sama dengan tanggal publikasi)",
             "ko": "라이센스가 효력을 발생하는 날짜 (일반적으로 발행일과 동일)",
-            "ru": "Дата вступления лицензии в силу (обычно совпадает с датой публикации)"
+            "ru": "Дата вступления лицензии в силу (обычно совпадает с датой публикации)",
+            "ur": "وہ تاریخ جس میں لائسنس نافذ ہوتا ہے (عام طور پر اشاعت کی تاریخ کی طرح ہوتا ہے)"
         },
         "human": {}
     },
@@ -897,7 +986,8 @@
             "pt-br": "O URL da licença Creative Commons",
             "id": "URL lisensi Creative Commons",
             "ko": "크리에이티브 커먼즈 라이선스의 URL",
-            "ru": "URL-адрес лицензии Creative Commons"
+            "ru": "URL-адрес лицензии Creative Commons",
+            "ur": "تخلیقی العام لائسنس کا URL"
         },
         "human": {}
     },
@@ -907,7 +997,8 @@
             "pt-br": "Um URL que aponta para uma declaração de direitos autorais ou termos e condições",
             "id": "URL yang mengarah ke pernyataan hak cipta atau syarat & ketentuan",
             "ko": "저작권 진술 또는 이용 약관을 가리키는 URL",
-            "ru": "URL-адрес, указывающий на заявление об авторских правах или условия использования."
+            "ru": "URL-адрес, указывающий на заявление об авторских правах или условия использования.",
+            "ur": "ایک URL جو کاپی رائٹ کے بیان یا شرائط و ضوابط کی طرف اشارہ کرتا ہے"
         },
         "human": {}
     },
@@ -917,7 +1008,8 @@
             "pt-br": "Informações de licença para AM, VOR",
             "id": "Informasi lisensi untuk AM, VOR",
             "ko": "AM, VOR의 라이선스 정보",
-            "ru": "Информация о лицензии для AM, VOR"
+            "ru": "Информация о лицензии для AM, VOR",
+            "ur": "AM ، VOR کے لئے لائسنس کی معلومات"
         },
         "human": {}
     },
@@ -927,7 +1019,8 @@
             "pt-br": "O código ISO para o idioma do texto do título",
             "id": "Kode ISO untuk bahasa teks judul",
             "ko": "제목 텍스트가있는 언어의 ISO 코드",
-            "ru": "Код ISO для языка, на котором находится текст заголовка."
+            "ru": "Код ISO для языка, на котором находится текст заголовка.",
+            "ur": "جس زبان کا عنوان متن میں ہے اس کا ISO کوڈ"
         },
         "human": {}
     },
@@ -937,7 +1030,8 @@
             "pt-br": "O título do artigo no idioma selecionado",
             "id": "Judul artikel dalam bahasa yang dipilih",
             "ko": "선택한 언어로 된 기사 제목",
-            "ru": "Название статьи на выбранном языке"
+            "ru": "Название статьи на выбранном языке",
+            "ur": "منتخب کردہ زبان میں مضمون کا عنوان"
         },
         "human": {}
     },
@@ -947,7 +1041,8 @@
             "pt-br": "O DOI que você deseja atribuir a este artigo",
             "id": "DOI yang ingin Anda tetapkan untuk artikel ini",
             "ko": "이 기사에 할당 할 DOI",
-            "ru": "DOI, который вы хотите присвоить этой статье"
+            "ru": "DOI, который вы хотите присвоить этой статье",
+            "ur": "آپ اس آرٹیکل کو تفویض کرنا چاہتے ہیں"
         },
         "human": {}
     },
@@ -957,7 +1052,8 @@
             "pt-br": "URL para o qual o DOI deve resolver",
             "id": "URL yang harus diselesaikan oleh DOI",
             "ko": "DOI가 해결해야하는 URL",
-            "ru": "URL-адрес, на который должен разрешить DOI"
+            "ru": "URL-адрес, на который должен разрешить DOI",
+            "ur": "DOI کو URL کو حل کرنا چاہئے"
         },
         "human": {}
     },
@@ -967,7 +1063,8 @@
             "pt-br": "URL para verificação de similaridade para obter o texto completo",
             "id": "URL untuk Similarity Check untuk mendapatkan teks lengkap",
             "ko": "유사성 확인을위한 URL 전체 텍스트",
-            "ru": "URL для проверки сходства, чтобы получить полный текст"
+            "ru": "URL для проверки сходства, чтобы получить полный текст",
+            "ur": "پورا متن حاصل کرنے کے لئے یو آر ایل مماثلت چیک کیلئے"
         },
         "human": {}
     },
@@ -977,7 +1074,8 @@
             "pt-br": "insira a extensão da página ou o número do artigo",
             "id": "masukkan rentang halaman atau nomor artikel",
             "ko": "페이지 범위 또는 기사 번호를 입력하십시오.",
-            "ru": "введите либо диапазон страниц, либо номер статьи"
+            "ru": "введите либо диапазон страниц, либо номер статьи",
+            "ur": "صفحے کا دورانیہ یا مضمون کا نمبر داخل کریں"
         },
         "human": {}
     },
@@ -987,7 +1085,8 @@
             "pt-br": "insira um resumo JATs",
             "id": "masukkan abstrak JAT",
             "ko": "JAT 초록 입력",
-            "ru": "введите аннотацию JAT"
+            "ru": "введите аннотацию JAT",
+            "ur": "JATs کا خلاصہ درج کریں"
         },
         "human": {}
     }
