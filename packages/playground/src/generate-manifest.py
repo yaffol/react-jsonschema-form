@@ -17,12 +17,15 @@ tSchemas = {'templates': {}, 'locales': {}}
 templateNames = []
 templateHashes = {}
 
+logger.warning('Loading settings...')
 with open(f'{dataPath}settings.json') as settings_file:
     settings = json.load(settings_file)
 
 tSchemas.update({'locales': settings['locales']})
 tSchemas.update({'defaultLocale': settings['defaultLocale']})
 tSchemas.update({'defaultTemplate': settings['defaultTemplate']})
+
+logger.warning('Generating manifest...')
 
 for filePath in templateFiles:
     nameSearch = re.search(f'{distPath}(.*)_template_dereferenced\.json', filePath)
@@ -62,10 +65,10 @@ for templateName in templateNames:
                     'fileName': filepath
                 }
         except Exception as e:
-            logger.warning(e)
+            pass
 
 json_out = json.dumps(tSchemas, indent=4, sort_keys=False)
 
 with open(f'{distPath}manifest.json', 'w') as outfile:
     outfile.write(json_out)
-print('Wrote manifest.json to distPath')
+print('Writing out manifest...')

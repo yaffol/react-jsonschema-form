@@ -20,7 +20,7 @@ const location = 'global';
 // Imports the Google Cloud Translation library
 const { TranslationServiceClient } = require('@google-cloud/translate');
 
-const term = require('terminal-kit').terminal()
+const term = require('terminal-kit').terminal();
 
 // Instantiates a client
 const translationClient = new TranslationServiceClient();
@@ -94,7 +94,7 @@ const lookupText = async function lookupText(text='', targetLocale=''){
       // console.log(`Error looking up machine translation`);
       const trans = await transateText(text, targetLocale);
       if (trans){
-        console.log(`Adding translation (${targetLocale}) ${text} => ${trans}...`)
+        console.log(`Adding translation (${targetLocale}) ${text} => ${trans}...`);
         setTranslation(text, trans, targetLocale);
       }
 
@@ -149,7 +149,7 @@ const translate = async function forLoop() {
   const templateFiles = getTemplateFiles('dereferenced');
   // console.log(`Translating to ${settings.locales}...`)
   for (const templateFile of templateFiles) {
-    console.log(`Processing ${templateFile}...`)
+    console.log(`Processing ${templateFile}...`);
     const template = require(`${distPath}/${templateFile}`);
     const templateName = templateFile.match(/(.+_template)_dereferenced.json/)[1];
     // console.log(templateName[1]);
