@@ -158,37 +158,36 @@ const grant_xml_tpl = `
             <depositor_name>{{ depositor.depositor_name }}</depositor_name>
             <email_address>{{ depositor.email_address }}</email_address>
         </depositor>
-        <registrant>Crossref</registrant>
     </head>
     <body>
         
         <!-- a grant with one project -->
         <grant>
+            <award-number>{{ newData.awardNumber0 }}</award-number>
+            <award-start-date>{{ newData.awardStartDate0 }}</award-start-date>
             <project>
-                <project-title xml:lang="{{ grants[0].project.project-title[0].lang}}">{{ grants[0].project["project-title"][0]["title-text"] }}</project-title>
-                    <person role="lead_investigator">
-                        <givenName>Minerva</givenName>
-                        <familyName>Reuland</familyName>
-                        <alternateName>Minnie Cat</alternateName>
+                <project-title xml:lang="{{ newData.projectTitle0.lang }}">{{ newData.projectTitle0Text }}</project-title>
+                    <person role="">
+                        <givenName></givenName>
+                        <familyName></familyName>
+                        <alternateName></alternateName>
                         <affiliation>
-                            <institution>University of Crossref</institution>
+                            <institution></institution>
                         </affiliation>
-                        <ORCID>https://orcid.org/0000-0002-4011-3590</ORCID>
+                        <ORCID></ORCID>
                     </person>
                 </investigators>
-                <description xml:lang="en">This is an example of a project description or abstract. Multiple descriptions may be supplied to accommodate different description or abstract types, or to provide descriptions in multiple languages.</description>
-                <description xml:lang="pt">Este é um exemplo de uma descrição ou resumo do projeto. Várias descrições podem ser fornecidas para acomodar diferentes descrições ou tipos abstratos, ou para fornecer descrições em vários idiomas.</description>
-                <award_amount currency="USD">24.50</award_amount>
-                <funding amount="24.50" currency="USD" funding-percentage="100"
-                    funding-type="equipment">
-                    <funder-name>Wellcome Trust</funder-name>
-                    <funder-id>https://doi.org/10.13039/100004440</funder-id>
-                    <funding-scheme>Sofa Lending Programme</funding-scheme>
+                <description xml:lang=""></description>
+                <description xml:lang="pt"></description>
+                <award_amount currency=""></award_amount>
+                <funding amount="" currency="" funding-percentage=""
+                    funding-type="">
+                    <funder-name></funder-name>
+                    <funder-id></funder-id>
+                    <funding-scheme></funding-scheme>
                 </funding>
-                <award-dates start-date="2018-01-05" end-date="2023-02-01"/>
+                <award-dates start-date="" end-date=""/>
             </project>
-            <award-number>CR-001x</award-number>
-            <award-start-date>2018-01-01</award-start-date>
             <doi_data>
                 <doi>10.32013/NI84HFx</doi>
                 <resource>https://www.crossref.org/blog/wellcome-explains-the-benefits-of-developing-an-open-and-global-grant-identifier/</resource>
@@ -1257,6 +1256,21 @@ class Playground extends Component {
     console.log(data);
     // const xml = journal_article2xml_tpl({ formDataDefaults, ...formData });
     // const xml = convert.js2xml(formData, { compact: true, spaces: 4 });
+    if (this.state.template === 'grant'){
+      let newData = {};
+      try {
+        newData.grants0 = formData.grants[0];
+        newData.awardNumber0 = formData.grants[0]['award-number'];
+        newData.awardStartDate0 = formData.grants[0]['award-start-date'];
+        newData.projectTitle0 = formData.grants[0].project['project-title'][0];
+        newData.projectTitle0Text = formData.grants[0].project['project-title'][0]['title-text'];
+      }
+      catch (e) {
+
+      }
+      formData = {
+        newData, ...formData };
+    }
     const viewData = { faker: faker, timestamp: Date.now(), ...data, ...formData };
     console.log(viewData);
     const xml = mustache.render(xml_templates[this.state.template], viewData);

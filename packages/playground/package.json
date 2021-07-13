@@ -79,6 +79,7 @@
     "react-frame-component": "^4.1.1",
     "react-is": "^16.9.0",
     "shortid": "^2.2.14",
+    "terminal-kit": "^2.1.5",
     "xml-core": "^1.1.2",
     "xml-js": "^1.6.11",
     "yargs": "^13.3.2"
