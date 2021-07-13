@@ -9,16 +9,16 @@ import * as Loadfile4DOM from "loadfile4dom";
 import FileReaderInput from 'react-file-reader-input';
 import * as Manifest from './data/dist/manifest.json';
 // import * as formDataDefaultsObj from './data/journal_article_data.json'
-const Mustache = require('mustache')
-const jsYaml = require('js-yaml')
+const Mustache = require('mustache');
+const jsYaml = require('js-yaml');
 // const Handlebars = require('handlebars')
-const faker = require('faker')
-const formDataDefaults = {}
+const faker = require('faker');
+const formDataDefaults = {};
 formDataDefaults.doi_batch_id = faker.internet.password(10, false, /[0-9A-Z]/);
-console.log(formDataDefaults)
+console.log(formDataDefaults);
 import * as convert from 'xml-js';
 import { PickerOverlay } from 'filestack-react';
-import mustache from 'mustache/mustache.mjs'
+import mustache from 'mustache/mustache.mjs';
 // const journal_article2xml_tpl = require("ejs-compiled-loader!./journal_article2xml.ejs?with=false");
 // const journal_article_xml_tpl = fs.readFileSync('./journal_article2xml.hb');
 const FILESTACK_API_KEY = 'AKNfh0y4GTtKCMFGBD4ACz';
@@ -281,7 +281,7 @@ const grant_xml_tpl = `
 
     </body>
 </doi_batch>
-`
+`;
 
 xml_templates['grant'] = grant_xml_tpl;
 xml_templates['journal_article_ur'] = journal_article_xml_tpl;
@@ -386,12 +386,12 @@ const toJson = val => JSON.stringify(val, null, 2);
 const toYaml = val => {
   try {
     const yaml = jsYaml.dump(val);
-    return yaml
+    return yaml;
   }
   catch (e) {
-    console.log('error dumping yaml: ',e,val)
+    console.log('error dumping yaml: ',e,val);
   }
-}
+};
 const liveSettingsSchema = {
   type: "object",
   properties: {
@@ -951,7 +951,7 @@ class Playground extends Component {
     const theme = "material-ui";
     // initialize state with Simple data sample
     // const { uiSchema, formData, validate } = samples.Simple;
-    const {validate} = samples.Simple;
+    const { validate } = samples.Simple;
     const formData = {
     };
     const XML = '';
@@ -1012,7 +1012,7 @@ class Playground extends Component {
           }
         }
       }
-    }
+    };
     return e;
   }
 
@@ -1025,7 +1025,7 @@ class Playground extends Component {
 
   keydownHandler(e){
     if (e.key==='x' && e.ctrlKey) {
-      this.toggleScaryTechincalDetails()
+      this.toggleScaryTechincalDetails();
     }
   }
 
@@ -1170,7 +1170,7 @@ class Playground extends Component {
 
   onFormDataChange = ({ formData = "" }) => {
     const XML = this.renderXML(formData);
-    console.log(XML)
+    console.log(XML);
     this.setState({
       formData, shareURL: null, XML
     });
@@ -1258,7 +1258,7 @@ class Playground extends Component {
     // const xml = journal_article2xml_tpl({ formDataDefaults, ...formData });
     // const xml = convert.js2xml(formData, { compact: true, spaces: 4 });
     const viewData = { faker: faker, timestamp: Date.now(), ...data, ...formData };
-    console.log(viewData)
+    console.log(viewData);
     const xml = mustache.render(xml_templates[this.state.template], viewData);
     return xml;
   }
@@ -1552,9 +1552,9 @@ class Playground extends Component {
                     id="theme"
                     href={this.state.stylesheet || ""}
                   />
-                <style type={"text/css"} dangerouslySetInnerHTML={liveSettings.verboseValidation ? {__html: ``} : {__html: `.MuiFormHelperText-root.Mui-error {
+                <style type={"text/css"} dangerouslySetInnerHTML={liveSettings.verboseValidation ? { __html: `` } : { __html: `.MuiFormHelperText-root.Mui-error {
     display: none !important;
-}`} }></style>
+}` } }></style>
                   {theme === "antd" && (
                     <div
                       dangerouslySetInnerHTML={{
