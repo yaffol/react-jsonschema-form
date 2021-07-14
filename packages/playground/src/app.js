@@ -967,7 +967,7 @@ class Playground extends Component {
       console.warn('No version defined in schema.self');
     }
     this.state = {
-      scaryTechnicalDetails: false,
+      scaryTechnicalDetails: true,
       form: false,
       defaultLocale,
       defaultTemplate,
@@ -987,7 +987,7 @@ class Playground extends Component {
       theme,
       subtheme: null,
       liveSettings: {
-        proMode: false,
+        proMode: true,
         yamlMode: false,
         validate: false,
         verboseValidation: false,
