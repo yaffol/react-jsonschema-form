@@ -19,7 +19,7 @@ stages:          # List of stages for jobs, and their order of execution
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
-  image: registry.gitlab.com/crossref/infrastructure/aws-ecr-ecs-cicd-docker:latest
+  image: nikolaik/python-nodejs:python3.9-nodejs12
   script:
     - echo "Compiling the code..."
     - ./run.sh public
