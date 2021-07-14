@@ -34,6 +34,7 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - echo "Compiling the code..."
     - ./run.sh public
+    - my /app/build/public public
     - echo "Compile complete."
   artifacts:
     paths:
