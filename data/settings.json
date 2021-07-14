@@ -1,5 +1,5 @@
 {
     "defaultLocale": "en",
     "locales": ["en", "fr", "ur", "az", "pt-br", "de", "id", "ko", "ru"],
-    "defaultTemplate": "journal_article"
+    "defaultTemplate": "grant"
 }

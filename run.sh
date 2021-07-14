@@ -16,6 +16,6 @@ then
   docker run $PULL --mount type=bind,src="$(pwd)/data",target=/app/packages/playground/src/data --mount type=bind,source="$(pwd)/build",target=/app/build -p 8080:8080 $IMG "$@"
 else
     echo "Google service account credentials supplied."
-    docker run $PULL --mount type=bind,src="$(pwd)/data",target=/app/packages/playground/src/data --mount type=bind,source="$(pwd)/build",target=/app/build  --mount type=bind,source="${GOOGLE_APPLICATION_CREDENTIALS}",target=/creds/gcsa.json -p $PORT:8080 $IMG "$@"
+    docker run $PULL --mount type=bind,src="$(pwd)/data",target=/app/packages/playground/src/data --mount type=bind,source="$(pwd)/build",target=/app/build  --mount type=bind,source="${GOOGLE_APPLICATION_CREDENTIALS}",target=/creds/gcsa.json -p 8080:8080 $IMG "$@"
 fi
 
