@@ -20,6 +20,8 @@ stages:          # List of stages for jobs, and their order of execution
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   image: registry.gitlab.com/crossref/infrastructure/aws-ecr-ecs-cicd-docker:latest
+  services:
+    - docker:dind
   before_script:
     - apk add bash
   script:
